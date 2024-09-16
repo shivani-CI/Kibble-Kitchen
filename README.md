@@ -1,4 +1,4 @@
-# Kibble-Kitchen (Milestone Project 3)
+# Kibble-Kitchen (Capstone Project)
 
 
 Kibble Kitchen is an online platform designed to help dog owners plan nutritious meals for their furry companions. The site offers a collection of healthy, homemade dog food recipes along with a meal planning tool to ensure a balanced diet tailored to your dog's needs. Targetting dog owners who want to move beyond store-bought kibble, Kibble Kitchen is perfect for those seeking to provide wholesome, natural meals for their pets while managing meal prep and tracking dietary preferences. Users can create, manage, and share their own recipes while building custom meal plans.
@@ -15,6 +15,8 @@ Kibble Kitchen goes beyond just offering recipes; it empowers dog owners to take
 - Design
   
 - UX/UI - List of features
+
+- Agile methodology
 
 - Testing and Responsiveness
 
@@ -141,6 +143,11 @@ Click here to see the Tablet Wireframes
 
 
 ## UX/UI - Features ##
+
+
+
+## Agile Methodology ##
+https://github.com/users/shivani-CI/projects/9
 
 
 
