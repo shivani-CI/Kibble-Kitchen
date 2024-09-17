@@ -120,7 +120,22 @@ Click here to see the Tablet Wireframes
 
 
  </details>
- 
+
+## ERD ##
+
+<details>
+
+<summary>
+Click here to see the ERD
+</summary>
+
+![image](https://github.com/user-attachments/assets/5b7183ce-765e-4989-bd43-9678c3b35d42)
+
+
+
+</details>
+
+
 ## UX - User stories ##
 
 
