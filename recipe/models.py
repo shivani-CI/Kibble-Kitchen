@@ -16,5 +16,6 @@ class Recipe(models.Model):
     cook_time = models.PositiveIntegerField(default=0)
     difficulty = models.CharField(max_length=200, unique=True)
     serves = models.IntegerField()
-    created_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
+    updated_on = models.DateTimeField(auto_now=True)
