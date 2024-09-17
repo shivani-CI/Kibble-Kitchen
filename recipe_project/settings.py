@@ -31,7 +31,6 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['8000-shivanici-kibblekitchen-fd23qziq6zu.ws.codeinstitute-ide.net','.herokuapp.com']
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -88,6 +87,14 @@ WSGI_APPLICATION = 'recipe_project.wsgi.application'
 DATABASES = {
     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.codeinstitute-ide.net/",
+    "https://*.herokuapp.com"
+]
+
+
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
