@@ -6,5 +6,5 @@ from .models import Recipe
 
 
 class RecipeList(generic.ListView):
-    queryset = Recipe.objects.all()
-    template_name = "recipe_list.html"
+    queryset = Recipe.objects.filter(status=1)
+    template_name = "post_list.html"
