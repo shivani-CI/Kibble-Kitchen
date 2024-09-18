@@ -26,11 +26,10 @@ class Comment(models.Model):
     Stores a single comment entry related to :model:`auth.User` and :model:`blog.Post`.
     """
     recipe_id = models.ForeignKey(Recipe, on_delete= models.CASCADE, related_name="comments")
-    user_id = models.ForeignKey(Recipe, on_delete= models.CASCADE, related_name="commenter")
+    user_id = models.ForeignKey(User, on_delete= models.CASCADE, related_name="commenter")
     body = models.TextField()
     approved = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
 
 
-    
