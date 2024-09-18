@@ -21,6 +21,14 @@ class Recipe(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
 
 
+    class Meta:
+        ordering = ["-created_at"]
+
+    
+    def __str__(self):
+        return f"The title of this recipe is {self.title} | written by {self.user_id}"
+
+
 class Comment(models.Model):
     """
     Stores a single comment entry related to :model:`auth.User` and :model:`blog.Post`.
