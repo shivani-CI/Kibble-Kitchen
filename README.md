@@ -138,8 +138,84 @@ Click here to see the ERD
 
 ## UX - User stories ##
 
+![image](https://github.com/user-attachments/assets/14fee6ab-66fc-40d3-94a8-ed2654a4f26c)
 
+1. As a site user I can sign up for an account so that I can create, save, and manage my own recipes and meal plans.
 
+        AC1 A sign-up form with fields for email, username and password.
+
+        AC2 Error message display if any form validation fails (e.g., email already taken, password too weak). Successful account creation redirects to the login page.
+
+        AC3 User data is stored securely in the database (except password).
+
+2. As a site user I can view all available recipes when I click so that I can discover new meal ideas.
+
+        AC1 A page display all available recipes with titles and brief descriptions. Each recipe item includes a detailed view.
+
+        AC2 Pagination is implemented is there are many recipes.
+
+        AC3 Users can filter or search recipes by title or ingredient.
+
+3. As a site admin I can manage all users, recipes, and comments so that I can ensure the platform runs smoothly and maintain content quality.
+
+        AC1 Admin dashboard accessible through Django's admin interface.
+
+        AC2 Admin can view, edit, delete users, recipes, and comments.
+
+        AC3 Admin can filter and search through users, recipes, and comments.
+
+4. As a site user I can create new recipes so that I can store, and manage my favourite meals.
+
+        AC1 Authenticated users can access a recipe creation form, which includes fields for title, ingredients, and instructions.
+
+        AC2 Required fields must be validated (e.g., title and ingredients cannot be blank). Error message display if any of required fields are missing.
+
+        AC3 Users are redirected to the recipe details page upon successful creation.
+
+5. As a site user I can comment on recipes and leave feedback so that I can share my thoughts or improvements with the community.
+
+        AC1 Authenticate users can leave comments on individual recipe pages, which will be displayed below each recipe.
+
+        AC2 Upon submission, the comment is saved and displayed under the recipe. Users can see a list of comments, including who posted them and when.
+
+        AC3 Only the user who posted the comment can delete or edit their own comment.
+
+6. As a site admin I can approve or disapprove comments so that I can filter out objectionable comments
+
+        AC1 Given a logged in user, they can approve a comment.
+
+        AC2 Given a logged in user, they can disapprove a comment.
+
+7. As a site admin I can create draft recipes so that I can finish writing the instructions later
+
+        AC1 Given a logged user, they can save a draft recipe, which they can finish at a later time.
+
+8. As a site user I can read the "About" page so that I can learn more about the purpose of the website and the team behind it.
+
+        AC1 An "About" page that describes the website's purpose and goals.
+
+        AC2 Accessible from the main navigation bar.
+
+9. As a Potential Collaborator I can fill in a contact form so that I can submit a request for collaboration
+
+        AC1 Contact form should be easily accessible from the "About" page.
+        
+        AC2 A "Submit" button should be present and clearly labelled.
+
+10. As a site user I can search for recipes based on ingredients or titles so that I can quickly find relevant meal ideas.
+
+        AC1 A search bar is present on the recipe list page.
+        
+        AC2 Search results are dynamically based on the input.
+
+11. As a Site User I can save favourite recipes so that I can access them easily later.
+
+        AC1 Authenticated users can click a "Favourite" button on each recipe page.
+        
+        AC2 Favourite recipes are saved to a "Favourites" list in the user's profile.
+        
+        AC3 users can view, manage, and remove recipes from their favourite list.
+    
 
 ##  Design ##
 
