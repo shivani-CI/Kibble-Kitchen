@@ -26,23 +26,39 @@ class Recipe(models.Model):
 
     
     def __str__(self):
-        return f"The title of this recipe is {self.title} | written by {self.user_id}"
+        return f"{self.title}"
+
+
+class Ingredients(models.Model):
+    """
+    Stores ingredients for recipe related to :model:`auth.User`.
+    """
+    class CategoryChoices(models.TextChoices):
+        MEAT = 'Meat'
+        VEGETABLE = 'Vegetable'
+        FISH = 'Fish'
+        OTHER = 'Other'
+
+    ing_id = models.AutoField(primary_key=True)
+    recipe_id = models.ForeignKey(Recipe, on_delete= models.CASCADE, related_name="ingredients")
+    ing_name = models.CharField()
+    category = models.CharField(choices=CategoryChoices.choices)
+    quantity = models.PositiveIntegerField(default=0)
+    unit = models.CharField()
+    is_allergen = models.BooleanField(default=False)
 
 
 class Comment(models.Model):
     """
-    Stores a single comment entry related to :model:`auth.User` and :model:`blog.Post`.
+    Stores a single comment entry related to :model:`auth.User` and :model:`recipe.Recipe`.
     """
     recipe_id = models.ForeignKey(Recipe, on_delete= models.CASCADE, related_name="comments")
     user_id = models.ForeignKey(User, on_delete= models.CASCADE, related_name="commenter")
     body = models.TextField()
+    approver_note = models.CharField()
     approved = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
 
     class Meta:
-        ordering = ["-created_at"]
-
-
-    def __str__(self):
-            return f"Comment {self.body} | written by {self.user_id}"
+        ordering = ["-created_at"] 
