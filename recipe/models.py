@@ -29,7 +29,7 @@ class Recipe(models.Model):
         return f"{self.title}"
 
 
-class Ingredients(models.Model):
+class Ingredient(models.Model):
     """
     Stores ingredients for recipe related to :model:`auth.User`.
     """
@@ -39,12 +39,22 @@ class Ingredients(models.Model):
         FISH = 'Fish'
         OTHER = 'Other'
 
+    
+    class UnitChoices(models.TextChoices):
+        GRAM = 'Gram'
+        KILOGRAM = 'Kilogram'
+        TEASPOON = 'Teaspoon'
+        TABLESPOON = 'Tablespoon'
+        OUNCE = 'Ounce'
+        LITRE = 'Litre'
+        MILLILITRE = 'Millilitre'
+
     ing_id = models.AutoField(primary_key=True)
     recipe_id = models.ForeignKey(Recipe, on_delete= models.CASCADE, related_name="ingredients")
     ing_name = models.CharField()
     category = models.CharField(choices=CategoryChoices.choices)
     quantity = models.PositiveIntegerField(default=0)
-    unit = models.CharField()
+    unit = models.CharField(choices=UnitChoices.choices)
     is_allergen = models.BooleanField(default=False)
 
 
