@@ -42,27 +42,31 @@ Kibble Kitchen goes beyond just offering recipes; it empowers dog owners to take
  
   <span id="features">2.</span> User Authentication:
     - Users can register, log in, and log out. Password management features such as reset and change are also available.
+
+  <span id="features">3.</span> Recipe Management(CRUD Functionality):
+    - Authenticated users can create, read, update, delete and search for recipes based on keywords, ingredients, or titles. Authenticated users can create recipes by submitting a form with ingredients and instructions.  
  
-  <span id="features">3.</span> Recipe Search:
-    - Users can search for recipes based on keywords, ingredients, or categories.
+  <span id="features">4.</span> Meal Plan management(CRUD Functionality):
+    - Authenticated users can create, read, update, delete and search recipes. Users can create meal plans by selecting recipes and setting a name,description, and date for the meal.
  
-  <span id="features">4.</span> Commenting System:
-    - Users can leave and manage comments on recipes.
+  <span id="features">5.</span> User feedback(Comment on Recipes):
+    - Authenticated users can comment on individual recipes. This allows for interaction between users and provides feedback on recipes.
  
-  <span id="features">5.</span> Favourite Feature:
-    - Users can save recipes to their favourites.
+  <span id="features">6.</span> Responsive UI and Enhanced User Experience:
+    - Crispy Forms: All forms are styled using Bootstrap with Crispy Forms to ensure a clean, responsive design.
+    - Navigation Bar: The Top navigation bar includes login/logout links and allow easy access to all sections of the website.
  
-  <span id="features">6.</span> Profile Management:
-    - Users can update their profile information and manage their content.
+  <span id="features">7.</span> Recipe Favourites:
+    - Save Favourite Recipes: Users can add recipes to their list of favorites for easy access later.
  
-  <span id="features">7.</span> Admin Panel:
-    - Admin have access to all content, can moderate user comments, and approve or reject recipes.
+  <span id="features">8.</span> Admin Dashboard:
+    - Admin Control: Admin users can access the default Django admin panel to manage users, recipes, meal plans, comments and they can approve or reject recipes.
  
-  <span id="features">8.</span> Data Validation & Error Handling:
-    - All forms have server-side validation to ensure valid data input.
+  <span id="features">9.</span> Data Validation & Error Handling:
+    - All forms (recipe creation, meal plans and comments) are validated to ensure valid data input from users.
  
-  <span id="features">9.</span> API Handling:
-    - Integration with external recipe APIs to provide additional recipe options
+  <span id="features">10.</span> API Handling:
+    - Integration with external recipe APIs to provide nutritional value of recipes.
 
 ## Wireframes ##
 To follow best practice, wireframes were developed for mobile, tablet, and desktop sizes.
