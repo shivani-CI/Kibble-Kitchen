@@ -20,11 +20,12 @@ class Recipe(models.Model):
     status = models.IntegerField(choices=STATUS, default=0)
     updated_on = models.DateTimeField(auto_now=True)
 
+    def total_time(self):
+        return self.prep_time + self.cook_time
 
     class Meta:
         ordering = ["-created_at"]
 
-    
     def __str__(self):
         return f"{self.title}"
 
