@@ -283,6 +283,11 @@ https://github.com/users/shivani-CI/projects/9
 
 
 
+### Important Notice - 20 September 2024
+
+- I recently discovered that a sensitive secret key was unintentionally left exposed in the "settings.py" file. This has been rectified by newly created secret key added to environment variables. The exposed secret key has been removed from the settings.py. 
+
+
 ## Future features ##
  
   
