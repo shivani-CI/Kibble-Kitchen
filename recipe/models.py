@@ -53,6 +53,29 @@ class RecipeIngredient(models.Model):
         return f"{self.quantity} of {self.ingredient.name} in {self.receipe.title}"
 
 
+# FavouriteRecipe model added below Recipe model
+class FavouriteRecipe(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.user.username} favourites {self.recipe.title}'
+
+    class Meta:
+        unique_together = ('user', 'recipe')
+
+
+class MealPlan(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    recipes = models.ManyToManyField(Recipe, related_name='meal_plans')
+   
+    def __str__(self):
+        return f"{self.title} ({self.start_date} - {self.end_date})"
+
+
 class Comment(models.Model):
     """
     Stores a single comment entry related to :model:`auth.User` and :model:`recipe.Recipe`.
