@@ -86,7 +86,7 @@
             </div>
             <div class="d-none d-lg-block">
                 <ul class="navbar-nav mb-2 md-lg-0">
-                    {% if user.is authenticated %}
+                    {% if user.is_authenticated %}
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="#" id="navebarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <span><i class="fas fa-user profile-icon"></i>{{ user.username }} </span>
@@ -126,12 +126,12 @@
     <!-- Footer -->
     <footer>
         <div class="container footer-container">
-            <ul>
+            <ul class="social-networks">
                 <li>
                     <a href="https://www.facebook.com/" target="_blank" rel="noopener"
                     aria-label="Visit our Facebook page (opens in new tab)"><i class="fab fa-facebook"></i>></a>
                 </li>
-                <li></li>
+                <li>
                     <a href="https://www.instagram.com/" target="_blank" rel="noopener"
                         aria-label="Visit our Instagram page (opens in new tab)"><i class="fab fa-instagram"></i></a>
                 </li>
