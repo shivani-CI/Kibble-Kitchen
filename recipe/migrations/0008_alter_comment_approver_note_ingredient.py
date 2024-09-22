@@ -16,16 +16,4 @@ class Migration(migrations.Migration):
             name='approver_note',
             field=models.CharField(),
         ),
-        migrations.CreateModel(
-            name='Ingredient',
-            fields=[
-                ('ing_id', models.AutoField(primary_key=True, serialize=False)),
-                ('ing_name', models.CharField()),
-                ('category', models.CharField(choices=[('Meat', 'Meat'), ('Vegetable', 'Vegetable'), ('Fish', 'Fish'), ('Other', 'Other')])),
-                ('quantity', models.PositiveIntegerField(default=0)),
-                ('unit', models.CharField(choices=[('Gram', 'Gram'), ('Kilogram', 'Kilogram'), ('Teaspoon', 'Teaspoon'), ('Tablespoon', 'Tablespoon'), ('Ounce', 'Ounce'), ('Litre', 'Litre'), ('Millilitre', 'Millilitre')])),
-                ('is_allergen', models.BooleanField(default=False)),
-                ('recipe_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='ingredients', to='recipe.recipe')),
-            ],
-        ),
     ]
