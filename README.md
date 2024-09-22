@@ -133,7 +133,8 @@ Click here to see the Tablet Wireframes
 Click here to see the ERD
 </summary>
 
-![image](https://github.com/user-attachments/assets/5b7183ce-765e-4989-bd43-9678c3b35d42)
+![image](https://github.com/user-attachments/assets/446c502f-0c2f-4444-8acd-7710d21d4d21)
+
 
 
 
