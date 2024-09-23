@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Browse Recipes</h1>
+    <div class="row">
+        {% for recipe in recipes %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <!-- Recipe Image -->
+                {% if recipe.image %}
+                    <img src="{{ recipe.image.url }}" class="card-img-top img-fluid" alt="{{ recipe.title }}">
+                {% else %}
+                    <img src="https://via.placeholder.com/300x200" class="card-img-top img-fluid" alt="No Image Available"
+                {% endif %}
+                
+                    <!-- Recipe Details -->
+                <div class="card-body">
+                    <h5 class="card-title">{{ recipe.title}}</h5>
+                    <p card-text>
+                        <strong>Cook Time:</strong> {{ recipe.cook_time }} minutes<br>
+                        <strong>Author:</strong> {{ recipe.user.username }} minutes<br>
+                    </p>
+                </div>
+
+                <!-- Link to Recipe Deatils -->
+                <div class="card-footer">
+                    <a href="{% url 'recipe_detail' recipe.id %}" class="btn btn-primary">View Recipe</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+           
+    <!-- Pagination -->
+    {% if is_paginated %}
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV</a></li>
+            {% endif %}
+            {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+
+{% endblock %}

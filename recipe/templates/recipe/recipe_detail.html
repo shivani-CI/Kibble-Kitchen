@@ -1,13 +1,65 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<h2>{{ recipe.title }}</h2>
-<p>{{ recipe.description }}</p>
-<p>Preparation time: {{ recipe.prep_time }} mins, Cooking time: {{ recipe.cook_time }} mins</p>
-<h3>Ingredients:</h3>
-<ul>
-    {% for ingredient in recipe.ingredients.all %}
-    <li>{{ ingredient }}</li>
-    {% endfor %}
-</ul>
-<img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" />
+<div class="container mt-5">
+    <!-- First Container: Recipe Image and Basic Info -->
+    <div class="row">
+        <div class="col-md-6">
+            <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="img-fluid" style="max-height: 400px;">
+        </div>
+        <div class="col-md-6">
+            <h2>{{ recipe.title }}</h2>
+            <p><strong>By:</strong> {{ recipe.user.username }}</p>
+            <p><strong>Prep Time:</strong> {{ recipe.prep_time }} minutes</p>
+            <p><strong>Cook Time:</strong> {{ recipe.cook_time }} minutes</p>
+            <p><strong>Difficulty:</strong> {{ recipe.get_difficulty_display }}</p>
+            <p><strong>Serves:</strong> {{ recipe.serves }}</p>
+            <!-- Buttons for Add to Meal Plan and Favourite Bookmark -->
+            <button class="btn btn-primary me-3">Add to Meal Plan</button>
+            <button class="btn btn-outline-secondary"><i class="fas fa-bookmark"></i> Add to Favourites</button>
+        </div>
+    </div>
+
+    <!-- Second Container: Ingredients List -->
+    <div class="mt-5">
+        <h4>Ingredients</h4>
+        <ul>
+            {% for ingredient in recipe.ingredient.all %}
+                <li>{{ ingredient.name }} - {{ ingredient.quantity }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Third Container: Recipe Instructions -->
+    <div class="mt-5">
+        <h4>Instructions</h4>
+        <p>{{ recipe.description }}</p>
+    </div>
+
+    <!-- Fourth Container: Comments Section -->
+    <div class="mt-5">
+        <h4>Comments</h4>
+        {% if user.is_authenticated %}
+            <form method="POST" action="{% url 'add_comment' recipe.pk %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <textarea name="comment" rows="3" class="form-control" placeholder="Leave a comment..."></textarea>                    
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        {% else %}
+            <p><a href="{% url 'login' %}">Log in</a> to leave a comment.</p>
+        {% endif %}
+
+        <!-- Display comments -->
+        <div class="mt-4">
+            {% for comment in recipe.comments.all %}
+                <div class="border p-3 mb-3">
+                    <p><strong>{{ comment.user.username }}</strong> commented:</p>
+                    <p>{{ comment.body }}</p>
+                </div>
+            {% endfor %}
+        </div>    
+    </div>
+</div>
 {% endblock %}

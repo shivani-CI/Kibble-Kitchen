@@ -19,7 +19,14 @@ class Ingredient(models.Model):
 class Recipe(models.Model):
     """
     Stores a single recipe entry related to :model:`auth.User`. 
-    """   
+    """  
+    DIFFICULTY_LEVELS = [
+        (1, 'Easy'),
+        (2, 'Medium'),
+        (3, 'Hard'),
+    ]
+
+
     recipe = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete= models.CASCADE, related_name="recipe_book")
     title = models.CharField(max_length=200, unique=True)    
@@ -27,7 +34,7 @@ class Recipe(models.Model):
     ingredient = models.ManyToManyField(Ingredient, through='RecipeIngredient')
     prep_time = models.PositiveIntegerField(default=0)
     cook_time = models.PositiveIntegerField(default=0)
-    difficulty = models.CharField(max_length=200)
+    difficulty = models.IntegerField(choices=DIFFICULTY_LEVELS)
     serves = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
@@ -53,7 +60,6 @@ class RecipeIngredient(models.Model):
         return f"{self.quantity} of {self.ingredient.name} in {self.receipe.title}"
 
 
-# FavouriteRecipe model added below Recipe model
 class FavouriteRecipe(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
@@ -88,4 +94,7 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ["-created_at"] 
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f'Comment by {self.user} on {self.recipe}'

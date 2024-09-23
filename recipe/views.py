@@ -2,17 +2,25 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
 from django.http import JsonResponse
 from .models import Recipe, Ingredient, FavouriteRecipe, MealPlan, Comment
+from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
 
 
 class RecipeList(generic.ListView):
     queryset = Recipe.objects.filter(status=1)
-    template_name = "recipe/index.html"
-    paginate_by = 6
+    template_name = "recipe/recipe_list.html"
+    paginate_by = 8
 
 
-def recipe_list(reqest):
+def home_view(request):
+    """
+    Render the home page.
+    """
+    return render(request, 'Index.html')
+
+
+def recipe_list(request):
     recipes = Recipe.objects.all()
     return render(request, 'recipe/recipe_list.html', {'recipes': recipes})
 
@@ -53,4 +61,15 @@ def add_to_favourites(request, recipe_id):
         messages.info(request, f"{recipe.title} is already in your favourites.")
     
     return redirect('recipe_detail', recipe_id=recipe.id)
+
+
+def signup_view(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')  # Redirect to login after successful signup
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/signup.html', {'form': form})
 
