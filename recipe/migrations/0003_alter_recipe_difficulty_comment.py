@@ -11,11 +11,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='recipe',
-            name='difficulty',
-            field=models.CharField(max_length=200),
-        ),
         migrations.CreateModel(
             name='Comment',
             fields=[

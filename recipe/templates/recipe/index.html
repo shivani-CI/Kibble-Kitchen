@@ -4,61 +4,7 @@
 
 <!-- Full-screen background image with text overlay -->
 <div class="hero-image" style="background-image: url('/static/Images/hero.png'); background-size: cover; background-attachment: fixed; height: 100vh; position: relative;">
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-transparent position-absolute w-100">
-        <div class="container-fluid">
-            <a class="navbar-brand d-flex align-items-center" href="/">
-                <img src="/static/images/logo.jpg" alt="Logo" class="logo" style="height: 50px;">
-                <span class="ms-2">Kibble Kitchen</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav">
-                    <!-- Common Navigation Items -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'browse_recipes' %}">Browse Recipes</a>
-                    </li>
-
-                    <!-- Check if the user is authenticated -->
-                    {% if user.is_authenticated %}
-                        <!-- Authenticated User Navigation -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'add_recipe' %}">Add Recipe</a>   
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'meal_plan' %}">My Meal Plan</a>    
-                        </li>
-
-                        <!-- Dropdown for Authenticated User -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                {{ user.username }}
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="{% url 'my_recipes' %}">My Recipes</a></li>
-                                <li><a class="dropdown-item" href="{% url 'my_favourites' %}">My Favourites</a></li>
-                                <li><a class="dropdown-item" href="{% url 'logout' %}">Log Out</a></li>
-                            </ul>
-                        </li>
-                    {% else %}
-                        <!-- Non-Authenticated User Navigation -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'signup' %}">Sign up</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'login' %}">Log In</a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
-        </div>
-    </nav>
-
+    
     <!-- Centered Text and Button -->
     <div class="hero-text text-center text-white" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
         <h1>Welcome to Kibble Kitchen</h1>
@@ -89,14 +35,7 @@
     </div>
 </div>
 
-<!-- Footer with Social Media Icons -->
-<footer class="text-center mt-5 py-4" style="background-color: #f8f9fa;">
-    <div class="container">
-        <a href="https://facebook.com" class="me-3"><i class="fab fa-facebook fa-2x"></i></a>
-        <a href="https://twitter.com" class="me-3"><i class="fab fa-twitter fa-2x"></i></a>
-        <a href="https://instagram.com" class="me-3"><i class="fab fa-instagram fa-2x"></i></a>
-        <a href="https://youtube.com"><i class="fab fa-youtube fa-2x"></i></a>
-    </div>
-</footer>
-
 {% endblock %}
+
+<!-- TODO line 43 and 44<li><a class="dropdown-item" href="{% url 'my_recipes' %}">My Recipes</a></li> -->
+<!-- <li><a class="dropdown-item" href="{% url 'my_favourites' %}">My Favourites</a></li> -->

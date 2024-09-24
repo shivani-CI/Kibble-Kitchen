@@ -14,8 +14,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Ingredient',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField()),
+                ('ing_id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ING_ID')),
+                ('ing_name', models.CharField()),
                 ('quantity', models.PositiveIntegerField(default=0)),
                 ('unit', models.CharField(max_length=200, unique=True)),
             ],

@@ -3,7 +3,7 @@
 <h2>Recipe List</h2>
 <ul>
     {% for recipe in recipes %}
-    <li><a href="{% url 'recipe_detail' recipe.recipe %}">{{ recipe.title }}</a></li>
+    <li><a href="{% url 'browse_recipes' recipe.recipe %}">{{ recipe.title }}</a></li>
     {% endfor %}
 </ul>
 {% endblock %}

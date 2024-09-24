@@ -32,7 +32,7 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'home' %}">
-                <span class="brand">Kibble<span class="red">Kitchen</span></span><img scr="{% static 'images/logo.png' %}" alt="Recipe Sharing and Meal Planner Logo" class="logo">
+                <span class="brand">Kibble<span class="red">Kitchen</span></span><img scr="{% static 'images/logo.png' %}" alt="Dog Recipe Sharing and Meal Planner Logo" class="logo">
             </a>
             <button class="navbar-light navbar-toggler ml-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
                 aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -80,27 +80,13 @@
 
     </main>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container footer-container">
-            <ul class="social-networks">
-                <li>
-                    <a href="https://www.facebook.com/" target="_blank" rel="noopener"
-                    aria-label="Visit our Facebook page (opens in new tab)"><i class="fab fa-facebook"></i></a>
-                </li>
-                <li>
-                    <a href="https://www.instagram.com/" target="_blank" rel="noopener"
-                        aria-label="Visit our Instagram page (opens in new tab)"><i class="fab fa-instagram"></i></a>
-                </li>
-                <li>
-                    <a href="https://twitter.com/" target="_blank" rel="noopener"
-                        aria-label="Visit our Twitter page (opens in new tab)"><i class="fab fa-twitter"></i></a>
-                </li>
-                <li>
-                    <a href="https://www.youtube.com/" target="blank" rel="noopener"
-                        aria-label="Visit out Youtube page (opens in new tab)"><i class="fab fa-youtube"></i></a>
-                </li>
-            </ul>
+    <!-- Footer with Social Media Icons -->
+    <footer class="text-center mt-5 py-4" style="background-color: #f8f9fa;">
+        <div class="container">
+            <a href="https://facebook.com" class="me-3"><i class="fab fa-facebook fa-2x"></i></a>
+            <a href="https://twitter.com" class="me-3"><i class="fab fa-twitter fa-2x"></i></a>
+            <a href="https://instagram.com" class="me-3"><i class="fab fa-instagram fa-2x"></i></a>
+            <a href="https://youtube.com"><i class="fab fa-youtube fa-2x"></i></a>
         </div>
     </footer>
 

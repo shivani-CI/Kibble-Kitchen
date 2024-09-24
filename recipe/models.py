@@ -1,45 +1,48 @@
 from django.db import models
 from django.contrib.auth.models import User
-
-STATUS = ((0, "Draft"), (1, "Published"))
+from cloudinary.models import CloudinaryField
 
 
 class Ingredient(models.Model):
     """
     Stores ingredients for recipe related to :model:`auth.User`.
     """
-    name = models.CharField()
+    ing_id = models.AutoField(primary_key=True)
+    ing_name = models.CharField(max_length=200)
     quantity = models.PositiveIntegerField(default=0)
-    unit = models.CharField(max_length=200, unique=True)
+    unit = models.CharField(max_length=200)
     
     def __str__(self):
-        return self.name
+        return self.ing_name
 
 
 class Recipe(models.Model):
     """
     Stores a single recipe entry related to :model:`auth.User`. 
-    """  
-    DIFFICULTY_LEVELS = [
-        (1, 'Easy'),
-        (2, 'Medium'),
-        (3, 'Hard'),
-    ]
+    """
+    STATUS = (
+        (0, "Draft"),
+        (1, "Published")
+    )
+    DIFFICULTY_LEVELS = (
+        (0, 'Easy'),
+        (1, 'Medium'),
+        (2, 'Hard'),
+    )
 
-
-    recipe = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete= models.CASCADE, related_name="recipe_book")
+    recipe_id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="recipe_book")
     title = models.CharField(max_length=200, unique=True)    
     description = models.TextField()
     ingredient = models.ManyToManyField(Ingredient, through='RecipeIngredient')
     prep_time = models.PositiveIntegerField(default=0)
     cook_time = models.PositiveIntegerField(default=0)
     difficulty = models.IntegerField(choices=DIFFICULTY_LEVELS)
-    serves = models.IntegerField()
+    serves = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
     updated_on = models.DateTimeField(auto_now=True)
-    image = models.ImageField(upload_to='recipes/', blank=True, null=True)
+    image = CloudinaryField('image', default='placeholder')
     
     class Meta:
         ordering = ["-created_at"]
@@ -48,38 +51,29 @@ class Recipe(models.Model):
         return self.prep_time + self.cook_time
 
     def __str__(self):
-        return f"{self.title}"
+        return self.title
 
 
 class RecipeIngredient(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
-    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
-    quantity = models.CharField(max_length=50)
+    ing = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=0)
+    unit = models.CharField(max_length=200)
 
     def __str__(self):
-        return f"{self.quantity} of {self.ingredient.name} in {self.receipe.title}"
-
-
-class FavouriteRecipe(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f'{self.user.username} favourites {self.recipe.title}'
-
-    class Meta:
-        unique_together = ('user', 'recipe')
+        return f"{self.quantity} {self.unit} of {self.ingredient.name} in {self.receipe.title}"
 
 
 class MealPlan(models.Model):
+    plan_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=100)
-    start_date = models.DateField()
-    end_date = models.DateField()
-    recipes = models.ManyToManyField(Recipe, related_name='meal_plans')
+    plan_title = models.CharField(max_length=200)
+    start_date = models.DateField(auto_now=True)
+    end_date = models.DateField(auto_now=True)
+    recipe = models.ManyToManyField(Recipe, related_name='meal_plans')
    
     def __str__(self):
-        return f"{self.title} ({self.start_date} - {self.end_date})"
+        return f"{self.plan_title} - ({self.start_date} - {self.end_date})"
 
 
 class Comment(models.Model):
@@ -89,7 +83,7 @@ class Comment(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete= models.CASCADE, related_name="comments")
     user = models.ForeignKey(User, on_delete= models.CASCADE, related_name="commenter")
     body = models.TextField()
-    approver_note = models.CharField()
+    approver_note = models.CharField(max_length=200)
     approved = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -98,3 +92,17 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'Comment by {self.user} on {self.recipe}'
+
+
+################################################################################    
+# class FavouriteRecipe(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+#     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+
+#     def __str__(self):
+#         return f'{self.user.username} favourites {self.recipe.title}'
+
+#     class Meta:
+#         unique_together = ('user', 'recipe')
+
+

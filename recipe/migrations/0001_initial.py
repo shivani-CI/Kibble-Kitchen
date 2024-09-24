@@ -22,7 +22,6 @@ class Migration(migrations.Migration):
                 ('description', models.TextField()),
                 ('prep_time', models.IntegerField()),
                 ('cook_time', models.IntegerField()),
-                ('difficulty', models.CharField(max_length=200, unique=True)),
                 ('serves', models.IntegerField()),
                 ('created_at', models.DateTimeField(auto_now=True)),
                 ('status', models.IntegerField(choices=[(0, 'Draft'), (1, 'Published')], default=0)),
