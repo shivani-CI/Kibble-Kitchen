@@ -5,28 +5,28 @@
 <div class="container mt-4">
     <h1 class="text-center mb-4">Browse Recipes</h1>
     <div class="row">
-        {% for recipe in recipes %}
+        {% for recipe in recipe_list %}
         <div class="col-md-6 col-lg-4 mb-4">
             <div class="card h-100 shadow-sm">
                 <!-- Recipe Image -->
                 {% if recipe.image %}
                     <img src="{{ recipe.image.url }}" class="card-img-top img-fluid" alt="{{ recipe.title }}">
                 {% else %}
-                    <img src="https://via.placeholder.com/300x200" class="card-img-top img-fluid" alt="No Image Available"
+                    <img src="https://via.placeholder.com/300x200" class="card-img-top img-fluid" alt="No Image Available">
                 {% endif %}
                 
-                    <!-- Recipe Details -->
+                <!-- Recipe detail-->
                 <div class="card-body">
                     <h5 class="card-title">{{ recipe.title}}</h5>
                     <p card-text>
                         <strong>Cook Time:</strong> {{ recipe.cook_time }} minutes<br>
-                        <strong>Author:</strong> {{ recipe.user.username }} minutes<br>
+                        <strong>Author:</strong> {{ recipe.user.username }}<br>
                     </p>
                 </div>
 
-                <!-- Link to Recipe Deatils -->
+                <!-- Link to recipe details -->
                 <div class="card-footer">
-                    <a href="{% url 'get_recipe_detail' recipe.recipe %}" class="btn btn-primary">View Recipe</a>
+                    <a href="{% url 'get_recipe_detail' recipe.recipe_id %}" class="btn btn-primary">View Recipe</a>
                 </div>
             </div>
         </div>

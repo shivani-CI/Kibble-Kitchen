@@ -5,7 +5,7 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('', views.home_view, name='home'), # Set the root URL to the home page
     path('browse/', views.RecipeList.as_view(), name='browse_recipes'), # Show all recipes (e.g., /recipes/)
-    path('<int:pk>/', views.get_recipe_detail, name='get_recipe_detail'),
+    path('<int:recipe_id>/', views.get_recipe_detail, name='get_recipe_detail'),
     path('add_recipe/', views.add_recipe, name='add_recipe'),
     path('create_meal_plan/', views.create_meal_plan, name='create_meal_plan'),
     path('meal_plan/', views.get_meal_plan, name='get_meal_plan')

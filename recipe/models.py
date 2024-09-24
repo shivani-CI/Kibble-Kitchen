@@ -80,8 +80,8 @@ class Comment(models.Model):
     """
     Stores a single comment entry related to :model:`auth.User` and :model:`recipe.Recipe`.
     """
-    recipe = models.ForeignKey(Recipe, on_delete= models.CASCADE, related_name="comments")
-    user = models.ForeignKey(User, on_delete= models.CASCADE, related_name="commenter")
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name="comments")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="commenter")
     body = models.TextField()
     approver_note = models.CharField(max_length=200)
     approved = models.BooleanField(default=True)

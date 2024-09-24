@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
 from django.http import JsonResponse
 from .models import Recipe, Ingredient, MealPlan, Comment
+from .forms import CommentForm
 from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
@@ -14,8 +15,8 @@ def home_view(request):
 
 class RecipeList(generic.ListView):
     queryset = Recipe.objects.filter(status=1)
-    template_name = "recipe/recipe_list.html"
-    paginate_by = 8
+    template_name = "recipe/browse_recipes.html"
+    paginate_by = 6
 
 
 # def recipe_list(request):
@@ -23,15 +24,31 @@ class RecipeList(generic.ListView):
 #     return render(request, 'recipe/recipe_list.html', {'recipes': recipes})
 
 
-def get_recipe_detail(request, recipe):
+def get_recipe_detail(request, recipe_id):
     #TODO -
-    recipe = get_object_or_404(Recipe, recipe=recipe)
-    return render(request, 'recipe/recipe_detail.html', {'recipe': recipe})
+    queryset = Recipe.objects.filter(status=1)
+    recipe = get_object_or_404(queryset, recipe_id=recipe_id)
+    comments = recipe.comments.all().order_by('-created_at')
+    comment_count = recipe.comments.filter(approved=True).count()
 
-def add_recipe(request, recipe):
-    #TODO - 
-    recipe = get_object_or_404(Recipe, recipe=recipe)
-    return render(request, 'recipe/add_recipe.html', {'recipe': recipe})
+    if request.method == "POST":
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.user = request.user
+            comment.recipe_id = recipe_id
+            comment.save()
+    
+    comment_form = CommentForm()
+    return render(request, 'recipe/recipe_detail.html', {'recipe': recipe,
+                                                         'comments': comments,
+                                                         'comment_count': comment_count,
+                                                         'comment_form': comment_form, })
+    
+def add_recipe(request):
+    #TODO - how can you add variables to this function. How are they passed across?
+    # recipe = get_object_or_404(queryset, recipe_id=recipe_id)
+    return render(request, 'recipe/add_recipe.html')
 
 def create_meal_plan(request, meal_plan):
     #TODO - 
