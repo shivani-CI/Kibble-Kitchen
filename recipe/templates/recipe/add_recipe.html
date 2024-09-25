@@ -1,10 +1,25 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-
-
-<div>
-    <h1>add recipe here</h1>
-</div>   
+<div class="container mt-5">
+    <h2 class="page-title">Add Recipe</h2>
+    <hr class="break">
+    <br>
+    <div class="row justify-content-center ">
+        {% if user.is_authenticated %}
+        {% load cloudinary %}
+        <div class="col-11 col-md-8 col-lg-6 mt-3 add-recipe-outer">
+            <!--  Add Recipe Form -->
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}  <!-- Renders form with the crispy forms helper -->
+                <button type="submit" class="btn btn-outline-dark">Submit</button>
+                <a class="btn btn btn-outline-dark m-2" href="{%  url 'browse_recipes' %}">Cancel</a>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+</div>
 
 {% endblock %}

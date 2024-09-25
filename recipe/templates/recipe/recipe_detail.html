@@ -34,7 +34,7 @@
 
     <!-- Third Container: Recipe Instructions -->
     <div class="mt-5">
-        <h4>Instructions</h4>
+        <h4>Description</h4>
         <p>{{ recipe.description }}</p>
     </div>
 
@@ -94,7 +94,7 @@
                     style="margin-top: 1.3em;">
                     {{ comment_form | crispy }}
                     {% csrf_token %}
-                    <button id="submitButton" type="submit" class="btn btn-signup btn-lg">Submit</button>
+                    <button id="submitButton" type="submit_button" class="btn btn-signup btn-lg">Submit</button>
                 </form>
                 {% else %}
                 <p>Log in to leave a comment</p>
