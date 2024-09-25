@@ -4,7 +4,8 @@ from django.conf import settings
 from django.contrib import messages
 from django.http import JsonResponse
 from .models import Recipe, Ingredient, RecipeIngredient, MealPlan, Comment
-from .forms import CommentForm, RecipeForm
+from .forms import CommentForm, RecipeForm, RecipeIngredientForm
+from django.forms import formset_factory
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 
@@ -57,18 +58,33 @@ def get_recipe_detail(request, recipe_id):
     )
     
 def add_recipe(request):
-    #TODO - how can you add variables to this function. How are they passed across?
-    # recipe = get_object_or_404(queryset, recipe_id=recipe_id)
+    RecipeIngredientFormSet = formset_factory(RecipeIngredientForm, extra=1)
+    
     if request.method == 'POST':
-        form = RecipeForm(request.POST, request.FILES)
-        if form.is_valid():
-            recipe = form.save(commit=False)                       
+        recipe_form = RecipeForm(request.POST, request.FILES)
+        ingredient_formset = RecipeIngredientFormSet(request.POST)
+
+        if recipe_form.is_valid() and ingredient_formset.is_valid():
+            recipe = recipe_form.save(commit=False)                       
             recipe.user = request.user
-            recipe.save()            
+            recipe.save()
+
+            for form in ingredient_formset:
+                if form.cleaned_data.get('ing'):
+                    ingredient = form.save(commit=False)                       
+                    ingredient.recipe = recipe
+                    ingredient.save()
+
             return redirect('browse_recipes')
     else:
-        form = RecipeForm()
-    return render(request, 'recipe/add_recipe.html', {'form': form})
+        recipe_form = RecipeForm()
+        ingredient_formset = RecipeIngredientFormSet()
+
+    render_dict = {
+        'recipe_form': recipe_form,
+        'ingredient_formset': ingredient_formset
+        }
+    return render(request, 'recipe/add_recipe.html', render_dict)
 
 def create_meal_plan(request, meal_plan):
     #TODO - 

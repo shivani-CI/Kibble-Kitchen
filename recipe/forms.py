@@ -1,4 +1,4 @@
-from .models import Recipe, Comment
+from .models import Recipe, Comment, RecipeIngredient
 from django import forms
 from django_summernote.widgets import SummernoteWidget
 from crispy_forms.helper import FormHelper
@@ -19,6 +19,12 @@ class RecipeForm(forms.ModelForm):
             'description':SummernoteWidget()
         }
 
+
+class RecipeIngredientForm(forms.ModelForm):
+    class Meta:
+        model = RecipeIngredient
+        fields = ['ing', 'quantity', 'unit']
+    
     
 class CommentForm(forms.ModelForm):
     class Meta:

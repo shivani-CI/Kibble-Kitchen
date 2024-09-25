@@ -10,16 +10,51 @@
         {% if user.is_authenticated %}
         {% load cloudinary %}
         <div class="col-11 col-md-8 col-lg-6 mt-3 add-recipe-outer">
+
             <!--  Add Recipe Form -->
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ form|crispy }}  <!-- Renders form with the crispy forms helper -->
-                <button type="submit" class="btn btn-outline-dark">Submit</button>
-                <a class="btn btn btn-outline-dark m-2" href="{%  url 'browse_recipes' %}">Cancel</a>
+                {{ recipe_form|crispy }}  <!-- Renders form with the crispy forms helper -->
+
+                <h2>Ingredients</h2>
+                <div id="ingredient-formset">
+                    {{ ingredient_formset.management_form }}
+                    <div id="ingredient-forms">
+                        {% for form in ingredient_formset %}
+                            <div class="ingredient-form">
+                                {{ form|crispy }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            <button type="button" id="add-ingredient" class="btn btn-secondary">Add Ingredient</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <a class="btn btn btn-outline-dark m-2" href="{%  url 'browse_recipes' %}">Cancel</a>
             </form>
-        </div>
         {% endif %}
+        </div>
     </div>
 </div>
+        
+<!-- JavaScript to dynamically add and remove ingredient forms -->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+        var ingredientForms = document.getElementById("ingredient-forms");
+        var addIngredientBtn = document.getElementById("add-ingredient");
+        var totalForms = document.getElementById("id_form-TOTAL_FORMS");
+
+        addIngredientBtn.addEventListener("click", function() {
+            // Clone the last ingredient form and increment the form index
+            var newForm = ingredientForms.children[0].cloneNode(true);
+            var formCount = parseInt(totalForms.value);
+            newForm.innerHTML = newForm.innerHTML.replace(/form-(\d)-/g, `form-${formCount}-`);
+
+            // Append the new form and increment the total form count
+            ingredientForms.appendChild(newForm);
+            totalForms.value = formCount + 1;
+        });
+    });
+</script>
 
 {% endblock %}
