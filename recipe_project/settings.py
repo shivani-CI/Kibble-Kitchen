@@ -28,7 +28,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['8000-shivanici-kibblekitchen-fd23qziq6zu.ws.codeinstitute-ide.net','.herokuapp.com']
 
@@ -52,6 +52,10 @@ INSTALLED_APPS = [
     'cloudinary',
     'recipe',    
 ]
+
+SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
@@ -128,6 +132,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

@@ -21,5 +21,19 @@ class CommentAdmin(SummernoteModelAdmin):
     summernote_fields = ('body',)
 
 
+@admin.register(Ingredient)
+class IngredientAdmin(SummernoteModelAdmin):
+
+    list_display = ('ing_id', 'ing_name')
+    search_fields = ['ing_name']
+
+
+@admin.register(RecipeIngredient)
+class RecipeIngredientAdmin(SummernoteModelAdmin):
+
+    list_display = ('ing', 'quantity', 'unit')
+    search_fields = ['ing']
+    
+
 # Register your models here.
-admin.site.register(Ingredient)
+# admin.site.register(MealPlan)

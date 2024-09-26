@@ -9,9 +9,7 @@ class Ingredient(models.Model):
     """
     ing_id = models.AutoField(primary_key=True)
     ing_name = models.CharField(max_length=200)
-    quantity = models.PositiveIntegerField(default=0)
-    unit = models.CharField(max_length=200)
-    
+        
     def __str__(self):
         return self.ing_name
 
@@ -21,8 +19,8 @@ class Recipe(models.Model):
     Stores a single recipe entry related to :model:`auth.User`. 
     """
     STATUS = (
-        (0, "Draft"),
-        (1, "Published")
+        (0, 'Draft'),
+        (1, 'Published'),
     )
     DIFFICULTY_LEVELS = (
         (0, 'Easy'),
@@ -55,13 +53,28 @@ class Recipe(models.Model):
 
 
 class RecipeIngredient(models.Model):
+    """
+    Stores ingredients for recipe related to :model:`auth.User`.
+    """
+    UNIT_CHOICES= (
+        ('GRAM', 'Gram'),
+        ('KILOGRAM', 'Kilogram'),
+        ('TEASPOON', 'Teaspoon'),
+        ('TABLESPOON', 'Tablespoon'),
+        ('OUNCE', 'Ounce'),
+        ('LITRE', 'Litre'),
+        ('MILLILITRE', 'Millilitre'),
+        ('SMALL', 'Small'),
+        ('LARGE', 'Large'),
+        ('MEDIUM', 'Medium'),
+    )
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     ing = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=0)
-    unit = models.CharField(max_length=200)
+    unit = models.CharField(max_length=200, choices=UNIT_CHOICES)
 
     def __str__(self):
-        return f"{self.quantity} {self.unit} of {self.ingredient.name} in {self.receipe.title}"
+        return f"{self.quantity} {self.unit} of {self.ing.ing_name} in {self.receipe.title}"
 
 
 class MealPlan(models.Model):

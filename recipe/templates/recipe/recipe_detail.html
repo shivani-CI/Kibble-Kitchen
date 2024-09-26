@@ -11,7 +11,7 @@
         </div>
         <div class="col-md-6">
             <h2>{{ recipe.title }}</h2>
-            <p><strong>By:</strong> {{ recipe.user.username }}</p>
+            <p><strong>Author:</strong> {{ recipe.user.username }}</p>
             <p><strong>Prep Time:</strong> {{ recipe.prep_time }} minutes</p>
             <p><strong>Cook Time:</strong> {{ recipe.cook_time }} minutes</p>
             <p><strong>Difficulty:</strong> {{ recipe.get_difficulty_display }}</p>
@@ -27,7 +27,7 @@
         <h4>Ingredients</h4>
         <ul>
             {% for ingredient in recipe.ingredient.all %}
-                <li>{{ ingredient.name }} - {{ ingredient.quantity }}</li>
+                <li>{{ ingredient.ing_name }} - {{ ingredient.quantity }} {{ ingredient.unit }}</li>
             {% endfor %}
         </ul>
     </div>
@@ -35,7 +35,9 @@
     <!-- Third Container: Recipe Instructions -->
     <div class="mt-5">
         <h4>Description</h4>
-        <p>{{ recipe.description }}</p>
+        <div class="card-body">
+            <p class="card-text">{{ recipe.description | safe }}</p>
+        </div>
     </div>
 
     <!-- Fourth Container: Comments Section -->
@@ -103,4 +105,27 @@
         </div>
     </div>    
 </div>
+
+<!-- Delete confirmation modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete comment?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete your comment? This action cannot be undone.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a id="deleteConfirm" href="#" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extras %}
+<script src="{% static 'js/comments.js' %}"></script>
 {% endblock %}
