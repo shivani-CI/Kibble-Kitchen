@@ -12,35 +12,42 @@
         <div class="col-11 col-md-8 col-lg-6 mt-3 add-recipe-outer">
 
             <!--  Add Recipe Form -->
-            <form method="POST" enctype="multipart/form-data">
+            <form method="POST" enctype="multipart/form-data" action="{% url 'add_recipe' %}">
                 {% csrf_token %}
                 {{ recipe_form|crispy }}            
                 <h2>Ingredients</h2>            
                 
                 <!-- Ingredient Dropdown with 'Add New Ingredient' Option -->
-                <div class="form-group">
-                    <label for="id_ingredient">Select Ingredient</label>
-                    <select id="id_ingredient" class="form-control">
-                        {% for ingredient in ingredient_form.fields.ing.queryset %}
-                            <option value="{{ ingredient.id }}">{{ ingredient.name }}</option>
+                <div id="ingredient-formset">
+                    {{ recipe_ingredient_formset.management_form }}
+                    <div id="ingredient-forms">
+                        {% for recipe_ing_form in recipe_ingredient_formset %}
+                            <div class="ingredient-form form-row">
+                                <div class="form-group col-md-5">
+                                    <label for="ingredient_dropdown">Select Ingredient</label>
+                                    <select id="ingredient_dropdown" name="{{ recipe_ing_form.prefix }}-ingredient" class="form-control">
+                                        {% for ingredient in all_ingredients %}
+                                            <option value="{{ ingredient.id }}">{{ ingredient.name }}</option>
+                                        {% endfor %}
+                                        <option value="add_new">Add New Ingredient</option>
+                                    </select>
+                                </div>
+                
+                                <!-- New Ingredient Input (Hidden initially) -->
+                                <div class="form-group" id="new_ingredient_field" style="display: none;">
+                                    <label for="new_ingredient">New Ingredient</label>
+                                    <input type="text" id="new_ingredient" class="form-control" placeholder="Enter new ingredient">
+                                </div>
+                
+                                <!-- Remaining form fields -->
+                                <div class="form-group col-md-3">{{ recipe_ing_form.quantity|as_crispy_field }}</div>
+                                <div class="form-group col-md-4">{{ recipe_ing_form.unit|as_crispy_field }}</div>
+                            </div>
                         {% endfor %}
-                        <option value="add_new">Add New Ingredient</option>  <!-- Special option for adding new ingredient -->
-                    </select>
+                    </div>
                 </div>
-
-                <!-- New Ingredient Input (Hidden initially) -->
-                <div class="form-group" id="new_ingredient_field" style="display: none;">
-                    <label for="new_ingredient">New Ingredient</label>
-                    <input type="text" id="new_ingredient" class="form-control" placeholder="Enter new ingredient">
-                </div>
-
-                <!-- Remaining form fields -->
-                <div class="form-group">
-                    {{ ingredient_form.quantity|as_crispy_field }}
-                </div>
-                <div class="form-group">
-                    {{ ingredient_form.unit|as_crispy_field }}
-                </div>
+                
+                <button type="button" id="add-ingredient" class="btn btn-secondary">Add Ingredient</button>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         {% endif %}
@@ -52,14 +59,28 @@
 <script>
     // Handle "Add New Ingredient" Selection
     document.addEventListener("DOMContentLoaded", function() {
-        const ingredientDropdown = document.querySelector('#id_ingredient');
+        const ingredientDropdown = document.querySelector('#ingredient_dropdown');
         const newIngredientField = document.querySelector('#new_ingredient_field');
+        var ingredientForms = document.getElementById('ingredient-forms');
+        var addIngredientBtn = document.getElementById('add-ingredient');
+        var totalForms = document.getElementById('id_form-TOTAL_FORMS');
 
+        // Add a new ingredient form if the button is clicked
+        addIngredientBtn.addEventListener("click", function() {
+            var newForm = ingredientForms.children[0].cloneNode(true);
+            var formCount = parseInt(totalForms.value);
+            newForm.innerHTML = newForm.innerHTML.replace(/form-(\d)-/g, `form-${formCount}-`);
+
+            ingredientForms.appendChild(newForm);
+            totalForms.value = formCount + 1;
+        });
+
+        // Show add new ingredient field when you want to add a new ingredient otherwise hide
         ingredientDropdown.addEventListener('change', function() {
             if (this.value === 'add_new') {
-                newIngredientField.style.display = 'block';  // Show input field for new ingredient
+                newIngredientField.style.display = 'block';
             } else {
-                newIngredientField.style.display = 'none';  // Hide input field when existing ingredient is selected
+                newIngredientField.style.display = 'none';
             }
         });
 
@@ -83,9 +104,9 @@
                 .then(data => {
                     if (data.success) {
                         // Add the new ingredient to the dropdown
-                        const option = new Option(newIngredient, data.ingredient_id);
+                        const option = new Option(newIngredient, data.ingredient_pk);
                         ingredientDropdown.add(option);
-                        ingredientDropdown.value = data.ingredient_id;  // Select the newly added ingredient
+                        ingredientDropdown.value = data.ingredient_pk;
 
                         // Clear the input and hide it
                         document.querySelector('#new_ingredient').value = '';

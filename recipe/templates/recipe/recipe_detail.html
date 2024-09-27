@@ -11,7 +11,7 @@
         </div>
         <div class="col-md-6">
             <h2>{{ recipe.title }}</h2>
-            <p><strong>Author:</strong> {{ recipe.user.username }}</p>
+            <p><strong>Author:</strong> {{ recipe.author.username }}</p>
             <p><strong>Prep Time:</strong> {{ recipe.prep_time }} minutes</p>
             <p><strong>Cook Time:</strong> {{ recipe.cook_time }} minutes</p>
             <p><strong>Difficulty:</strong> {{ recipe.get_difficulty_display }}</p>
@@ -26,8 +26,8 @@
     <div class="mt-5">
         <h4>Ingredients</h4>
         <ul>
-            {% for ingredient in recipe.ingredient.all %}
-                <li>{{ ingredient.ing_name }} - {{ ingredient.quantity }} {{ ingredient.unit }}</li>
+            {% for recipe_ingredient in recipe.ingredients_in_recipe.all %}
+                <li>{{ recipe_ingredient.ingredient.name }} - {{ recipe_ingredient.quantity }} {{ recipe_ingredient.unit }}</li>
             {% endfor %}
         </ul>
     </div>
