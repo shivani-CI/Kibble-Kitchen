@@ -161,3 +161,7 @@
 .page-title {
     text-align: center;
 }
+
+.dropdown-menu {
+    max-width: 100%;  
+}

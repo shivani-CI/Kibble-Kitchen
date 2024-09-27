@@ -1,5 +1,5 @@
+from recipe.forms import RecipeForm, RecipeIngredientForm, MealPlanForm, CommentForm
 from recipe.models import Recipe, Ingredient, RecipeIngredient, MealPlan, Comment
-from recipe.forms import CommentForm, RecipeForm, RecipeIngredientForm
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -113,46 +113,46 @@ def add_ingredient(request):
     return JsonResponse({'success': False, 'error': 'No ingredient provided.'}, status=400)
 
 
-
 @login_required   
 def create_meal_plan(request):
     """
     Create a meal plan for a user (a meal plan is a collection of recipes)
     """
-    #TODO - fill this in. Either the recipes will be added in a similar way to the ingredients or a new way (maybe a calendar view)...
-    # RecipeIngredientFormSet = formset_factory(RecipeIngredientForm, extra=1)
+    if request.method == 'POST':
+        meal_plan_form = MealPlanForm(request.POST)
+        
+        if meal_plan_form.is_valid():
+            with transaction.atomic():
+                meal_plan = meal_plan_form.save(commit=False)
+                meal_plan.user = request.user
+                meal_plan.save()
+                meal_plan_form.save_m2m()
 
-    # if request.method == 'POST':
-    #     recipe_form = RecipeForm(request.POST)
-    #     recipe_ing_form_set = RecipeIngredientFormSet(request.POST)
-
-    #     if recipe_form.is_valid() and recipe_ing_form_set.is_valid():
-    #         with transaction.atomic():
-    #             recipe = recipe_form.save(commit=False)
-    #             recipe.author = request.user
-    #             recipe.save()
-
-    #             for recipe_ing_form in recipe_ing_form_set:
-    #                 ingredient = recipe_ing_form.cleaned_data.get('ingredient')
-    #                 if ingredient:
-    #                     RecipeIngredient.objects.create(
-    #                         recipe=recipe,
-    #                         ingredient=ingredient,
-    #                         quantity=recipe_ing_form.cleaned_data.get('quantity'),
-    #                         unit=recipe_ing_form.cleaned_data.get('unit')
-    #                     )
-    #             return redirect('browse_recipes')
+            return redirect('create_meal_plan')
     
-    # recipe_form = RecipeForm()
-    # recipe_ing_form_set = RecipeIngredientFormSet()
-    # ingredients = Ingredient.objects.all()
-    # context = {
-    #     'recipe_form': recipe_form,
-    #     'recipe_ingredient_formset': recipe_ing_form_set,
-    #     'all_ingredients': ingredients
-    # }
-    return render(request, 'recipe/create_meal_plan.html')
+    meal_plan_form = MealPlanForm()
+    context = {
+        'meal_plan_form': meal_plan_form
+    }
+    return render(request, 'recipe/create_meal_plan.html', context)
 
+
+class MealPlanList(generic.ListView):
+    #TODO - filter this for the logged in user.
+    queryset = MealPlan.objects.filter()
+    template_name = "recipe/browse_meal_plan.html"
+    paginate_by = 8
+
+def get_meal_plan(request, meal_plan_pk):
+    """
+    Get the meal plan details for a particular meal plan
+    """
+    meal_plan = get_object_or_404(MealPlan, id=meal_plan_pk)
+    
+    context = {
+        'meal_plan': meal_plan}
+        
+    return render(request, 'recipe/meal_plan_detail.html', context)
 
 
 @login_required
@@ -217,8 +217,3 @@ def ingredient_list(request):
     else:
         ingredients = Ingredient.objects.all().values('id', 'name')
     return JsonResponse(list(ingredients), safe=False)
-
-def get_meal_plan(request, meal_plan_pk):
-    #TODO - 
-    meal_plan = get_object_or_404(MealPlan, pk=meal_plan_pk)
-    return render(request, 'recipe/meal_plan.html', {'meal_plan': meal_plan})

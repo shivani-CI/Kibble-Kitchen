@@ -1,5 +1,15 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-<h1>Create your meal plan here</h1>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Create a Meal Plan</h1>
+    
+    <form method="POST" enctype="multipart/form-data" action="{% url 'create_meal_plan' %}">
+        {% csrf_token %}
+        {{ meal_plan_form|crispy }}
+        <button type="submit" class="btn btn-primary">Create Meal Plan</button>
+    </form>
+
+</div>
 {% endblock %}

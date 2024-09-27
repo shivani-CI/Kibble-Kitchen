@@ -1,4 +1,4 @@
-from recipe.models import Recipe, RecipeIngredient, Comment
+from recipe.models import Recipe, RecipeIngredient, MealPlan, Comment
 from django_summernote.widgets import SummernoteWidget
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
@@ -45,13 +45,26 @@ class RecipeIngredientForm(forms.ModelForm):
 
 
 class MealPlanForm(forms.ModelForm):
-    #TODO - fill this in
-    pass    
-    
+    """
+    Create a meal plan
+    """
+    start_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+    end_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+    recipes = forms.ModelMultipleChoiceField(queryset=Recipe.objects.all(),
+    widget=forms.SelectMultiple())
 
-class MealPlanRecipeForm(forms.ModelForm):
-    #TODO - fill this in
-    pass
+    def __init__(self, *args, **kwargs):
+        super(MealPlanForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.add_input(Submit('submit_meal_plan', 'Submit Meal Plan'))
+
+    class Meta:
+        model = MealPlan
+        fields = ['title', 'start_date', 'end_date', 'recipes']
+        widgets = {
+            'description': SummernoteWidget()
+        }
 
 
 class CommentForm(forms.ModelForm):

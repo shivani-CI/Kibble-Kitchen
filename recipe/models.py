@@ -108,10 +108,6 @@ class MealPlan(models.Model):
         if self.end_date and self.start_date > self.end_date:
             raise ValidationError('End date cannot be before start date.')
 
-class MealPlanRecipe(models.Model):
-    #TODO - fill this in
-    pass
-
 
 class Comment(models.Model):
     """

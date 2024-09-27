@@ -24,18 +24,22 @@
 
 </head>
 
-<body class="d-flex flex-column h-100 main-bg">
+<body class="d-flex flex-column h-100 main-bg" style="overflow-x: hidden;">
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
+
             <a class="navbar-brand" href="{% url 'home' %}">
-                <span class="brand">Kibble<span class="red">Kitchen</span></span><img scr="{% static 'images/logo.png' %}" alt="Dog Recipe Sharing and Meal Planner Logo" class="logo">
+                <span class="brand">Kibble<span class="red">Kitchen</span></span><img src="{% static 'images/logo.png' %}"
+                alt="Dog Recipe Sharing and Meal Planner Logo" class="logo" style="width: 50px; height: auto; max-width: 100%;">
             </a>
+            
             <button class="navbar-light navbar-toggler ml-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
                 aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            
             <div class="collapse navbar-collapse justify-content-end" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
@@ -53,10 +57,14 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == create_meal_plan %}active{% endif %}" aria-current="page"
-                            href="{% url 'create_meal_plan' %}">Create Meal Plan</a>
+                            href="{% url 'create_meal_plan' %}">Create Meal Plan</a>                            
                     </li>
-                    <li class="nav-item"></li>
-                        <a class="nav-link {% if request.path == logout_url %}active" aria-current="page{% endif %}" 
+                    <li class="nav-item d-block d-lg-none"></li>
+                        <a class="nav-link {% if request.path == browse_meal_plans %}active{% endif %}" aria-current="page"
+                            href="{% url 'browse_meal_plans' %}">My Meal Plan</a>                            
+                    </li>
+                    <li class="nav-item d-block d-lg-none"></li>
+                        <a class="nav-link {% if request.path == account_logout %}active" aria-current="page{% endif %}" 
                             href="{% url 'account_logout' %}">Logout</a>
                     </li>
                     {% else %}
@@ -75,6 +83,33 @@
                 </span> -->
             </div>
             
+            <div class="d-none d-lg-block">
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dro" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="padding-right: 100px;">
+                            <span><i class="fas fa-user profile-icon"></i>{{ user.username }}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'browse_meal_plans' %}">My Meal Plan</a>
+                            <a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a>
+                        </div>
+                    </li>
+                    {% else %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <span>My Account</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'account_signup' %}">Sign up</a>
+                            <a class="dropdown-item" href="{% url 'account_login' %}">Log in</a>
+                        </div>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
     </nav>
 
@@ -91,23 +126,15 @@
             </div>
         </div>
     </div>
+    
     <main class="flex-shrink-0 main-bg">
-        {% if user.is_authenticated %}
-        <p class="text-end m-3">You are logged in as {{ user }}</p>
-        {% else %}
-        <p class="text-end m-3">You are not logged in</p>
-        {% endif %}
-
         {% block content %}
-            <p>This is my default paragraph</p>
         {% endblock content %}
-        
     </main>
 
-
     <!-- Footer with Social Media Icons -->
-    <footer class="text-center mt-5 py-4" style="background-color: #f8f9fa;">
-        <div class="container">
+    <footer class="text-center mt-5 py-4" style="background-color: #8c8e91;">
+        <div class="container footer-container">
             <a href="https://facebook.com" class="me-3"><i class="fab fa-facebook fa-2x"></i></a>
             <a href="https://twitter.com" class="me-3"><i class="fab fa-twitter fa-2x"></i></a>
             <a href="https://instagram.com" class="me-3"><i class="fab fa-instagram fa-2x"></i></a>

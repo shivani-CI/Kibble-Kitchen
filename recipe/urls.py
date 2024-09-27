@@ -12,5 +12,7 @@ urlpatterns = [
     path('add_recipe/', views.create_recipe, name='add_recipe'),
     path('add_ingredient/', views.add_ingredient, name='add_ingredient'),
     path('create_meal_plan/', views.create_meal_plan, name='create_meal_plan'),
-    path('meal_plan/', views.get_meal_plan, name='get_meal_plan')
+    path('browse_meal_plans/', views.MealPlanList.as_view(), name='browse_meal_plans'),
+    path('meal_plan/<int:meal_plan_pk>/', views.get_meal_plan, name='get_meal_plan')
 ]
+

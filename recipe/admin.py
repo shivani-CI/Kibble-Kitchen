@@ -5,7 +5,7 @@ from django.contrib import admin
 
 @admin.register(Recipe)
 class RecipeAdmin(SummernoteModelAdmin):
-    list_display = ['title', 'difficulty' ,'status', 'created_at']
+    list_display = ['title', 'difficulty', 'status', 'created_at']
     search_fields = ['title', 'description']
     list_filter = ['status', 'created_at']
     summernote_fields = ['description']
@@ -21,6 +21,12 @@ class IngredientAdmin(SummernoteModelAdmin):
 class RecipeIngredientAdmin(SummernoteModelAdmin):
     list_display = ['recipe', 'ingredient', 'quantity', 'unit']
     search_fields = ['recipe', 'ingredient']
+
+
+@admin.register(MealPlan)
+class MealPlanAdmin(SummernoteModelAdmin):
+    list_display = ['title', 'start_date', 'end_date', 'created_at']
+    search_fields = ['title']
 
 
 @admin.register(Comment)

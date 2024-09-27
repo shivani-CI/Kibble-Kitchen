@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Browse Meal Plan Recipes</h1>
+        
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ meal_plan.title}}</h5>
+                    <p card-text>
+                        <strong>Title:</strong> {{ meal_plan.title }}<br>
+                    </p>
+                </div>
+            
+                <div class="mt-5">
+                <h4>Recipes</h4>
+                <ul>
+                    {% for recipe in meal_plan.recipes.all %}
+                        <li>{{ recipe.title }}</li>
+                    {% endfor %}
+                </ul>
+                </div>    
+                
+            </div>
+        </div>
+</div>
+          
+{% endblock %}
