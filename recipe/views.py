@@ -28,7 +28,7 @@ def get_recipe_detail(request, recipe_pk):
     """
     Get the recipe details for a particular recipe
     """
-    recipe = get_object_or_404(Recipe, id=recipe_pk)
+    recipe = get_object_or_404(Recipe, pk=recipe_pk)
     comments = recipe.comments_on_recipe.all().order_by('-created_at')
     comment_count = comments.filter(approved=True).count()
     comment_form = CommentForm()
@@ -59,14 +59,22 @@ def get_recipe_detail(request, recipe_pk):
     return render(request, 'recipe/recipe_detail.html', context)
 
 @login_required   
-def create_recipe(request):
+def create_or_update_recipe(request, recipe_pk=None):
     """
     Take the user input-ed recipe and save it to the database
     """
     RecipeIngredientFormSet = formset_factory(RecipeIngredientForm, extra=1)
 
+    # If there is a recipe_pk then update or else create a new recipe
+    if recipe_pk:
+        recipe = get_object_or_404(Recipe, pk=recipe_pk)
+        is_update = True
+    else:
+        recipe = None
+        is_update = False
+
     if request.method == 'POST':
-        recipe_form = RecipeForm(request.POST, request.FILES)
+        recipe_form = RecipeForm(request.POST, request.FILES, instance=recipe)
         recipe_ing_form_set = RecipeIngredientFormSet(request.POST)
 
         if recipe_form.is_valid() and recipe_ing_form_set.is_valid():
@@ -74,6 +82,9 @@ def create_recipe(request):
                 recipe = recipe_form.save(commit=False)
                 recipe.author = request.user
                 recipe.save()
+
+                if is_update:
+                    recipe.ingredients.clear()
 
                 for recipe_ing_form in recipe_ing_form_set:
                     ingredient = recipe_ing_form.cleaned_data.get('ingredient')
@@ -84,17 +95,41 @@ def create_recipe(request):
                             quantity=recipe_ing_form.cleaned_data.get('quantity'),
                             unit=recipe_ing_form.cleaned_data.get('unit')
                         )
+                
+                messages.add_message(
+                    request, messages.SUCCESS,
+                    'Your recipe has been saved!'
+                )
                 return redirect('browse_recipes')
+        else:
+            # Print form errors for debugging
+            print('Recipe Form Errors:', recipe_form.errors)
+            print('Recipe Ingredient Formset Errors:', recipe_ing_form_set.errors)
     
-    recipe_form = RecipeForm()
-    recipe_ing_form_set = RecipeIngredientFormSet()
+    recipe_form = RecipeForm(instance=recipe)
+    if is_update:
+        initial_ingredients = [
+                {'ingredient': recipe.ingredient,
+                 'quantity': recipe.quantity,
+                 'unit': recipe.unit}
+            for recipe in recipe.ingredients_in_recipe.all()
+            ]
+        recipe_ing_form_set = RecipeIngredientFormSet(initial=initial_ingredients)
+    else:
+        recipe_ing_form_set = RecipeIngredientFormSet()
     ingredients = Ingredient.objects.all()
     context = {
         'recipe_form': recipe_form,
         'recipe_ingredient_formset': recipe_ing_form_set,
-        'all_ingredients': ingredients
+        'all_ingredients': ingredients,
+        'recipe': recipe,
+        'is_update': is_update
     }
     return render(request, 'recipe/add_recipe.html', context)
+
+@login_required
+def delete_recipe(request, recipe_pk):
+    pass
 
 @require_POST
 def add_ingredient(request):
@@ -109,7 +144,7 @@ def add_ingredient(request):
 
         return JsonResponse({
             'success': True,
-            'ingredient_pk': ingredient.id
+            'ingredient_pk': ingredient.pk
         })
 
     return JsonResponse({'success': False, 'error': 'No ingredient provided.'}, status=400)
@@ -149,7 +184,7 @@ def get_meal_plan(request, meal_plan_pk):
     """
     Get the meal plan details for a particular meal plan
     """
-    meal_plan = get_object_or_404(MealPlan, id=meal_plan_pk)
+    meal_plan = get_object_or_404(MealPlan, pk=meal_plan_pk)
     
     context = {
         'meal_plan': meal_plan}
@@ -215,7 +250,7 @@ def recipe_search(request):
 def ingredient_list(request):
     query = request.GET.get('q', '')
     if query:
-        ingredients = Ingredient.objects.filter(name__icontains=query).values('id', 'name')
+        ingredients = Ingredient.objects.filter(name__icontains=query).values('pk', 'name')
     else:
-        ingredients = Ingredient.objects.all().values('id', 'name')
+        ingredients = Ingredient.objects.all().values('pk', 'name')
     return JsonResponse(list(ingredients), safe=False)

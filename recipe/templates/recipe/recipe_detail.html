@@ -19,6 +19,11 @@
             <!-- Buttons for Add to Meal Plan and Favourite Bookmark -->
             <button class="btn btn-primary me-3">Add to Meal Plan</button>
             <button class="btn btn-outline-secondary"><i class="fas fa-bookmark"></i> Add to Favourites</button>
+
+            {% if user == recipe.author %}
+            <a href="{% url 'edit_recipe' recipe.id %}" class="btn btn-primary">Edit Recipe</a>
+            {% endif %}
+
         </div>
     </div>
 

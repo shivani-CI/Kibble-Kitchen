@@ -21,6 +21,14 @@ class RecipeForm(forms.ModelForm):
         widgets = {
             'description': SummernoteWidget()
         }
+    
+    def clean_title(self):
+        title = self.cleaned_data.get('title')
+        print(f'Within form class - {self.instance.pk} pk of recipe')
+
+        if Recipe.objects.filter(title=title).exclude(pk=self.instance.pk).exists():
+            raise forms.ValidationError('A recipe with this title already exists. Please choose a different title.')
+        return title
 
 
 class RecipeIngredientForm(forms.ModelForm):

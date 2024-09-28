@@ -3,7 +3,12 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h2 class="page-title">Add Recipe</h2>
+    {% if is_update %}
+    <h2 class="page-title">Edit Recipe</h2>
+    {% else %}
+    <h2 class="page-title">Create New Recipe</h2>
+    {% endif %}
+
     <hr class="break">
     <br>
     <div class="row justify-content-center ">
@@ -12,7 +17,12 @@
         <div class="col-11 col-md-8 col-lg-6 mt-3 add-recipe-outer">
 
             <!--  Add Recipe Form -->
+            {% if is_update %}
+            <form method="POST" enctype="multipart/form-data" action="{% url 'edit_recipe' recipe.id %}">
+            {% else %}
             <form method="POST" enctype="multipart/form-data" action="{% url 'add_recipe' %}">
+            {% endif %}
+
                 {% csrf_token %}
                 {{ recipe_form|crispy }}            
                 <h2>Ingredients</h2>            
