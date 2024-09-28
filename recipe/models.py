@@ -100,6 +100,11 @@ class MealPlan(models.Model):
     recipes = models.ManyToManyField(Recipe)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def meal_plan_length(self):
+        if self.end_date:
+            return (self.end_date - self.start_date).days
+        return None
    
     def __str__(self):
         return f'{self.title} - ({self.start_date} - {self.end_date})'

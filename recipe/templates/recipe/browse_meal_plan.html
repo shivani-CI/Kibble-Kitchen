@@ -9,7 +9,10 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ meal_plan.title}}</h5>
                             <p card-text>
-                                <strong>Title:</strong> {{ meal_plan.title }}<br>
+                                <strong>Recipe count:</strong> {{ meal_plan.recipes.count }}<br>
+                                <strong>Meal Plan length:</strong> {{ meal_plan.meal_plan_length }} days<br>
+                                <strong>Created date:</strong> {{ meal_plan.created_at }}<br>
+                                <strong>Updated date:</strong> {{ meal_plan.updated_at }}<br>
                             </p>
                         </div>
                     </div>

@@ -3,6 +3,7 @@ from recipe.models import Recipe, Ingredient, RecipeIngredient, MealPlan, Commen
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.views.decorators.http import require_POST
 from django.core.paginator import Paginator
@@ -183,11 +184,12 @@ def create_meal_plan(request):
     return render(request, 'recipe/create_meal_plan.html', context)
 
 
-class MealPlanList(generic.ListView):
-    #TODO - filter this for the logged in user.
-    queryset = MealPlan.objects.filter()
+class MealPlanList(LoginRequiredMixin, generic.ListView):
     template_name = "recipe/browse_meal_plan.html"
     paginate_by = 8
+
+    def get_queryset(self):
+        return MealPlan.objects.filter(user=self.request.user)
 
 def get_meal_plan(request, meal_plan_pk):
     """
