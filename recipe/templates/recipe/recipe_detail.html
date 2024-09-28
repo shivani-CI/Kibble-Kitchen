@@ -6,8 +6,12 @@
 <div class="container mt-5">
     <!-- First Container: Recipe Image and Basic Info -->
     <div class="row">
-        <div class="col-md-6">
-            <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="img-fluid" style="max-height: 400px;">
+        <div class="col-md-6 image-container">
+            {% if "placeholder" in recipe.image.url %}
+            <img class="card-img-top" src="{% static 'images/default.png' %}" alt="placeholder image">
+            {% else %}
+            <img class="card-img-top" src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+            {% endif %}
         </div>
         <div class="col-md-6">
             <h2>{{ recipe.title }}</h2>
@@ -16,9 +20,9 @@
             <p><strong>Cook Time:</strong> {{ recipe.cook_time }} minutes</p>
             <p><strong>Difficulty:</strong> {{ recipe.get_difficulty_display }}</p>
             <p><strong>Serves:</strong> {{ recipe.serves }}</p>
+            
             <!-- Buttons for Add to Meal Plan and Favourite Bookmark -->
             <button class="btn btn-primary me-3">Add to Meal Plan</button>
-            <button class="btn btn-outline-secondary"><i class="fas fa-bookmark"></i> Add to Favourites</button>
 
             {% if user == recipe.author %}
             <a href="{% url 'edit_recipe' recipe.id %}" class="btn btn-primary">Edit Recipe</a>
@@ -35,15 +39,16 @@
         <h4>Ingredients</h4>
         <ul>
             {% for recipe_ingredient in recipe.ingredients_in_recipe.all %}
-                <li>{{ recipe_ingredient.ingredient.name }} - {{ recipe_ingredient.quantity }} {{ recipe_ingredient.unit }}</li>
+                <li>{{ recipe_ingredient.ingredient.name }} - {{ recipe_ingredient.quantity }} {{ recipe_ingredient.get_unit_display }}</li>
             {% endfor %}
         </ul>
     </div>
 
     <!-- Third Container: Recipe Instructions -->
     <div class="mt-5">
-        <h4>Description</h4>
+        <h4>Method</h4>
         <div class="card-body">
+            <!-- TODO - should clean the recipe description prior to saving-->
             <p class="card-text">{{ recipe.description | safe }}</p>
         </div>
     </div>

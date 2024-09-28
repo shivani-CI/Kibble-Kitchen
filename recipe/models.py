@@ -84,7 +84,7 @@ class RecipeIngredient(models.Model):
     unit = models.CharField(max_length=200, choices=UNIT_CHOICES)
 
     def __str__(self):
-        return f'{self.quantity} {self.unit} of {self.ingredient.name} in {self.recipe.title}'
+        return f'{self.quantity} {self.get_unit_display()} of {self.ingredient.name} in {self.recipe.title}'
 
 
 class MealPlan(models.Model):
