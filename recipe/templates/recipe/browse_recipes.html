@@ -1,26 +1,31 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-
 <div class="container mt-4">
     <h1 class="text-center mb-4">Browse Recipes</h1>
     <div class="row">
         {% for recipe in recipe_list %}
         <div class="col-md-6 col-lg-4 mb-4">
             <div class="card h-100 shadow-sm">
-                <!-- Recipe Image -->
-                {% if recipe.image %}
-                    <img src="{{ recipe.image.url }}" class="card-img-top img-fluid" alt="{{ recipe.title }}">
-                {% else %}
-                    <img src="https://via.placeholder.com/300x200" class="card-img-top img-fluid" alt="No Image Available">
-                {% endif %}
+                <div class="image-container">
+                    <!-- Recipe Image -->
+                    {% if "placeholder" in recipe.image.url %}
+                    <img class="card-img-top" src="{% static 'images/default.png' %}" alt="placeholder image">
+                    {% else %}
+                    <img class="card-img-top" src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+                    {% endif %}
+                    <div class="image-flash">
+                        <p class="author">Author: {{ recipe.author.username }}</p>
+                    </div>
+                </div>
                 
                 <!-- Recipe detail-->
                 <div class="card-body">
                     <h5 class="card-title">{{ recipe.title}}</h5>
                     <p card-text>
                         <strong>Cook Time:</strong> {{ recipe.total_time }} minutes<br>
-                        <strong>Author:</strong> {{ recipe.author.username }}<br>
+                        <strong>Created Date:</strong> {{ recipe.created_at }}<br>
                     </p>
                 </div>
 
@@ -32,20 +37,50 @@
         </div>
         {% endfor %}
     </div>
+
+    <!-- Page Counter  Can delete if not wanted...-->
+    <div class="pagination mt-4">
+        <p>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</p>
+    </div>
            
-    <!-- Pagination -->
-    {% if is_paginated %}
+    <!-- Pagination Links -->
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
             {% if page_obj.has_previous %}
-            <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="?page=1" aria-label="First">
+                        <span aria-hidden="true">&laquo;&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
             {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                {% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'2' %}
+                    <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+
             {% if page_obj.has_next %}
-            <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
+                        <span aria-hidden="true">&raquo;&raquo;</span>
+                    </a>
+                </li>
             {% endif %}
         </ul>
     </nav>
-    {% endif %}
 </div>
 
 {% endblock %}

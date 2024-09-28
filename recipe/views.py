@@ -18,9 +18,11 @@ def home_view(request):
     return render(request, 'recipe/index.html')
 
 class RecipeList(generic.ListView):
+    model = Recipe
     queryset = Recipe.objects.filter(status=1)
     template_name = "recipe/browse_recipes.html"
     paginate_by = 6
+
 
 def get_recipe_detail(request, recipe_pk):
     """
@@ -64,7 +66,7 @@ def create_recipe(request):
     RecipeIngredientFormSet = formset_factory(RecipeIngredientForm, extra=1)
 
     if request.method == 'POST':
-        recipe_form = RecipeForm(request.POST)
+        recipe_form = RecipeForm(request.POST, request.FILES)
         recipe_ing_form_set = RecipeIngredientFormSet(request.POST)
 
         if recipe_form.is_valid() and recipe_ing_form_set.is_valid():
