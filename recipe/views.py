@@ -129,7 +129,16 @@ def create_or_update_recipe(request, recipe_pk=None):
 
 @login_required
 def delete_recipe(request, recipe_pk):
-    pass
+    """
+    Delete a recipe
+    """
+    recipe = get_object_or_404(Recipe, pk=recipe_pk)
+    
+    if request.method == 'DELETE':
+        recipe.delete()
+        return JsonResponse({'success': True, 'message': 'Recipe deleted successfully.'})
+    
+    return JsonResponse({'success': False, 'message': 'Invalid request method.'}, status=400)
 
 @require_POST
 def add_ingredient(request):
