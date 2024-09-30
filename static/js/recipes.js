@@ -1,6 +1,6 @@
 const editButtons = document.getElementsByClassName("btn-edit");
 const recipeText = document.getElementById("id_description");
-const recipeForm = document.getElementById("RecipeForm");
+const recipeForm = document.getElementById("recipeForm");
 const submitButton = document.getElementById("submitButton");
 
 const deleteModal = new bootstrap.Modal(document.getElementById("deleteModal"));

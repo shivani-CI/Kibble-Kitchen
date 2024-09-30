@@ -8,6 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.decorators.http import require_POST
 from django.core.paginator import Paginator
 from django.forms import formset_factory
+from .utils import get_nutrition_info
 from django.contrib import messages
 from django.db import transaction
 from django.views import generic
@@ -24,13 +25,29 @@ class RecipeList(generic.ListView):
     template_name = "recipe/browse_recipes.html"
     paginate_by = 6
 
+def get_recipe_nutrition_info(recipe):
+    """
+    Uncomment the above and comment the below when you want to get actual data
+    This is done to avoid monthly API limits
+    """
+    # recipe_ingredients = [
+    #     f'{recipe_ing.quantity}{recipe_ing.unit} {recipe_ing.ingredient.name}'
+    #     for recipe_ing in recipe.ingredients_in_recipe.all()]
+    # total_nutrition = get_nutrition_info(recipe.title, recipe_ingredients)
+    total_nutrition = {
+    'calories': 500.56462465465464,
+    'protein': 150,
+    'fat': 14,
+    'carbs': 18,
+    'fiber': 7.9
+    }
+    return total_nutrition
 
-def get_recipe_detail(request, recipe_pk):
+def handle_comments(request, recipe_instance):
     """
-    Get the recipe details for a particular recipe
+    Can handle comments for recipe instances
     """
-    recipe = get_object_or_404(Recipe, pk=recipe_pk)
-    comments = recipe.comments_on_recipe.all().order_by('-created_at')
+    comments = recipe_instance.comments_on_recipe.all().order_by('-created_at')
     comment_count = comments.filter(approved=True).count()
     comment_form = CommentForm()
 
@@ -51,11 +68,25 @@ def get_recipe_detail(request, recipe_pk):
                 'There was an error submitting your comment. Please try again.'
             )
     
-    context = {
-        'recipe': recipe,
+    comment_context = {
         'comments': comments,
         'comment_count': comment_count,
-        'comment_form': comment_form,
+        'comment_form': comment_form
+    }
+    return comment_context
+
+def get_recipe_detail(request, recipe_pk):
+    """
+    Display details of a recipe, including comments and aggregated nutritional information for the entire recipe.
+    """
+    recipe = get_object_or_404(Recipe, pk=recipe_pk)
+    total_nutrition = get_recipe_nutrition_info(recipe)
+    comment_context = handle_comments(request, recipe)
+
+    context = {
+        'recipe': recipe,
+        **total_nutrition,
+        **comment_context
     }
     return render(request, 'recipe/recipe_detail.html', context)
 
@@ -104,8 +135,11 @@ def create_or_update_recipe(request, recipe_pk=None):
                 return redirect('browse_recipes')
         else:
             # Print form errors for debugging
-            print('Recipe Form Errors:', recipe_form.errors)
-            print('Recipe Ingredient Formset Errors:', recipe_ing_form_set.errors)
+            messages.add_message(
+                    request, messages.ERROR,
+                    'Your recipe is not saved!', (recipe_form.errors, recipe_ing_form_set.errors)  
+                )
+            
     
     recipe_form = RecipeForm(instance=recipe)
     if is_update:

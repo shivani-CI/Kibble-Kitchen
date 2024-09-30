@@ -102,9 +102,9 @@ class MealPlan(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def meal_plan_length(self):
-        if self.end_date:
+        if self.end_date and self.start_date:
             return (self.end_date - self.start_date).days
-        return None
+        return 0
    
     def __str__(self):
         return f'{self.title} - ({self.start_date} - {self.end_date})'

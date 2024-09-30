@@ -40,8 +40,8 @@
         <ul>
             {% for recipe_ingredient in recipe.ingredients_in_recipe.all %}
                 <li>{{ recipe_ingredient.ingredient.name }} - {{ recipe_ingredient.quantity }} {{ recipe_ingredient.get_unit_display }}</li>
-            {% endfor %}
-        </ul>
+            {% endfor %}            
+        </ul>        
     </div>
 
     <!-- Third Container: Recipe Instructions -->
@@ -50,7 +50,19 @@
         <div class="card-body">
             <!-- TODO - should clean the recipe description prior to saving-->
             <p class="card-text">{{ recipe.description | safe }}</p>
+        </div>        
+        
+        <div class="nutrition-info">
+            <h4>Nutrition Information</h4>
+            <ul>
+                <li>Calories: {{ calories| floatformat:2 }} kcal</li>
+                <li>Protein: {{ protein| floatformat:2 }} g</li>
+                <li>Fat: {{ fat| floatformat:2 }} g</li>
+                <li>Carbohydrates: {{ carbs| floatformat:2 }} g</li>
+                <li>Fiber: {{ fiber| floatformat:2 }} g</li>
+            </ul>
         </div>
+
     </div>
 
     <!-- Fourth Container: Comments Section -->

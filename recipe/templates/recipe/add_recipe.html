@@ -52,6 +52,11 @@
                                 <!-- Remaining form fields -->
                                 <div class="form-group col-md-3">{{ recipe_ing_form.quantity|as_crispy_field }}</div>
                                 <div class="form-group col-md-2">{{ recipe_ing_form.unit|as_crispy_field }}</div>
+
+                                <!-- Remove Button -->
+                                <div class="form-group col-md-12">
+                                    <button type="button" class="btn btn-danger remove-ingredient" data-form-id="ingredient-form-{{ forloop.counter0 }}">Remove Ingredient</button>
+                                </div>
                             </div>
                         {% endfor %}
                     </div>
@@ -70,6 +75,7 @@
     document.addEventListener("DOMContentLoaded", function() {
         const ingredientDropdown = document.querySelector('#ingredient_dropdown');
         const newIngredientField = document.querySelector('#new_ingredient_field');
+        const ingredientFormsDiv = document.querySelector("#ingredient-forms");
         var ingredientForms = document.getElementById('ingredient-forms');
         var addIngredientBtn = document.getElementById('add-ingredient');
         var totalForms = document.getElementById('id_form-TOTAL_FORMS');
@@ -92,6 +98,19 @@
                 newIngredientField.style.display = 'none';
             }
         });
+
+        // Function to remove an ingredient form
+        ingredientFormsDiv.addEventListener("click", function(event) {
+            if (event.target.classList.contains('remove-ingredient')) {
+                const formId = event.target.getAttribute('data-form-id');
+                const formElement = document.getElementById(formId);
+
+                if (formElement) {
+                    formElement.remove();
+                }
+            }
+        });
+
 
         // Automatically add the new ingredient when user finishes entering
         document.querySelector('#new_ingredient').addEventListener('blur', function() {

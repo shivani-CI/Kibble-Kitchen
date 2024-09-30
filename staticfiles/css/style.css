@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Eb+Garamond:wght@400;500;600&family=Roboto:wght@300;400;500&display=swap');
 
+
 .brand {
     font-family: Lato, sans-serif;
     font-size: 1.4rem;
@@ -164,4 +165,38 @@
 
 .dropdown-menu {
     max-width: 100%;  
+}
+
+/* Meal plan list */
+.meal-plan-card {
+    border: 1px solid #e2c7c7;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.meal-plan-card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header {
+    border-radius: 10px 10px 0 0;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-title {
+    font-size: 1.5rem;
+}
+
+.btn-outline-primary {
+    border-radius: 20px;
+    transition: background-color 0.2s;
+}
+
+.btn-outline-primary:hover {
+    background-color: #00ffff;
+    color: white;
 }
