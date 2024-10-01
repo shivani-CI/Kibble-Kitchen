@@ -2,8 +2,11 @@ import requests
 import logging
 import sys
 import os
-sys.path.append(os.path.abspath('/workspace/Kibble-Kitchen'))
-import env
+try:
+    sys.path.append(os.path.abspath('/workspace/Kibble-Kitchen'))
+    import env
+except ModuleNotFoundError:
+    pass
 
 logging.basicConfig(level=logging.INFO)
 NUTRIENTS_OF_INTEREST = ['calories', 'protein', 'fat', 'carbs', 'fiber']
