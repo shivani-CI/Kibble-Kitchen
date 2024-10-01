@@ -49,14 +49,13 @@ def handle_comments(request, recipe_instance):
     """
     comments = recipe_instance.comments_on_recipe.all().order_by('-created_at')
     comment_count = comments.filter(approved=True).count()
-    comment_form = CommentForm()
 
     if request.method == "POST":
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
             comment.user = request.user
-            comment.recipe = recipe
+            comment.recipe = recipe_instance
             comment.save()
             messages.add_message(
                 request, messages.SUCCESS,
@@ -68,6 +67,7 @@ def handle_comments(request, recipe_instance):
                 'There was an error submitting your comment. Please try again.'
             )
     
+    comment_form = CommentForm()
     comment_context = {
         'comments': comments,
         'comment_count': comment_count,
@@ -134,10 +134,14 @@ def create_or_update_recipe(request, recipe_pk=None):
                 )
                 return redirect('browse_recipes')
         else:
-            # Print form errors for debugging
+            # TODO - these errors are not informative
+            if not recipe_form.is_valid():
+                form_error = str(recipe_form.errors)
+            else:
+                form_error = str(recipe_ing_form_set.errors)
             messages.add_message(
                     request, messages.ERROR,
-                    'Your recipe is not saved!', (recipe_form.errors, recipe_ing_form_set.errors)  
+                    f'Your recipe is not saved! - {form_error}'
                 )
             
     
@@ -232,10 +236,8 @@ def get_meal_plan(request, meal_plan_pk):
     meal_plan = get_object_or_404(MealPlan, pk=meal_plan_pk)
     
     context = {
-        'meal_plan': meal_plan}
-        
+        'meal_plan': meal_plan}        
     return render(request, 'recipe/meal_plan_detail.html', context)
-
 
 @login_required
 @require_POST
@@ -243,6 +245,9 @@ def edit_comment(request, recipe_pk, comment_pk):
     """
     Edit existing comment
     """
+    #TODO - edit comment is creating new comments (also when approved in admin)
+    ## both the edit and delete comment buttons dont work atm
+
     recipe = get_object_or_404(Recipe, pk=recipe_pk)
     comment = get_object_or_404(Comment, pk=comment_pk)
     comment_form = CommentForm(data=request.POST, instance=comment)

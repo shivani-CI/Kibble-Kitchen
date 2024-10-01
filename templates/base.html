@@ -32,8 +32,7 @@
         <div class="container-fluid">
 
             <a class="navbar-brand" href="{% url 'home' %}">
-                <span class="brand">Kibble<span class="red">Kitchen</span></span><img src="{% static 'images/logo.png' %}"
-                alt="Dog Recipe Sharing and Meal Planner Logo" class="logo" style="width: 50px; height: auto; max-width: 100%;">
+                <img src="{% static 'images/logo.jpg' %}" alt="Dog Recipe Sharing and Meal Planner Logo" class="logo" style="width: 200px; height: auto; max-width: 100%;">
             </a>
             
             <button class="navbar-light navbar-toggler ml-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -73,7 +72,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dro" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false" style="padding-right: 100px;">
-                            <span><i class="fas fa-user profile-icon" style="padding-right: 5px"></i>{{ user.username }}</span>
+                            <span><i class="fas fa-user profile-icon" style="padding-right: 5px; color: #9b0702;"></i>{{ user.username }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{% url 'browse_meal_plans' %}">My Meal Plans</a>
@@ -117,8 +116,9 @@
     </main>
 
     <!-- Footer with Social Media Icons -->
-    <footer class="text-center mt-5 py-4" style="background-color: #8c8e91;">
-        <div class="container footer-container">
+    <footer class="text-center mt-5 py-4" style="background-color: #960f0f;">
+        <div class="container footer-container social-icons">
+            <h5>Follow us on social media:</h5>
             <a href="https://facebook.com" class="me-3"><i class="fab fa-facebook fa-2x"></i></a>
             <a href="https://twitter.com" class="me-3"><i class="fab fa-twitter fa-2x"></i></a>
             <a href="https://instagram.com" class="me-3"><i class="fab fa-instagram fa-2x"></i></a>
