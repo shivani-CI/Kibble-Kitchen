@@ -3,12 +3,12 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="container mt-5">
+<div class="container mt-5 pt-5">
     <!-- First Container: Recipe Image and Basic Info -->
     <div class="row">
         <div class="col-md-6 image-container">
             {% if "placeholder" in recipe.image.url %}
-            <img class="card-img-top" src="{% static 'images/default.png' %}; position: relative;" alt="placeholder image">
+            <img class="card-img-top" src="{% static 'images/default.png' %}" style="position: relative; border-radius: 10px;" alt="placeholder image">
             {% else %}
             <img class="card-img-top" src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
             {% endif %}

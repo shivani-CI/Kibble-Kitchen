@@ -11,10 +11,10 @@
     background-color: #fff;
 }
 
-.card {
+/* .card {
     border: none;
     background-color: transparent;
-}
+} */
 
 .image-container {
     position: relative;
@@ -34,7 +34,7 @@
     text-transform: uppercase;
 }
 
-.text-center{
+.text-center {
     color: #860a05;
     font-family: 'Georgia', serif;
 }
@@ -44,46 +44,8 @@ p {
     font-family: 'Georgia', serif;
 }
 
-/* .masthead {
-    margin-top: 10px;
-    overflow: hidden;
-    position: relative;
-    display: inline-block;
-    height: 33vh;
-    width: 100%;
-}
 
-.masthead-text {
-    background-color: #445261;
-    color: white;
-    position: relative;
-}
-
-.masthead-image {
-    position: relative;
-    overflow: hidden;
-}
-
-.masthead-image:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 90%;
-    height: 100%;
-    width: 150%;
-    background: #445261;
-    -webkit-transform: skew(15deg);
-    -moz-transform: skew(15deg);
-    transform: skew(15deg);
-    z-index: 100;
-} */
-
-/* .recipe-link {
-    text-decoration: none;
-    color: #445261;
-} */
-
-/* .recipe-link:hover, */
+/* Buttons and link */
 .page-link {
     color: #E84610;
 }
@@ -103,16 +65,22 @@ p {
     border-radius: 12px;
 }
 
+.btn-delete {
+    color: #fff;
+    background: #960f0f;
+}
+
 .btn-signup,
 .btn-edit {
-    background-color: #860a05;
+    background-color: #c69c6d;
     color: #fff;
 }
 
 .btn-signup:hover,
-.btn-signup:active {
-    background-color: #fff;
-    color: #23BBBB;
+.btn-signup:active,
+.btn-secondary:hover {
+    background-color: #960f0f;
+    color: #fff;
 }
 
 .link {
@@ -125,24 +93,6 @@ p {
     color: #23BBBB;
     text-decoration: underline;
 }
-
-/* .btn-like {
-    color: #E84610;
-    border: none;
-    background: transparent;
-} */
-
-.btn-delete {
-    color: #fff;
-    background: #960f0f;
-}
-
-/* .btn-like:hover,
-.btn-like:active {
-    color: #E84610;
-    background: transparent;
-    border: none;
-} */
 
 .faded {
     color: rgb(172, 175, 175);
@@ -160,6 +110,7 @@ p {
 
 .navbar {
     padding: 1rem 1rem;
+    color: #ffffff;
 }
 
 .navbar ul a {
@@ -177,6 +128,10 @@ p {
     font-size: large;
 }
 
+.bg-light {
+    background-color: #ffffff;
+}
+
 /* Hero image */
 
 .hero-text {
@@ -187,6 +142,26 @@ p {
     margin: 0;
 }
 
+/* Meal Plan */
+
+.content-wrapper {
+    min-height: calc(100vh - 100px); 
+}
+
+.bg-secondary {
+    background-color: #860a05;
+}
+
+.card-header {
+    background-color: #860a05;
+}
+
+.card-title {
+    color: #111213;
+    font-family: 'Georgia', serif;
+    font-weight: 600;
+}
+
 /* Footer */
 
 footer{
@@ -195,6 +170,14 @@ footer{
     text-align: center;
     color: #ffffff;
     font-family: 'Georgia', sans-serif;
+    height: 100px; /* Adjust for your footer height */
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer-container {
+    min-height: 10vh;
 }
 
 h5 {

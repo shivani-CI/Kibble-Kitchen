@@ -2,14 +2,16 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="container mt-5">
-    <h1 class="text-center mb-4">Create a Meal Plan</h1>
-    
-    <form method="POST" enctype="multipart/form-data" action="{% url 'create_meal_plan' %}">
-        {% csrf_token %}
-        {{ meal_plan_form|crispy }}
-        <button type="submit" class="btn btn-primary">Create Meal Plan</button>
-    </form>
+<div class="content-wrapper" style="background: linear-gradient(to bottom right, #8ee7e0, #9cd2e6);width: 100%; height: 100%; border-radius: 10px;">
+    <div class="container mt-5" style="padding-top: 70px;">
+        <h1 class="text-center mb-4">Create a Meal Plan</h1>
+        
+        <form method="POST" enctype="multipart/form-data" action="{% url 'create_meal_plan' %}">
+            {% csrf_token %}
+            {{ meal_plan_form|crispy }}
+            <button type="submit" class="btn btn-secondary">Create Meal Plan</button>
+        </form>
 
-</div>
+    </div>
+</div>>
 {% endblock %}

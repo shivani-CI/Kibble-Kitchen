@@ -1,77 +1,72 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load crispy_forms_tags %}
 
 {% block content %}
-<!-- Full-screen background image with text overlay -->
-<div class="background-image" style="background-image: url('/static/images/background.jpg'); background-size: cover; height: 100%; position: relative; margin-top: 0;">
+<!-- Page title -->
+<div class="container mt-5" style="background: linear-gradient(to bottom right, #8ee7e0, #9cd2e6); width: 100%; height: auto; border-radius: 10px;">
+    {% if is_update %}
+    <h2 class="page-title">Edit Recipe</h2>
+    {% else %}
+    <h2 class="page-title">Create New Recipe</h2>
+    {% endif %}
+    <hr class="break">
+    <div class="row justify-content-center ">
+        {% if user.is_authenticated %}
+        {% load cloudinary %}
+        <div class="col-11 col-md-8 col-lg-6 mt-3 add-recipe-outer">
 
-    <!-- Page title -->
-    <div class="container mt-5">
-        {% if is_update %}
-        <h2 class="page-title">Edit Recipe</h2>
-        {% else %}
-        <h2 class="page-title">Create New Recipe</h2>
-        {% endif %}
-        <hr class="break">
-        <div class="row justify-content-center ">
-            {% if user.is_authenticated %}
-            {% load cloudinary %}
-            <div class="col-11 col-md-8 col-lg-6 mt-3 add-recipe-outer">
-
-                <!--  Add Recipe Form -->
-                {% if is_update %}
-                <form method="POST" enctype="multipart/form-data" action="{% url 'edit_recipe' recipe.id %}">
-                {% else %}
-                <form method="POST" enctype="multipart/form-data" action="{% url 'add_recipe' %}">
-                {% endif %}
-
-                    {% csrf_token %}
-                    {{ recipe_form|crispy }}            
-                    <h2>Ingredients</h2>            
-                    
-                    <!-- Ingredient Dropdown with 'Add New Ingredient' Option -->
-                    <div id="ingredient-formset">
-                        {{ recipe_ingredient_formset.management_form }}
-                        <div id="ingredient-forms">
-                            {% for recipe_ing_form in recipe_ingredient_formset %}
-                                <div class="ingredient-form form-row align-items-end mb-2">
-                                    <div class="form-group col-md-4">
-                                        <label for="ingredient_dropdown">Select Ingredient</label>
-                                        <select id="ingredient_dropdown" name="{{ recipe_ing_form.prefix }}-ingredient" class="form-control">
-                                            {% for ingredient in all_ingredients %}
-                                                <option value="{{ ingredient.id }}">{{ ingredient.name }}</option>
-                                            {% endfor %}
-                                            <option value="add_new">Add New Ingredient</option>
-                                        </select>
-                                    </div>
-                    
-                                    <!-- New Ingredient Input (Hidden initially) -->
-                                    <div class="form-group col-md-4" id="new_ingredient_field" style="display: none;">
-                                        <label for="new_ingredient">New Ingredient</label>
-                                        <input type="text" id="new_ingredient" class="form-control" placeholder="Enter new ingredient">
-                                    </div>
-                    
-                                    <!-- Remaining form fields -->
-                                    <div class="form-group col-md-3">{{ recipe_ing_form.quantity|as_crispy_field }}</div>
-                                    <div class="form-group col-md-2">{{ recipe_ing_form.unit|as_crispy_field }}</div>
-
-                                    <!-- Remove Button -->
-                                    <div class="form-group col-md-12">
-                                        <button type="button" class="btn btn-danger remove-ingredient" data-form-id="ingredient-form-{{ forloop.counter0 }}">Remove Ingredient</button>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                    
-                    <button type="button" id="add-ingredient" class="btn btn-secondary">Add Ingredient</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+            <!--  Add Recipe Form -->
+            {% if is_update %}
+            <form method="POST" enctype="multipart/form-data" action="{% url 'edit_recipe' recipe.id %}">
+            {% else %}
+            <form method="POST" enctype="multipart/form-data" action="{% url 'add_recipe' %}">
             {% endif %}
-            </div>
+
+                {% csrf_token %}
+                {{ recipe_form|crispy }}            
+                <h2>Ingredients</h2>            
+                
+                <!-- Ingredient Dropdown with 'Add New Ingredient' Option -->
+                <div id="ingredient-formset">
+                    {{ recipe_ingredient_formset.management_form }}
+                    <div id="ingredient-forms">
+                        {% for recipe_ing_form in recipe_ingredient_formset %}
+                            <div class="ingredient-form form-row align-items-end mb-2">
+                                <div class="form-group col-md-4">
+                                    <label for="ingredient_dropdown">Select Ingredient</label>
+                                    <select id="ingredient_dropdown" name="{{ recipe_ing_form.prefix }}-ingredient" class="form-control">
+                                        {% for ingredient in all_ingredients %}
+                                            <option value="{{ ingredient.id }}">{{ ingredient.name }}</option>
+                                        {% endfor %}
+                                        <option value="add_new">Add New Ingredient</option>
+                                    </select>
+                                </div>
+                
+                                <!-- New Ingredient Input (Hidden initially) -->
+                                <div class="form-group col-md-4" id="new_ingredient_field" style="display: none;">
+                                    <label for="new_ingredient">New Ingredient</label>
+                                    <input type="text" id="new_ingredient" class="form-control" placeholder="Enter new ingredient">
+                                </div>
+                
+                                <!-- Remaining form fields -->
+                                <div class="form-group col-md-3">{{ recipe_ing_form.quantity|as_crispy_field }}</div>
+                                <div class="form-group col-md-2">{{ recipe_ing_form.unit|as_crispy_field }}</div>
+
+                                <!-- Remove Button -->
+                                <div class="form-group col-md-12">
+                                    <button type="button" class="btn btn-secondary remove-ingredient" data-form-id="ingredient-form-{{ forloop.counter0 }}">Remove Ingredient</button>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>                
+                <button type="button" id="add-ingredient" class="btn btn-secondary">Add Ingredient</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        {% endif %}
         </div>
     </div>
-</div>       
+</div>      
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
