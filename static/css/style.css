@@ -4,9 +4,7 @@
 /* Global */
 
 body {
-    /* height: 100%;
-    margin: 0;
-    padding: 0; */
+    font-family: 'Georgia', sans-serif;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -14,9 +12,6 @@ body {
 
 .wrapper {
     flex: 1;
-    /* min-height: calc(100vh - 100px);
-    display: flex; 
-    flex-direction: column;     */
 }
 
 .content {
@@ -33,10 +28,10 @@ body {
     background-color: #fff;
 }
 
-/* .card {
+.card {
     border: none;
     background-color: transparent;
-} */
+}
 
 .image-container {
     position: relative;
@@ -57,7 +52,7 @@ body {
 }
 
 .text-center {
-    color: #860a05;
+    color: #960f0f;
     font-family: 'Georgia', serif;
 }
 
@@ -134,7 +129,7 @@ p {
 }
 
 .btn-light {
-    color: #860a05;
+    color: #960f0f;
     font-weight: 700;
     border-radius: 12px;
 }
@@ -172,10 +167,6 @@ p {
     color: rgb(172, 175, 175);
 }
 
-.approval {
-    color: rgb(222, 146, 168);
-}
-
 .page-title {
     text-align: center;
 }
@@ -187,17 +178,30 @@ p {
 }
 
 .bg-secondary {
-    background-color: #860a05;
+    background-color: #960f0f;
 }
 
 .card-header {
-    background-color: #860a05;
+    background-color: #960f0f;
+    color: #fff;
 }
 
 .card-title {
-    color: #111213;
+    color: #24272b;
     font-family: 'Georgia', serif;
     font-weight: 600;
+}
+
+.meal-plan-card {
+    height: 300px;
+    width: 300px;          
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h4 {
+    text-align: center;
 }
 
 

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
 <div class="container mt-4">
@@ -6,7 +7,7 @@
         
         <div class="col-md-6 col-lg-4 mb-4">
             <div class="card h-100 shadow-sm">
-                <div class="card-body">
+                <div class="card-body" style="background-color: #c69c6d;">
                     <h5 class="card-title">{{ meal_plan.title}}</h5>
                     <p card-text>
                         <strong>Title:</strong> {{ meal_plan.title }}<br>
@@ -23,10 +24,10 @@
                             {% for recipe in meal_plan.recipes.all %}
                                 <li>
                                     <!-- Display recipe image above the title -->
-                                    {% if recipe.image %}
-                                        <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="img-fluid mb-2" style="max-width: 50px; height: auto;">
+                                    {% if "placeholder" in recipe.image.url %}
+                                        <img src="{% static 'images/default.png' %}" alt="placeholder image" class="img-fluid mb-2" style="max-width: 50px; height: auto;">
                                     {% else %}
-                                        <img src="https://via.placeholder.com/150x100" alt="No Image Available" class="img-fluid mb-2" style="max-width: 50px; height: auto;">
+                                        <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="img-fluid mb-2" style="max-width: 50px; height: auto;">
                                     {% endif %}
                                     <a href="{% url 'get_recipe_detail' recipe.id %}">{{ recipe.title }}</a>
                                 </li>

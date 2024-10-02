@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mt-4" style="padding-top: 70px;">
+<div class="container mt-4" style="padding-top: 50px;">
     <h2 class="text-center my-4">Browse Meal Plan</h2>
     <div class="row">
         {% for meal_plan in mealplan_list %}
             <div class="col-md-6 col-lg-4">
                 <div class="card meal-plan-card mb-4">
-                    <div class="card-header bg-secondary text-white">
-                        <h5 class="card-title">{{ meal_plan.title}}</h5>
+                    <div class="card-header">
+                        <h5 class="card-title" style="color: #c69c6d;">{{ meal_plan.title}}</h5>
                     </div>
                     <div>
                         <p card-text>
