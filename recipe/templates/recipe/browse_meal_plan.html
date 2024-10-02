@@ -1,43 +1,42 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="content-wrapper">
-    <div class="container mt-4" style="padding-top: 70px;">
-        <h2 class="text-center my-4">Browse Meal Plan</h2>
-        <div class="row">
-            {% for meal_plan in mealplan_list %}
-                <div class="col-md-6 col-lg-4">
-                    <div class="card meal-plan-card mb-4">
-                        <div class="card-header bg-secondary text-white">
-                            <h5 class="card-title">{{ meal_plan.title}}</h5>
-                        </div>
-                        <div>
-                            <p card-text>
-                                <strong>Recipe count:</strong> {{ meal_plan.recipes.count }}<br>
-                                <strong>Meal Plan length:</strong> {{ meal_plan.meal_plan_length }} days<br>
-                                <strong>Start date:</strong> {{ meal_plan.created_at }}<br>
-                                <strong>End date:</strong> {{ meal_plan.updated_at }}<br>
-                            </p>
-                            <a href="{% url 'get_meal_plan' meal_plan.id %}" class="btn btn-secondary">View Meal Plan</a>
-                        </div>
+<div class="container mt-4" style="padding-top: 70px;">
+    <h2 class="text-center my-4">Browse Meal Plan</h2>
+    <div class="row">
+        {% for meal_plan in mealplan_list %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card meal-plan-card mb-4">
+                    <div class="card-header bg-secondary text-white">
+                        <h5 class="card-title">{{ meal_plan.title}}</h5>
                     </div>
-                </div>        
-            {% endfor %}
-        </div>
-    
-        <!-- Pagination -->
-        {% if is_paginated %}
-        <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center">
-                {% if page_obj.has_previous %}
-                <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV</a></li>
-                {% endif %}
-                {% if page_obj.has_next %}
-                <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
-                {% endif %}
-            </ul>
-        </nav>
-        {% endif %}
+                    <div>
+                        <p card-text>
+                            <strong>Recipe count:</strong> {{ meal_plan.recipes.count }}<br>
+                            <strong>Meal Plan length:</strong> {{ meal_plan.meal_plan_length }} days<br>
+                            <strong>Start date:</strong> {{ meal_plan.created_at }}<br>
+                            <strong>End date:</strong> {{ meal_plan.updated_at }}<br>
+                        </p>
+                        <a href="{% url 'get_meal_plan' meal_plan.id %}" class="btn btn-secondary">View Meal Plan</a>
+                    </div>
+                </div>
+            </div>        
+        {% endfor %}
     </div>
+
+    <!-- Pagination -->
+    {% if is_paginated %}
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV</a></li>
+            {% endif %}
+            {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
 </div>
+
 {% endblock %}
