@@ -86,7 +86,10 @@ def get_recipe_detail(request, recipe_pk):
     if request.POST:
         return post_recipe_comment(request, recipe)
 
-    all_meal_plans = MealPlan.objects.filter(user=request.user)
+    if request.user.is_authenticated:
+        all_meal_plans = MealPlan.objects.filter(user=request.user)
+    else:
+        all_meal_plans = list()
     total_nutrition = get_recipe_nutrition_info(recipe)
     comment_context = handle_recipe_comment_context(recipe)
     context = {
@@ -214,25 +217,6 @@ def delete_recipe(request, recipe_pk):
     return redirect('browse_recipes')
 
 
-@require_POST
-def add_ingredient(request):
-    """
-    Add an ingredient that the user inputs on the web page
-    """
-    data = json.loads(request.body)
-    new_ingredient_name = data.get('new_ingredient').strip()
-
-    if new_ingredient_name:
-        ingredient, created = Ingredient.objects.get_or_create(name=new_ingredient_name)
-
-        return JsonResponse({
-            'success': True,
-            'ingredient_pk': ingredient.pk
-        })
-
-    return JsonResponse({'success': False, 'error': 'No ingredient provided.'}, status=400)
-
-
 @login_required   
 def create_meal_plan(request):
     """
@@ -248,7 +232,7 @@ def create_meal_plan(request):
                 meal_plan.save()
                 meal_plan_form.save_m2m()
 
-            return redirect('create_meal_plan')
+            return redirect('get_meal_plan', meal_plan_pk=meal_plan.pk)
     
     meal_plan_form = MealPlanForm()
     context = {
@@ -265,11 +249,12 @@ class MealPlanList(LoginRequiredMixin, generic.ListView):
         return MealPlan.objects.filter(user=self.request.user)
 
 
+@login_required
 def get_meal_plan(request, meal_plan_pk):
     """
     Get the meal plan details for a particular meal plan
     """
-    meal_plan = get_object_or_404(MealPlan, pk=meal_plan_pk)
+    meal_plan = get_object_or_404(MealPlan, pk=meal_plan_pk, user=request.user)
     
     context = {
         'meal_plan': meal_plan}
