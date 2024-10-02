@@ -21,14 +21,13 @@
             <p><strong>Difficulty:</strong> {{ recipe.get_difficulty_display }}</p>
             <p><strong>Serves:</strong> {{ recipe.serves }}</p>
             
-            <!-- Buttons for Add to Meal Plan and Favourite Bookmark -->
-            <button class="btn btn-primary me-3">Add to Meal Plan</button>
+            <!-- Button for Add to Meal Plan -->
+            <button id="add-recipe-to-meal-plan-btn" class="btn btn-primary me-3" data-toggle="modal"
+                    data-target="#mealPlanModal">Add to Meal Plan</button>
 
             {% if user == recipe.author %}
-            <a href="{% url 'edit_recipe' recipe.id %}" class="btn btn-primary">Edit Recipe</a>
-            <button id="delete-recipe-btn" class="btn btn-danger" data-recipe-id="{{ recipe.id }}">
-                Delete Recipe
-            </button>
+                <a type="button" href="{% url 'edit_recipe' recipe.id %}" class="btn btn-primary">Edit Recipe</a>
+                <button type="button" id="delete-recipe-btn" class="btn btn-danger" data-recipe-id="{{ recipe.id }}">Delete Recipe</button>
             {% endif %}
 
         </div>
@@ -131,16 +130,42 @@
     </div>    
 </div>
 
+<!-- Add recipe to meal plan modal -->
+<div class="modal fade" id="mealPlanModal" tabindex="-1" aria-labelledby="mealPlanModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mealPlanModalLabel">Add to Meal Plan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Let's add this recipe to a Meal Plan. Select one below.
+                <div class="form-group col-md-4">
+                    <select id="meal_plan_dropdown" class="form-control">
+                    {% for meal_plan in all_meal_plans %}
+                    <option value="{{ meal_plan.id }}">{{ meal_plan.title }}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a id="confirm_add_to_meal_plan_btn" href="#" class="btn btn-primary">Add to Meal Plan</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Delete confirmation modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">Delete comment?</h5>
+                <h5 class="modal-title" id="deleteModalLabel">Are you sure?</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Are you sure you want to delete your comment? This action cannot be undone.
+                Are you sure you want to delete? This action cannot be undone.
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -149,36 +174,9 @@
         </div>
     </div>
 </div>
+{% endblock content %}
 
-
+{% block extras %}
 <script src="{% static 'js/comments.js' %}"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const deleteRecipeButton = document.querySelector('#delete-recipe-btn');
-        
-        deleteRecipeButton.addEventListener("click", function() {
-            const confirmation = confirm('Are you sure you want to delete this recipe?');
-        if (confirmation) {
-            fetch(`/delete_recipe/{{ recipe.id }}/`, {
-                method: 'DELETE',
-                headers: {
-                    'X-CSRFToken': '{{ csrf_token }}',
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert(data.message);
-                    window.location.href = '{% url "browse_recipes" %}';
-                }
-                else {
-                    alert(data.message)
-                }
-            });
-
-        }
-    });
-});
-</script>
+<script src="{% static 'js/recipe.js' %}"></script>
 {% endblock %}
