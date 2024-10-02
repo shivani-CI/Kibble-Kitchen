@@ -1,37 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Eb+Garamond:wght@400;500;600&family=Roboto:wght@300;400;500&display=swap');
 
 
-.brand {
-    font-family: Lato, sans-serif;
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #4A4A4F;
-}
-
-.red {
-    color: #E84610;
-}
-
-.thin {
-    font-weight: 300;
-}
+/* Global */
 
 .light-bg {
     background-color: #fff;
 }
 
-.dark-bg {
-    background-color: #445261;
-}
-
 .main-bg {
-    background-color: #F9FAFC;
+    background-color: #fff;
 }
 
-.card {
+/* .card {
     border: none;
     background-color: transparent;
-}
+} */
 
 .image-container {
     position: relative;
@@ -42,84 +25,62 @@
     bottom: 5%;
     min-width: 30%;
     left: -2px;
-    background-color: #188181;
-}
-
-.scale {
-    width: 100%;
-    height: auto;
+    background-color: #399431;
 }
 
 .author {
-    color: white;
+    color: white;    
     margin: 4px;
     text-transform: uppercase;
 }
 
-.masthead {
-    margin-top: 10px;
-    overflow: hidden;
-    position: relative;
-    display: inline-block;
-    height: 33vh;
-    width: 100%;
+.text-center {
+    color: #860a05;
+    font-family: 'Georgia', serif;
 }
 
-.masthead-text {
-    background-color: #445261;
-    color: white;
-    position: relative;
+p {
+    color: #111213;
+    font-family: 'Georgia', serif;
 }
 
-.masthead-image {
-    position: relative;
-    overflow: hidden;
-}
 
-.masthead-image:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 90%;
-    height: 100%;
-    width: 150%;
-    background: #445261;
-    -webkit-transform: skew(15deg);
-    -moz-transform: skew(15deg);
-    transform: skew(15deg);
-    z-index: 100;
-}
-
-.post-link {
-    text-decoration: none;
-    color: #445261;
-}
-
-.post-link:hover,
+/* Buttons and link */
 .page-link {
     color: #E84610;
 }
 
-.post-title {
+.page-title {
     margin-top: 10%;
     margin-left: 5%;
 }
 
-.post-subtitle {
-    margin-left: 5%;
-    color: lightgray;
+.btn {
+    background-color: #c69c6d;
+}
+
+.btn-light {
+    color: #860a05;
+    font-weight: 700;
+    border-radius: 12px;
+}
+
+.btn-delete {
+    color: #fff;
+    background: #960f0f;
 }
 
 .btn-signup,
 .btn-edit {
-    background-color: #188181;
+    background-color: #c69c6d;
     color: #fff;
 }
 
 .btn-signup:hover,
-.btn-signup:active {
-    background-color: #fff;
-    color: #23BBBB;
+.btn-signup:active,
+.btn-secondary:hover {
+    background-color: #960f0f;
+    color: #fff;
 }
 
 .link {
@@ -129,26 +90,8 @@
 
 .link:hover,
 .link:active {
-    color: #445261;
+    color: #23BBBB;
     text-decoration: underline;
-}
-
-.btn-like {
-    color: #E84610;
-    border: none;
-    background: transparent;
-}
-
-.btn-delete {
-    color: #fff;
-    background: #E84610;
-}
-
-.btn-like:hover,
-.btn-like:active {
-    color: #E84610;
-    background: transparent;
-    border: none;
 }
 
 .faded {
@@ -163,40 +106,117 @@
     text-align: center;
 }
 
-.dropdown-menu {
-    max-width: 100%;  
+/* Navbar */
+
+.navbar {
+    padding: 1rem 1rem;
+    color: #ffffff;
 }
 
-/* Meal plan list */
-.meal-plan-card {
-    border: 1px solid #e2c7c7;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out;
+.navbar ul a {
+    color: #c69c6d;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
 }
 
-.meal-plan-card:hover {
-    transform: translateY(-5px);
+.navbar a:hover {
+    color: #960f0f;
+}
+
+.nav-item {
+    font-size: large;
+}
+
+.bg-light {
+    background-color: #ffffff;
+}
+
+/* Hero image */
+
+.hero-text {
+    font-family: 'Georgia', serif;
+    position: relative;
+    z-index: 1;
+    font-size: 3.5em;
+    margin: 0;
+}
+
+/* Meal Plan */
+
+.content-wrapper {
+    min-height: calc(100vh - 100px); 
+}
+
+.bg-secondary {
+    background-color: #860a05;
 }
 
 .card-header {
-    border-radius: 10px 10px 0 0;
-}
-
-.card-body {
-    padding: 15px;
+    background-color: #860a05;
 }
 
 .card-title {
-    font-size: 1.5rem;
+    color: #111213;
+    font-family: 'Georgia', serif;
+    font-weight: 600;
 }
 
-.btn-outline-primary {
-    border-radius: 20px;
-    transition: background-color 0.2s;
+/* Footer */
+
+footer{
+    background-color: #960f0f;
+    margin-top: 0;
+    text-align: center;
+    color: #ffffff;
+    font-family: 'Georgia', sans-serif;
+    height: 100px; /* Adjust for your footer height */
+    position: relative;
+    bottom: 0;
+    width: 100%;
 }
 
-.btn-outline-primary:hover {
-    background-color: #00ffff;
-    color: white;
+.footer-container {
+    min-height: 10vh;
+}
+
+h5 {
+    color: #ffffff;
+}
+
+.social-icons a {
+    font-size: 20px;
+    margin: 0 10px;
+    color: #ffffff;
+    display: inline;
+    cursor: pointer;
+}
+
+.social-icons:hover {
+    color: rgb(0, 255, 255, 0.2);
+    transition: 0.5ms;
+}
+
+/* Add recipe */
+
+.add-recipe input, .add-recipe textarea, .add-recipe select {
+    border: 1px solid #D8B646;
+}
+
+.add-recipe input[type=file] {
+    border: none !important;
+}
+
+.add-recipe label {
+    color: #886363;
+    font-weight: bold;
+} 
+
+.clearablefileinput {
+    color: #886363;
+    border: none
+}
+
+.add-recipe #div_id_image a {
+    color: black !important;
 }
