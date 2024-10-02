@@ -7,10 +7,13 @@ const confirmAddToMealPlanButton = document.getElementById("confirm_add_to_meal_
 
 
 function displayMessage(message, type) {
-    console.log('We should see a mesage now');
     const messageContainer = document.getElementById('message-container');
-    messageContainer.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
-    setTimeout(() => {messageContainer.innerHTML = '';}, 3000);
+    messageContainer.innerHTML = `
+        <div class="alert alert-${type} alert-dismissible fade show" id="msg" role="alert">
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    `;
 }
 
 deleteRecipeButton.addEventListener("click", function() {

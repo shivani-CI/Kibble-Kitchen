@@ -22,8 +22,10 @@
             <p><strong>Serves:</strong> {{ recipe.serves }}</p>
             
             <!-- Button for Add to Meal Plan -->
-            <button id="add-recipe-to-meal-plan-btn" class="btn btn-primary me-3" data-toggle="modal"
-                    data-target="#mealPlanModal">Add to Meal Plan</button>
+            {% if user.is_authenticated %}
+                <button id="add-recipe-to-meal-plan-btn" class="btn btn-primary me-3" data-toggle="modal"
+                        data-target="#mealPlanModal">Add to Meal Plan</button>
+            {% endif %}
 
             {% if user == recipe.author %}
                 <a type="button" href="{% url 'edit_recipe' recipe.id %}" class="btn btn-primary">Edit Recipe</a>
@@ -161,7 +163,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">Are you sure?</h5>
+                <h5 class="modal-title" id="deleteModalLabel" style="color: black;">Are you sure?</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
