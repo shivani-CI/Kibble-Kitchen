@@ -26,7 +26,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-ALLOWED_HOSTS = ['8000-shivanici-kibblekitchen-fd23qziq6zu.ws.codeinstitute-ide.net','.herokuapp.com','api.edaman.com']
+ALLOWED_HOSTS = ['.codeinstitute-ide.net', '.herokuapp.com']
 
 # Application definition
 INSTALLED_APPS = [

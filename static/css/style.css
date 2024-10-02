@@ -44,6 +44,22 @@ p {
     font-family: 'Georgia', serif;
 }
 
+.alert {
+    padding: 1rem;
+    font-size: 16px;
+    background-color: #000;
+    color: white;
+}
+
+.alert-success {
+    background-color: green;
+    color: white;
+}
+
+.alert-error {
+    background-color: red;
+    color: white;
+}
 
 /* Buttons and link */
 .page-link {
