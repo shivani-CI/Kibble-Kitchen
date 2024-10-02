@@ -1,29 +1,28 @@
 from recipe.forms import RecipeForm, RecipeIngredientForm, MealPlanForm, CommentForm
 from recipe.models import Recipe, Ingredient, RecipeIngredient, MealPlan, Comment
-from django.shortcuts import render, get_object_or_404, reverse, redirect
-from django.http import JsonResponse, HttpResponseRedirect
+from recipe.utils import get_nutrition_info
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.forms import UserCreationForm
 from django.views.decorators.http import require_POST
-from django.core.paginator import Paginator
 from django.forms import formset_factory
-from .utils import get_nutrition_info
+from django.http import JsonResponse
 from django.contrib import messages
 from django.db import transaction
 from django.views import generic
-from django.conf import settings
 import json
 
 
 def home_view(request):
     return render(request, 'recipe/index.html')
 
+
 class RecipeList(generic.ListView):
     model = Recipe
     queryset = Recipe.objects.filter(status=1)
     template_name = "recipe/browse_recipes.html"
     paginate_by = 6
+
 
 def get_recipe_nutrition_info(recipe):
     """
@@ -35,38 +34,41 @@ def get_recipe_nutrition_info(recipe):
     #     for recipe_ing in recipe.ingredients_in_recipe.all()]
     # total_nutrition = get_nutrition_info(recipe.title, recipe_ingredients)
     total_nutrition = {
-    'calories': 500.56462465465464,
-    'protein': 150,
-    'fat': 14,
-    'carbs': 18,
-    'fiber': 7.9
-    }
+        'calories': 500.56462465465464,
+        'protein': 150,
+        'fat': 14,
+        'carbs': 18,
+        'fiber': 7.9
+        }
     return total_nutrition
 
-def handle_comments(request, recipe_instance):
+
+@require_POST
+def post_recipe_comment(request, recipe_instance):
+    comment_form = CommentForm(data=request.POST)
+    if comment_form.is_valid():
+        comment = comment_form.save(commit=False)
+        comment.user = request.user
+        comment.recipe = recipe_instance
+        comment.save()
+        messages.add_message(
+            request, messages.SUCCESS,
+            'Comment submitted and awaiting approval'
+        )
+    else:
+        messages.add_message(
+            request, messages.ERROR,
+            'There was an error submitting your comment. Please try again.'
+        )
+    return redirect('get_recipe_detail', recipe_pk=recipe_instance.pk)
+
+
+def handle_recipe_comment_context(recipe_instance):
     """
-    Can handle comments for recipe instances
+    Handle comment context for recipe instances
     """
     comments = recipe_instance.comments_on_recipe.all().order_by('-created_at')
     comment_count = comments.filter(approved=True).count()
-
-    if request.method == "POST":
-        comment_form = CommentForm(data=request.POST)
-        if comment_form.is_valid():
-            comment = comment_form.save(commit=False)
-            comment.user = request.user
-            comment.recipe = recipe_instance
-            comment.save()
-            messages.add_message(
-                request, messages.SUCCESS,
-                'Comment submitted and awaiting approval'
-            )
-        else:
-            messages.add_message(
-                request, messages.ERROR,
-                'There was an error submitting your comment. Please try again.'
-            )
-    
     comment_form = CommentForm()
     comment_context = {
         'comments': comments,
@@ -75,27 +77,55 @@ def handle_comments(request, recipe_instance):
     }
     return comment_context
 
+
 def get_recipe_detail(request, recipe_pk):
     """
-    Display details of a recipe, including comments and aggregated nutritional information for the entire recipe.
+    Display details of a recipe, including comments and aggregated nutritional information for the entire recipe
     """
     recipe = get_object_or_404(Recipe, pk=recipe_pk)
-    total_nutrition = get_recipe_nutrition_info(recipe)
-    comment_context = handle_comments(request, recipe)
+    if request.POST:
+        return post_recipe_comment(request, recipe)
 
+    all_meal_plans = MealPlan.objects.filter(user=request.user)
+    total_nutrition = get_recipe_nutrition_info(recipe)
+    comment_context = handle_recipe_comment_context(recipe)
     context = {
         'recipe': recipe,
+        'all_meal_plans': all_meal_plans,
         **total_nutrition,
         **comment_context
     }
     return render(request, 'recipe/recipe_detail.html', context)
 
-@login_required   
+
+@require_POST
+def add_recipe_to_meal_plan(request):
+    data = json.loads(request.body)
+    meal_plan_id = data['meal_plan_id']
+    recipe_id = data['recipe_id']
+
+    meal_plan = get_object_or_404(MealPlan, pk=meal_plan_id)
+    recipe = get_object_or_404(Recipe, pk=recipe_id)
+
+    if recipe in meal_plan.recipes.all():
+        return JsonResponse({'success': False,
+                             'message': 'Recipe already in meal plan.'
+                             })
+
+    meal_plan.recipes.add(recipe)
+    return JsonResponse({'success': True,
+                         'message': 'Recipe added to meal plan successfully!'
+                         })
+
+
+@login_required
 def create_or_update_recipe(request, recipe_pk=None):
     """
-    Take the user input-ed recipe and save it to the database
+    Take the user inputted recipe and save it to the database
     """
-    RecipeIngredientFormSet = formset_factory(RecipeIngredientForm, extra=1)
+    recipe_ingredient_form_set = formset_factory(RecipeIngredientForm, extra=3)
+
+    print('You have triggered an edit')
 
     # If there is a recipe_pk then update or else create a new recipe
     if recipe_pk:
@@ -107,7 +137,7 @@ def create_or_update_recipe(request, recipe_pk=None):
 
     if request.method == 'POST':
         recipe_form = RecipeForm(request.POST, request.FILES, instance=recipe)
-        recipe_ing_form_set = RecipeIngredientFormSet(request.POST)
+        recipe_ing_form_set = recipe_ingredient_form_set(request.POST)
 
         if recipe_form.is_valid() and recipe_ing_form_set.is_valid():
             with transaction.atomic():
@@ -120,19 +150,18 @@ def create_or_update_recipe(request, recipe_pk=None):
 
                 for recipe_ing_form in recipe_ing_form_set:
                     ingredient = recipe_ing_form.cleaned_data.get('ingredient')
-                    if ingredient:
-                        RecipeIngredient.objects.create(
-                            recipe=recipe,
-                            ingredient=ingredient,
-                            quantity=recipe_ing_form.cleaned_data.get('quantity'),
-                            unit=recipe_ing_form.cleaned_data.get('unit')
-                        )
-                
+                    RecipeIngredient.objects.create(
+                        recipe=recipe,
+                        ingredient=ingredient,
+                        quantity=recipe_ing_form.cleaned_data.get('quantity'),
+                        unit=recipe_ing_form.cleaned_data.get('unit')
+                    )
+
                 messages.add_message(
                     request, messages.SUCCESS,
                     'Your recipe has been saved!'
-                )
-                return redirect('browse_recipes')
+                )               
+                return redirect('get_recipe_detail', recipe_pk=recipe.pk)
         else:
             # TODO - these errors are not informative
             if not recipe_form.is_valid():
@@ -143,19 +172,18 @@ def create_or_update_recipe(request, recipe_pk=None):
                     request, messages.ERROR,
                     f'Your recipe is not saved! - {form_error}'
                 )
-            
-    
+
     recipe_form = RecipeForm(instance=recipe)
     if is_update:
         initial_ingredients = [
                 {'ingredient': recipe.ingredient,
                  'quantity': recipe.quantity,
                  'unit': recipe.unit}
-            for recipe in recipe.ingredients_in_recipe.all()
-            ]
-        recipe_ing_form_set = RecipeIngredientFormSet(initial=initial_ingredients)
+                for recipe in recipe.ingredients_in_recipe.all()
+        ]
+        recipe_ing_form_set = recipe_ingredient_form_set(initial=initial_ingredients)
     else:
-        recipe_ing_form_set = RecipeIngredientFormSet()
+        recipe_ing_form_set = recipe_ingredient_form_set()
     ingredients = Ingredient.objects.all()
     context = {
         'recipe_form': recipe_form,
@@ -166,18 +194,25 @@ def create_or_update_recipe(request, recipe_pk=None):
     }
     return render(request, 'recipe/add_recipe.html', context)
 
-@login_required
+
 def delete_recipe(request, recipe_pk):
     """
     Delete a recipe
     """
     recipe = get_object_or_404(Recipe, pk=recipe_pk)
-    
-    if request.method == 'DELETE':
+
+    if recipe.author == request.user:
         recipe.delete()
-        return JsonResponse({'success': True, 'message': 'Recipe deleted successfully.'})
-    
-    return JsonResponse({'success': False, 'message': 'Invalid request method.'}, status=400)
+        messages.add_message(
+            request, messages.SUCCESS,
+            'Recipe deleted!')
+    else:
+        messages.add_message(
+            request, messages.ERROR,
+            'You can only delete your own recipe!')
+
+    return redirect('browse_recipes')
+
 
 @require_POST
 def add_ingredient(request):
@@ -229,6 +264,7 @@ class MealPlanList(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         return MealPlan.objects.filter(user=self.request.user)
 
+
 def get_meal_plan(request, meal_plan_pk):
     """
     Get the meal plan details for a particular meal plan
@@ -236,8 +272,9 @@ def get_meal_plan(request, meal_plan_pk):
     meal_plan = get_object_or_404(MealPlan, pk=meal_plan_pk)
     
     context = {
-        'meal_plan': meal_plan}        
+        'meal_plan': meal_plan}
     return render(request, 'recipe/meal_plan_detail.html', context)
+
 
 @login_required
 @require_POST
@@ -245,9 +282,6 @@ def edit_comment(request, recipe_pk, comment_pk):
     """
     Edit existing comment
     """
-    #TODO - edit comment is creating new comments (also when approved in admin)
-    ## both the edit and delete comment buttons dont work atm
-
     recipe = get_object_or_404(Recipe, pk=recipe_pk)
     comment = get_object_or_404(Comment, pk=comment_pk)
     comment_form = CommentForm(data=request.POST, instance=comment)
@@ -265,14 +299,14 @@ def edit_comment(request, recipe_pk, comment_pk):
             request, messages.ERROR,
             'Error updating comment!')
 
-    return HttpResponseRedirect(reverse('get_recipe_detail', args=[recipe_pk]))
+    return redirect('get_recipe_detail', recipe_pk=recipe_pk)
+
 
 @login_required
 def delete_comment(request, recipe_pk, comment_pk):
     """
     Delete existing comment
     """
-    recipe = get_object_or_404(Recipe, pk=recipe_pk)
     comment = get_object_or_404(Comment, pk=comment_pk)
 
     if comment.user == request.user:
@@ -285,22 +319,4 @@ def delete_comment(request, recipe_pk, comment_pk):
             request, messages.ERROR,
             'You can only delete your own comments!')
 
-    return HttpResponseRedirect(reverse('get_recipe_detail', args=[recipe_pk]))
-
-#####################################################################################
-def recipe_search(request):
-    query = request.GET.get('q')
-    if query:
-        ingredients = Ingredient.objects.filter(name__icontains=query)
-        recipes = Recipe.objects.filter(ingredients__in=ingredients).distinct()
-    else:
-        recipes = Recipe.objects.all()
-    return render(request, 'recipe_search.html', {'recipes': recipes})
-
-def ingredient_list(request):
-    query = request.GET.get('q', '')
-    if query:
-        ingredients = Ingredient.objects.filter(name__icontains=query).values('pk', 'name')
-    else:
-        ingredients = Ingredient.objects.all().values('pk', 'name')
-    return JsonResponse(list(ingredients), safe=False)
+    return redirect('get_recipe_detail', recipe_pk=recipe_pk)
