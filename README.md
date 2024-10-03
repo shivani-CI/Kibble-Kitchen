@@ -38,16 +38,18 @@ Kibble Kitchen goes beyond just offering recipes; it empowers dog owners to take
 
   <span id="features">1.</span> Recipe CRUD Functionality:
     - Users can create, view, update and delete their recipes, complete with ingredients and cooking instructions.
-    - Users can provide feedback or rate recipes.
+    - Users can provide feedback on recipes.
+
+    
  
   <span id="features">2.</span> User Authentication:
     - Users can register, log in, and log out. Password management features such as reset and change are also available.
 
   <span id="features">3.</span> Recipe Management(CRUD Functionality):
-    - Authenticated users can create, read, update, delete and search for recipes based on keywords, ingredients, or titles. Authenticated users can create recipes by submitting a form with ingredients and instructions.  
+    - Authenticated users can create, read, update, delete recipes. Authenticated users can create recipes by submitting a form with ingredients and instructions.  
  
-  <span id="features">4.</span> Meal Plan management(CRUD Functionality):
-    - Authenticated users can create, read, update, delete and search recipes. Users can create meal plans by selecting recipes and setting a name,description, and date for the meal.
+  <span id="features">4.</span> Meal Plan management:
+    - Authenticated users can create and view Meal Plans. Users can create meal plans by selecting recipes and setting a name, title, and dates for the meal.
  
   <span id="features">5.</span> User feedback(Comment on Recipes):
     - Authenticated users can comment on individual recipes. This allows for interaction between users and provides feedback on recipes.
@@ -56,11 +58,8 @@ Kibble Kitchen goes beyond just offering recipes; it empowers dog owners to take
     - Crispy Forms: All forms are styled using Bootstrap with Crispy Forms to ensure a clean, responsive design.
     - Navigation Bar: The Top navigation bar includes login/logout links and allow easy access to all sections of the website.
  
-  <span id="features">7.</span> Recipe Favourites:
-    - Save Favourite Recipes: Users can add recipes to their list of favorites for easy access later.
- 
   <span id="features">8.</span> Admin Dashboard:
-    - Admin Control: Admin users can access the default Django admin panel to manage users, recipes, meal plans, comments and they can approve or reject recipes.
+    - Admin Control: Admin users can access the default Django admin panel to manage users, recipes, meal plans, comments and they can approve or reject recipes, comments, meal plans and users.
  
   <span id="features">9.</span> Data Validation & Error Handling:
     - All forms (recipe creation, meal plans and comments) are validated to ensure valid data input from users.
@@ -68,12 +67,13 @@ Kibble Kitchen goes beyond just offering recipes; it empowers dog owners to take
   <span id="features">10.</span> API Handling:
     - Integration with external recipe APIs to provide nutritional value of recipes.
 
+   <br>
+   
 ## Wireframes ##
 To follow best practice, wireframes were developed for mobile, tablet, and desktop sizes.
 I've used Balsamiq to design my site wireframes
 
 [Balsamiq](https://balsamiq.com/wireframes) 
-
 
 ### Mobile Wireframes
 
@@ -86,7 +86,6 @@ Click here to see the Mobile Wireframes
 ![image](https://github.com/user-attachments/assets/79f275a4-a466-4f54-8a23-beece207ce09)
 
 ![image](https://github.com/user-attachments/assets/1b30046f-f307-4b15-a950-ea487a37d800)
-
 
 
 
@@ -125,7 +124,10 @@ Click here to see the Tablet Wireframes
 
  </details>
 
+ <br>
+ 
 ## ERD ##
+
 
 <details>
 
@@ -133,23 +135,43 @@ Click here to see the Tablet Wireframes
 Click here to see the ERD
 </summary>
 
-![image](https://github.com/user-attachments/assets/446c502f-0c2f-4444-8acd-7710d21d4d21)
-
-
-
+![image](https://github.com/user-attachments/assets/c3fe63e3-7c7f-42be-ba34-669641b7bcc7)
 
 </details>
 
+ <br>
+ 
+## UX - User stories for iteration 1 ##
 
-## UX - User stories ##
+<details>
+
+<summary>
+Click here to see kanban board at the beginning of iteration 1
+</summary>
+
+This is at the beginning of iteration 1:
 
 ![image](https://github.com/user-attachments/assets/14fee6ab-66fc-40d3-94a8-ed2654a4f26c)
+
+</details>
+
+<details>
+
+<summary>
+Click here to see kanban board at the end of iteration 1 
+</summary>
+
+This is at the end of iteration 1:
+
+![image](https://github.com/user-attachments/assets/3eebf68a-9821-4954-a39e-d38ae007974c)
+
+</details>
 
 1. As a site user I can sign up for an account so that I can create, save, and manage my own recipes and meal plans.
 
         AC1 A sign-up form with fields for email, username and password.
 
-        AC2 Error message display if any form validation fails (e.g., email already taken, password too weak). Successful account creation redirects to the login page.
+        AC2 Error message display if any form validation fails (e.g. password too weak). Successful account creation redirects to the login page.
 
         AC3 User data is stored securely in the database (except password).
 
@@ -167,11 +189,11 @@ Click here to see the ERD
 
         AC2 Admin can view, edit, delete users, recipes, and comments.
 
-        AC3 Admin can filter and search through users, recipes, and comments.
+        AC3 Admin can filter and search through users, recipes, meal plans and comments.
 
-4. As a site user I can create new recipes so that I can store, and manage my favourite meals.
+4. As a site user I can create new recipes so that I can store, and manage my recipes.
 
-        AC1 Authenticated users can access a recipe creation form, which includes fields for title, ingredients, and instructions.
+        AC1 Authenticated users can access a recipe creation form, which includes fields for title, ingredients, prep time, cook time, difficulty levels, image and instructions.
 
         AC2 Required fields must be validated (e.g., title and ingredients cannot be blank). Error message display if any of required fields are missing.
 
@@ -195,17 +217,11 @@ Click here to see the ERD
 
         AC1 Given a logged user, they can save a draft recipe, which they can finish at a later time.
 
-8. As a site user I can read the "About" page so that I can learn more about the purpose of the website and the team behind it.
+8. As a site user I can read the "Home" page so that I can learn more about the purpose of the website.
 
-        AC1 An "About" page that describes the website's purpose and goals.
+        AC1 An "Home" page that describes the website's purpose and goals.
 
         AC2 Accessible from the main navigation bar.
-
-9. As a Potential Collaborator I can fill in a contact form so that I can submit a request for collaboration
-
-        AC1 Contact form should be easily accessible from the "About" page.
-        
-        AC2 A "Submit" button should be present and clearly labelled.
 
 10. As a site user I can search for recipes based on ingredients or titles so that I can quickly find relevant meal ideas.
 
@@ -220,75 +236,104 @@ Click here to see the ERD
         AC2 Favourite recipes are saved to a "Favourites" list in the user's profile.
         
         AC3 users can view, manage, and remove recipes from their favourite list.
-    
 
-##  Design ##
+12. As a site user I can create meal plans by adding selected recipes for specific dates so that I can organise my dog's meals for my chosen dates
+
+        AC1 Authenticated users can access a meal plan creation form.
+    
+        AC2 Users can select multiple recipes and associate them with a meal plan.
+    
+        AC3 Meal plans includes a title, start date, end date field and a list of recipes to select from.
+
+13. As a site user I can view my meal plans so that I can easily manage my dog's meals.
+
+        AC1 Users can view a list of their own meal plans, which displays recipe counts, meal plan length, start date and end date field.
+    
+        AC2 Users can view meal plan details by clicking on the meal plan view button.
+        
+        AC3 Users can view individual meal plan details that will show all the recipes and related images which were in that specific meal plan. They can also view the recipe detail by clicking on the recipe title.
+
+16. As a site user I can see nutritional information for recipe so that I can control my dogs diet.
+
+        AC1 Integrate third-party API to fetch nutritional information for all the ingredients in a recipe.
+
+- Please note that due to time constraint user story 9 and 10 are moved to iteration 2
+
+ <br>
+
+ ##  Design ##
+
+
+  <br>
 
  ### Colour Scheme ###
 
-
+  <br>
 
  ### Typography ###
 
 
-
+ <br>
 
  ### Imagery ###
 
 
-
+ <br>
 
 ## UX/UI - Features ##
 
-
+ <br>
 
 ## Agile Methodology ##
+
 https://github.com/users/shivani-CI/projects/9
 
-
-
+ <br>
 
 ## Testing and Responsiveness ##
 
 
 
-
+ <br>
 
 ## Manual testing ##
 
 
 
-
+ <br>
 
 ## Deployment ##
 
 
 
-
+ <br>
 
 ## Technologies Used ##
 
+ <br>
+ 
+### Front-End Technologies ###
 
- ### Front-End Technologies ###
+ <br>
+ 
+### Back-End Technologies ###
 
-
- ### Back-End Technologies ###
-
-
+ <br>
 
 ## Credits ##
 
-
+ <br>
 
 ## Known bugs ##
 
-
+ <br>
 
 ### Important Notice - 20 September 2024
 
 - I recently discovered that a sensitive secret key was unintentionally left exposed in the "settings.py" file. This has been rectified by newly created secret key added to environment variables. The exposed secret key has been removed from the settings.py. 
 
-
+ <br>
+ 
 ## Future features ##
  
   
