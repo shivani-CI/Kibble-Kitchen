@@ -2,13 +2,20 @@
 
 {% block content %}
 <!-- Full-screen background image with text overlay -->
-<div class="hero-image" style="background-image: url('/static/images/hero.png'); background-size: cover; background-attachment: fixed; background-position: center; height: 100vh; width: 100%; overflow: hidden; padding: 0; margin: 0; position: relative;">
+<div class="hero-image" style="background-image: url('/static/images/hero.png'); background-size: cover;
+                               background-attachment: fixed; background-position: center; height: 100vh;
+                               width: 100%; overflow: hidden; padding: 0; margin: 0; position: relative;">
     
     <!-- Centered Text and Button -->
     <div class="hero-text text-center text-white" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-        <h1>Welcome to Kibble Kitchen</h1>
-        <h4>Get started today</h4>
-        <a href="{% url 'account_signup' %}" class="btn btn-light">Sign up!</a>
+        <h1>Welcome to Kibble Kitchen!</h1>
+        {% if user.is_authenticated %}
+            <h4>Your dog's favorite meal starts here!</h4>
+            <a href="{% url 'browse_recipes' %}" class="btn btn-light">Browse recipes</a>
+        {% else %}
+            <h4>Get started today</h4>
+            <a href="{% url 'account_signup' %}" class="btn btn-light">Sign up!</a>
+        {% endif %}
     </div>
 </div>
 

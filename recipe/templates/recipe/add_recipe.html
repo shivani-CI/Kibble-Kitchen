@@ -4,11 +4,11 @@
 
 {% block content %}
 <!-- Page title -->
-<div class="container mt-5" style="background: linear-gradient(to bottom right, #8ee7e0, #9cd2e6); width: 100%; height: auto; border-radius: 10px;">
+<div class="container">
     {% if is_update %}
-        <h2 class="page-title">Edit Recipe</h2>
+        <h1 class="page-title text-center">Edit Recipe</h1>
     {% else %}
-        <h2 class="page-title">Create New Recipe</h2>
+        <h1 class="page-title text-center">Create New Recipe</h1>
     {% endif %}
     <hr class="break">
     <div class="row justify-content-center ">
@@ -57,11 +57,4 @@
 
 {% block extras %}
 <script src="{% static 'js/ingredient.js' %}"></script>
-
-{% if messages %}
-    {% for message in messages %}
-        <script>console.log('{{ message|escapejs }}');</script>
-    {% endfor %}
-{% endif %}
-
 {% endblock %}

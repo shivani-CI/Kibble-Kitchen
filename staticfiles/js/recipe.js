@@ -1,5 +1,4 @@
 const deleteRecipeButton = document.querySelector('#delete-recipe-btn');
-const recipeId = deleteRecipeButton.getAttribute('data-recipe-id');
 const addToMealPlanButton = document.querySelector('#add-recipe-to-meal-plan-btn');
 const mealPlanModal = new bootstrap.Modal(document.getElementById("mealPlanModal"));
 const mealPlanDropdown = document.getElementById("meal_plan_dropdown");
@@ -7,16 +6,21 @@ const confirmAddToMealPlanButton = document.getElementById("confirm_add_to_meal_
 
 
 function displayMessage(message, type) {
-    console.log('We should see a mesage now');
     const messageContainer = document.getElementById('message-container');
-    messageContainer.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
-    setTimeout(() => {messageContainer.innerHTML = '';}, 3000);
+    messageContainer.innerHTML = `
+        <div class="alert alert-${type} alert-dismissible fade show" id="msg" role="alert">
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    `;
 }
 
-deleteRecipeButton.addEventListener("click", function() {
-    deleteConfirm.href = `/delete_recipe/${recipeId}`;
-    deleteModal.show();
-});
+if (deleteRecipeButton) {
+    deleteRecipeButton.addEventListener("click", function() {
+        deleteConfirm.href = `/delete_recipe/${recipeId}`;
+        deleteModal.show();
+    });
+};
 
 addToMealPlanButton.addEventListener("click", function() {
     mealPlanModal.show();

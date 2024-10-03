@@ -1,5 +1,4 @@
 const deleteRecipeButton = document.querySelector('#delete-recipe-btn');
-const recipeId = deleteRecipeButton.getAttribute('data-recipe-id');
 const addToMealPlanButton = document.querySelector('#add-recipe-to-meal-plan-btn');
 const mealPlanModal = new bootstrap.Modal(document.getElementById("mealPlanModal"));
 const mealPlanDropdown = document.getElementById("meal_plan_dropdown");
@@ -16,10 +15,12 @@ function displayMessage(message, type) {
     `;
 }
 
-deleteRecipeButton.addEventListener("click", function() {
-    deleteConfirm.href = `/delete_recipe/${recipeId}`;
-    deleteModal.show();
-});
+if (deleteRecipeButton) {
+    deleteRecipeButton.addEventListener("click", function() {
+        deleteConfirm.href = `/delete_recipe/${recipeId}`;
+        deleteModal.show();
+    });
+};
 
 addToMealPlanButton.addEventListener("click", function() {
     mealPlanModal.show();

@@ -2,43 +2,43 @@
 {% load static %}
 
 {% block content %}
-<div class="container mt-4">
-    <h1>Meal Plan Recipes</h1>
+<div class="container">
+    <h1 class="page-title text-center">Meal Plan Recipes</h1>
         
-        <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body" style="background-color: #c69c6d;">
-                    <h5 class="card-title">{{ meal_plan.title}}</h5>
-                    <p card-text>
-                        <strong>Title:</strong> {{ meal_plan.title }}<br>
-                        <strong>Start date:</strong> {{ meal_plan.start_date }}<br>
-                        <strong>End date:</strong> {{ meal_plan.end_date }}<br>
-                        <strong>Meal Plan length:</strong> {{ meal_plan.meal_plan_length }} days<br>
-                    </p>
-                </div>
-            
-                <div class="mt-5">
-                    <h4>Recipes in this Meal Plan</h4>
-                    {% if meal_plan.recipes.exists %}
-                        <ol>
-                            {% for recipe in meal_plan.recipes.all %}
-                                <li>
-                                    <!-- Display recipe image above the title -->
-                                    {% if "placeholder" in recipe.image.url %}
-                                        <img src="{% static 'images/default.png' %}" alt="placeholder image" class="img-fluid mb-2" style="max-width: 50px; height: auto;">
-                                    {% else %}
-                                        <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="img-fluid mb-2" style="max-width: 50px; height: auto;">
-                                    {% endif %}
-                                    <a href="{% url 'get_recipe_detail' recipe.id %}">{{ recipe.title }}</a>
-                                </li>
-                            {% endfor %}
-                        </ol>
-                    {% else %}
-                        <p>No recipes found in this meal plan.</p>
-                    {% endif %}
-                </div>                      
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body" >
+                <h5 class="card-title">{{ meal_plan.title}}</h5>
+                <p card-text>
+                    <strong>Title:</strong> {{ meal_plan.title }}<br>
+                    <strong>Start date:</strong> {{ meal_plan.start_date }}<br>
+                    <strong>End date:</strong> {{ meal_plan.end_date }}<br>
+                    <strong>Meal Plan length:</strong> {{ meal_plan.meal_plan_length }} days<br>
+                </p>
             </div>
+        
+            <div class="mt-5">
+                <h4>Recipes in this Meal Plan</h4>
+                {% if meal_plan.recipes.exists %}
+                    <ol class="meal-plan-detail-list">
+                        {% for recipe in meal_plan.recipes.all %}
+                            <li>
+                                <!-- Display recipe image above the title -->
+                                {% if "placeholder" in recipe.image.url %}
+                                    <img src="{% static 'images/default.png' %}" alt="placeholder image" class="img-fluid mb-2" style="max-width: 50px; height: auto;">
+                                {% else %}
+                                    <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="img-fluid mb-2" style="max-width: 50px; height: auto;">
+                                {% endif %}
+                                <a href="{% url 'get_recipe_detail' recipe.id %}">{{ recipe.title }}</a>
+                            </li>
+                        {% endfor %}
+                    </ol>
+                {% else %}
+                    <p>No recipes found in this meal plan.</p>
+                {% endif %}
+            </div>                      
         </div>
+    </div>
 
 </div>
           

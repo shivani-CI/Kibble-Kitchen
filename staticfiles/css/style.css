@@ -1,42 +1,64 @@
 @import url('https://fonts.googleapis.com/css2?family=Eb+Garamond:wght@400;500;600&family=Roboto:wght@300;400;500&display=swap');
-
+:root {
+    --primary-colour: #960f0f;
+    --secondary-colour: #c69c6d;
+    --hover-secondary-colour: #ebc7c7;
+    --white-colour: #ffffff;
+    --black-colour: #000000;
+    --font-family: 'Georgia', serif;
+    --heading-font-size: 20px;
+    --text-font-size: 16px;
+    --success-colour: #008000;
+    --error-colour: #ff0000;
+}
 
 /* Global */
 
-body {
-    /* height: 100%;
+html, body {
+    height: 100%;
     margin: 0;
-    padding: 0; */
+    padding: 0;
+    font-family: var(--font-family);
+    
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    color: var(--primary-colour);
+    text-align: center;
+}
+
+p {
+    color: var(--secondary-colour);
+}
+
+label {
+    color: var(--secondary-colour)
+}
+
 .wrapper {
     flex: 1;
-    /* min-height: calc(100vh - 100px);
-    display: flex; 
-    flex-direction: column;     */
 }
 
 .content {
-    padding: 20px;
     padding-top: 100px;
     flex-grow: 1;
 }
 
 .light-bg {
-    background-color: #fff;
+    background-color: var(--white-colour);
 }
 
 .main-bg {
-    background-color: #fff;
+    background-color: var(--white-colour);
 }
 
-/* .card {
+.card {
     border: none;
     background-color: transparent;
-} */
+}
 
 .image-container {
     position: relative;
@@ -47,72 +69,89 @@ body {
     bottom: 5%;
     min-width: 30%;
     left: -2px;
-    background-color: #399431;
+    background-color: var(--primary-colour);
+    color: var(--secondary-colour)
 }
 
-.author {
-    color: white;    
+.author {   
     margin: 4px;
     text-transform: uppercase;
 }
 
 .text-center {
-    color: #860a05;
-    font-family: 'Georgia', serif;
+    color: var(--primary-colour);
 }
 
-p {
-    color: #111213;
-    font-family: 'Georgia', serif;
+#message-container {
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0 auto;
 }
 
 .alert {
+    text-align: center;
+    width: 100%;
     padding: 1rem;
     font-size: 16px;
-    background-color: #000;
-    color: white;
+    color: var(--white-colour);
 }
 
 .alert-success {
-    background-color: green;
-    color: white;
+    background-color: var(--success-colour);
 }
 
 .alert-error {
-    background-color: red;
-    color: white;
+    background-color: var(--error-colour);
+}
+
+.recipe-detail-list {
+    text-align: center;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    color: var(--secondary-colour);
+}
+
+.meal-plan-detail-list {
+    text-align: center;
+    color: var(--secondary-colour);
+}
+
+.meal-plan-detail-list a {
+    color: var(--secondary-colour);
 }
 
 /* Navbar */
 
 .navbar {
-    padding: 0;
-    color: #ffffff;
+    height: 100px;
+    background-color: var(--primary-colour);
+}
+
+.logo {
+    height: 90px;
+    max-width: 100%;
 }
 
 .navbar ul a {
-    color: #c69c6d;
+    color: var(--secondary-colour);
     font-weight: bold;
     font-size: 14px;
     text-transform: uppercase;
 }
 
 .navbar a:hover {
-    color: #ebc7c7;
+    color: var(--hover-secondary-colour);
 }
 
 .nav-item {
     font-size: large;
 }
 
-.bg-light {
-    background-color: #ffffff;
-}
-
 /* Hero image */
 
 .hero-text {
-    font-family: 'Georgia', serif;
     position: relative;
     z-index: 1;
     font-size: 3.5em;
@@ -125,36 +164,30 @@ p {
 }
 
 .page-title {
-    margin-top: 10%;
+    margin-top: 5%;
     margin-left: 5%;
 }
 
 .btn {
-    background-color: #c69c6d;
+    background-color: var(--primary-colour);
+    color: var(--secondary-colour);
 }
 
 .btn-light {
-    color: #860a05;
     font-weight: 700;
     border-radius: 12px;
 }
 
 .btn-delete {
-    color: #fff;
-    background: #960f0f;
-}
-
-.btn-signup,
-.btn-edit {
-    background-color: #c69c6d;
-    color: #fff;
+    background-color: var(--black-colour);
+    color: var(--white-colour);
 }
 
 .btn-signup:hover,
 .btn-signup:active,
 .btn-secondary:hover {
-    background-color: #960f0f;
-    color: #fff;
+    background-color: var(--primary-colour);
+    color: var(--white-colour);
 }
 
 .link {
@@ -169,11 +202,7 @@ p {
 }
 
 .faded {
-    color: rgb(172, 175, 175);
-}
-
-.approval {
-    color: rgb(222, 146, 168);
+    color: #ACAFAF;
 }
 
 .page-title {
@@ -187,23 +216,35 @@ p {
 }
 
 .bg-secondary {
-    background-color: #860a05;
+    background-color: var(--primary-colour);
 }
 
 .card-header {
-    background-color: #860a05;
+    background-color: var(--primary-colour);
+    color: var(--white-colour);
 }
 
 .card-title {
-    color: #111213;
-    font-family: 'Georgia', serif;
     font-weight: 600;
+}
+
+.card-body {
+    text-align: center;
+    padding-bottom: 0;
+    margin: 0;
+}
+
+.meal-plan-card {
+    height: 300px;
+    width: 300px;          
+    padding: 20px;
+    box-shadow: 0 4px 8px #0000001a;
 }
 
 
 /* Add recipe */
 .add-recipe input, .add-recipe textarea, .add-recipe select {
-    border: 1px solid #D8B646;
+    border: 1px solid #c69c6d;
 }
 
 .add-recipe input[type=file] {
@@ -232,25 +273,20 @@ footer {
     bottom: 0;
     height: 100px;
     width: 100%;
-    background-color: #960f0f;
-    color: white;
+    background-color: var(--primary-colour);
+    color: var(--secondary-colour);
     text-align: center;
-    font-family: 'Georgia', sans-serif;
-}
 
-h5 {
-    color: #ffffff;
 }
 
 .social-icons a {
-    /* font-size: 20px; */
     margin: 0 10px;
-    color: #ffffff;
+    color: var(--secondary-colour);
     display: inline;
     cursor: pointer;
 }
 
 .social-icons:hover {
-    color: rgb(0, 255, 255, 0.2);
+    color: var(--hover-secondary-colour);
     transition: 0.5ms;
 }

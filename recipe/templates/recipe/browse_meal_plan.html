@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mt-4" style="padding-top: 50px;">
-    <h2 class="text-center my-4">Browse Meal Plan</h2>
+<div class="container">
+    <h1 class="page-title text-center">Browse Meal Plan</h1>
     <div class="row">
         {% for meal_plan in mealplan_list %}
             <div class="col-md-6 col-lg-4">
@@ -14,8 +14,8 @@
                         <p card-text>
                             <strong>Recipe count:</strong> {{ meal_plan.recipes.count }}<br>
                             <strong>Meal Plan length:</strong> {{ meal_plan.meal_plan_length }} days<br>
-                            <strong>Start date:</strong> {{ meal_plan.created_at }}<br>
-                            <strong>End date:</strong> {{ meal_plan.updated_at }}<br>
+                            <strong>Start date:</strong> {{ meal_plan.start_date }}<br>
+                            <strong>End date:</strong> {{ meal_plan.end_date }}<br>
                         </p>
                         <a href="{% url 'get_meal_plan' meal_plan.id %}" class="btn btn-secondary">View Meal Plan</a>
                     </div>

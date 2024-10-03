@@ -3,7 +3,7 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="container mt-5 pt-5">
+<div class="container pt-5">
     <!-- First Container: Recipe Image and Basic Info -->
     <div class="row">
         <div class="col-md-6 image-container">
@@ -29,7 +29,7 @@
 
             {% if user == recipe.author %}
                 <a type="button" href="{% url 'edit_recipe' recipe.id %}" class="btn btn-primary">Edit Recipe</a>
-                <button type="button" id="delete-recipe-btn" class="btn btn-danger" data-recipe-id="{{ recipe.id }}">Delete Recipe</button>
+                <button type="button" id="delete-recipe-btn" class="btn btn-delete" data-recipe-id="{{ recipe.id }}">Delete Recipe</button>
             {% endif %}
 
         </div>
@@ -38,7 +38,7 @@
     <!-- Second Container: Ingredients List -->
     <div class="mt-5">
         <h4>Ingredients</h4>
-        <ul>
+        <ul class="recipe-detail-list">
             {% for recipe_ingredient in recipe.ingredients_in_recipe.all %}
                 <li>{{ recipe_ingredient.ingredient.name }} - {{ recipe_ingredient.quantity }} {{ recipe_ingredient.get_unit_display }}</li>
             {% endfor %}            
@@ -55,7 +55,7 @@
         
         <div class="nutrition-info">
             <h4>Nutrition Information</h4>
-            <ul>
+            <ul class="recipe-detail-list">
                 <li>Calories: {{ calories| floatformat:2 }} kcal</li>
                 <li>Protein: {{ protein| floatformat:2 }} g</li>
                 <li>Fat: {{ fat| floatformat:2 }} g</li>
@@ -151,7 +151,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <a id="confirm_add_to_meal_plan_btn" href="#" class="btn btn-primary">Add to Meal Plan</a>
             </div>
         </div>
@@ -179,6 +179,7 @@
 {% endblock content %}
 
 {% block extras %}
+<script> const recipeId = "{{recipe.id}}"; </script>
 <script src="{% static 'js/comments.js' %}"></script>
 <script src="{% static 'js/recipe.js' %}"></script>
 {% endblock %}
