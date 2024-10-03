@@ -4,6 +4,9 @@
 Kibble Kitchen is an online platform designed to help dog owners plan nutritious meals for their furry companions. The site offers a collection of healthy, homemade dog food recipes along with a meal planning tool to ensure a balanced diet tailored to your dog's needs. Targetting dog owners who want to move beyond store-bought kibble, Kibble Kitchen is perfect for those seeking to provide wholesome, natural meals for their pets while managing meal prep and tracking dietary preferences. Users can create, manage, and share their own recipes while building custom meal plans.
 Kibble Kitchen goes beyond just offering recipes; it empowers dog owners to take control of their pet's nutrition with easy-to-follow meal plans, detailed ingredient lists, and portion guides based on breed, size, and dietary requirements. Users can save favourite recipes, create custom meal plans and even track their dog's nutritional intake over time. With a focus on natural, balanced meals, Kibble Kitchen is the go-to resource for pet parents dedicated to giving their dogs the best possible care through thoughtfull, personalised feeding.
 
+![image](https://github.com/user-attachments/assets/21129ac5-2dd3-44c1-a752-d84ff63543ae)
+
+
 ## Table of Contents ##
 
 - Features
@@ -82,11 +85,34 @@ I've used Balsamiq to design my site wireframes
 <summary>
 Click here to see the Mobile Wireframes
 </summary>
-  
-![image](https://github.com/user-attachments/assets/79f275a4-a466-4f54-8a23-beece207ce09)
 
-![image](https://github.com/user-attachments/assets/1b30046f-f307-4b15-a950-ea487a37d800)
+Home Page
 
+![image](https://github.com/user-attachments/assets/eddd9e59-d6e7-4da7-a30a-673bb8f58611)
+
+Browse Recipe
+
+![image](https://github.com/user-attachments/assets/6a732590-2851-4b83-a414-672ce7b98fcb)
+
+Recipe Detail
+
+![image](https://github.com/user-attachments/assets/3553ca38-f1b0-4574-a841-f046f1d62d1d)
+
+Add Recipe
+
+![image](https://github.com/user-attachments/assets/531ef0bb-8bdd-4e38-8fdc-3e5d8a752b5a)
+
+Create Meal Plan
+
+![image](https://github.com/user-attachments/assets/56010ea2-1f9d-4f4a-a3ad-564b6c786cad)
+
+My Meal Plans
+
+![image](https://github.com/user-attachments/assets/c83c68eb-387c-4211-bbe3-17df3e2941ea)
+
+Meal Plan Detail
+
+![image](https://github.com/user-attachments/assets/3ea39f2c-188e-4b3a-89cc-c0edbff3bbec)
 
 
 </details>
@@ -100,10 +126,33 @@ Click here to see the Mobile Wireframes
 Click here to see the Desktop Wireframes
 </summary>
 
-![image](https://github.com/user-attachments/assets/f9ba2ceb-5f43-4846-a279-3a43471d9098)
+Home Page
 
-![image](https://github.com/user-attachments/assets/563154b6-9729-4ed3-a863-fd22fa087bb9)
+![image](https://github.com/user-attachments/assets/554dc406-117b-4be9-b4f2-3e7279d460f9)
 
+Browse Recipe
+
+![image](https://github.com/user-attachments/assets/1378ce9d-b6d0-4b8f-8d80-acead1741257)
+
+Recipe Detail
+
+![image](https://github.com/user-attachments/assets/912141ec-7395-4212-b807-e920e2381e11)
+
+Add Recipe
+
+![image](https://github.com/user-attachments/assets/77adf5e4-864a-4045-b288-b4fe793e8524)
+
+Create Meal Plan
+
+![image](https://github.com/user-attachments/assets/b761b658-4a50-4dd5-87ab-11602a1b55ec)
+
+My Meal Plans
+
+![image](https://github.com/user-attachments/assets/81a9f425-e4ef-4994-9b1b-5057039d382e)
+
+Meal Plan Detail
+
+![image](https://github.com/user-attachments/assets/cfef94d6-322c-41a5-afff-02f2c62b178d)
 
 
  </details>
@@ -116,10 +165,33 @@ Click here to see the Desktop Wireframes
 Click here to see the Tablet Wireframes
 </summary>
 
-![image](https://github.com/user-attachments/assets/241cd8c2-f03c-4adc-9bcf-273e839d92a9)
+Home Page
 
-![image](https://github.com/user-attachments/assets/88b54bc8-82ea-4315-a879-08db30c201bf)
+![image](https://github.com/user-attachments/assets/91767d76-fe1e-43b4-af00-070845607714)
 
+Browse Recipes
+
+![image](https://github.com/user-attachments/assets/d70198c3-a721-414c-8504-968eb728fcf4)
+
+Recipe Detail
+
+![image](https://github.com/user-attachments/assets/516819d5-01ae-4cfa-91c1-1a276ea83f24)
+
+Add Recipe
+
+![image](https://github.com/user-attachments/assets/5cebfca7-7ae8-4a0b-a8d4-2907b37b96e7)
+
+Create Meal Plan
+
+![image](https://github.com/user-attachments/assets/63e7045c-bb1e-4d2d-9fad-60bf665d944c)
+
+My Meal Plans
+
+![image](https://github.com/user-attachments/assets/2386cc4e-a14e-43f3-8875-68caeab15e5b)
+
+Meal Plan Detail
+
+![image](https://github.com/user-attachments/assets/1fe3992a-1af4-43cf-a70a-862ac2fc26c4)
 
 
  </details>
@@ -181,8 +253,6 @@ This is at the end of iteration 1:
 
         AC2 Pagination is implemented is there are many recipes.
 
-        AC3 Users can filter or search recipes by title or ingredient.
-
 3. As a site admin I can manage all users, recipes, and comments so that I can ensure the platform runs smoothly and maintain content quality.
 
         AC1 Admin dashboard accessible through Django's admin interface.
@@ -201,7 +271,7 @@ This is at the end of iteration 1:
 
 5. As a site user I can comment on recipes and leave feedback so that I can share my thoughts or improvements with the community.
 
-        AC1 Authenticate users can leave comments on individual recipe pages, which will be displayed below each recipe.
+        AC1 Authenticated users can leave comments on individual recipe pages, which will be displayed below each recipe.
 
         AC2 Upon submission, the comment is saved and displayed under the recipe. Users can see a list of comments, including who posted them and when.
 
