@@ -14,7 +14,7 @@
     <div class="row justify-content-center ">
         {% if user.is_authenticated %}
             {% load cloudinary %}
-            <div class="col-11 col-md-8 col-lg-6 mt-3 add-recipe-outer">
+            <div class="col-10 col-md-8 col-lg-6 mt-3 add-recipe-outer">
 
                 <!--  Add Recipe Form -->
                 {% if is_update %}
@@ -27,21 +27,21 @@
                 {{ recipe_form|crispy }}
                 <h2>Ingredients</h2>
 
-                <table id="ingredient_formset_tbl">
+                <table id="ingredient_formset_tbl" class="table table-bordered">
                     {{ recipe_ingredient_formset.management_form }}
                     {% for recipe_ing_form in recipe_ingredient_formset %}
                         <tr>
                             {% if forloop.first %}
-                            <td>{{ recipe_ing_form.ingredient.label_tag }}</td>
-                            <td>{{ recipe_ing_form.quantity.label_tag }}</td>
-                            <td>{{ recipe_ing_form.unit.label_tag }}</td>
+                            <td class="col-6 col-sm-4">{{ recipe_ing_form.ingredient.label_tag }}</td>
+                            <td class="col-2 col-sm-2">{{ recipe_ing_form.quantity.label_tag }}</td>
+                            <td class="col-2 col-sm-2">{{ recipe_ing_form.unit.label_tag }}</td>
                             {% endif %}
                         </tr>
                         <tr class="ingredient-form">
-                            <td>{{ recipe_ing_form.ingredient }}</td>
-                            <td>{{ recipe_ing_form.quantity }}</td>
-                            <td>{{ recipe_ing_form.unit }}</td>
-                            <td><button type="button" class="remove-ingredient-btn">Remove</button></td>
+                            <td class="col-6 col-sm-4">{{ recipe_ing_form.ingredient }}</td>
+                            <td class="col-2 col-sm-2">{{ recipe_ing_form.quantity }}</td>
+                            <td class="col-2 col-sm-2">{{ recipe_ing_form.unit }}</td>
+                            <td class="col-2 col-sm-2"><button type="button" class="remove-ingredient-btn">Remove</button></td>
                         </tr>
                     {% endfor %}
                 </table>

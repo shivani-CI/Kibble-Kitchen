@@ -35,13 +35,16 @@ class RecipeIngredientForm(forms.ModelForm):
     """
     Add the ingredients for a recipe
     """
-    ingredient = forms.CharField(max_length=200, required=True,
+    ingredient = forms.CharField(max_length=100, required=True,
                                  widget=forms.TextInput(attrs={'class': 'form-control',
                                                                'placeholder': 'Enter ingredient name'}))
 
     class Meta:
         model = RecipeIngredient
         fields = ['ingredient', 'quantity', 'unit']
+        widgets = {
+            'quantity': forms.NumberInput(attrs={'class': 'quantity-input', 'style': 'max-width: 55px;'}),
+        }
 
     def clean_ingredient(self):
         ingredient_name = self.cleaned_data.get('ingredient')

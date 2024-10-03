@@ -62,6 +62,23 @@
                         <a class="nav-link {% if request.path == create_meal_plan %}active{% endif %}" aria-current="page"
                             href="{% url 'create_meal_plan' %}">Create Meal Plan</a>                            
                     </li>
+                    <li class="nav-item d-block d-lg-none">
+                        <a class="nav-link {% if request.path == browse_meal_plans %}active{% endif %}" aria-current="page"
+                            href="{% url 'browse_meal_plans' %}">My Meal Plans</a>
+                    </li>
+                    <li class="nav-item d-block d-lg-none">
+                        <a class="nav-link {% if request.path == account_logout %}active{% endif %}" aria-current="page"
+                            href="{% url 'account_logout' %}">Logout</a>                            
+                    </li>
+                    {% else %}
+                    <li class="nav-item d-block d-lg-none">
+                        <a class="nav-link {% if request.path == account_signup %}active{% endif %}" aria-current="page"
+                            href="{% url 'account_signup' %}">Sign Up</a>
+                    </li>
+                    <li class="nav-item d-block d-lg-none">
+                        <a class="nav-link {% if request.path == account_login %}active{% endif %}" aria-current="page"
+                            href="{% url 'account_login' %}">Log in</a>                            
+                    </li>
                     {% endif %}
                 </ul>
             </div>

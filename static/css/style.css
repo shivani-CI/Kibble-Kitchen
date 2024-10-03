@@ -290,3 +290,36 @@ footer {
     color: var(--hover-secondary-colour);
     transition: 0.5ms;
 }
+
+/* Media Queries */
+
+/* Small devices (landscape phones, less than 576px */
+
+@media screen and (max-width: 576px) {
+
+    .navbar-collapse {
+        background-color: var(--white-colour);
+    }
+
+    #ingredient_formset_tbl .ingredient-form td {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .ingredient-form button {
+        width: 100%;
+        margin-top: 10px;
+    }
+} 
+
+/* For Medium devices (tablets, less than 1000px) */
+@media screen and (max-width: 1000px) {
+
+    .navbar-collapse {
+        background-color: var(--white-colour);
+    }
+}
+
+.ingredient-form td {
+    max-width: 100%;
+}
