@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Eb+Garamond:wght@400;500;600&family=Roboto:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Georgia:wght@100;200;300;400;500;600&family=serif:wght@300;400;500&display=swap');
 :root {
     --primary-colour: #960f0f;
     --secondary-colour: #c69c6d;
@@ -289,4 +289,37 @@ footer {
 .social-icons:hover {
     color: var(--hover-secondary-colour);
     transition: 0.5ms;
+}
+
+/* Media Queries */
+
+/* Small devices (landscape phones, less than 576px */
+
+@media screen and (max-width: 576px) {
+
+    .navbar-collapse {
+        background-color: var(--white-colour);
+    }
+
+    #ingredient_formset_tbl .ingredient-form td {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .ingredient-form button {
+        width: 100%;
+        margin-top: 10px;
+    }
+} 
+
+/* For Medium devices (tablets, less than 1000px) */
+@media screen and (max-width: 1000px) {
+
+    .navbar-collapse {
+        background-color: var(--white-colour);
+    }
+}
+
+.ingredient-form td {
+    max-width: 100%;
 }
