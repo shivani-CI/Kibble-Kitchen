@@ -1,78 +1,136 @@
-# Kibble-Kitchen (Capstone Project)
+<h1 align="center">Kibble-Kitchen (Capstone Project)</h1>
 
+[View the live project here](https://kibble-kitchen-8aaad6eac024.herokuapp.com/)
+
+<br>
 
 Kibble Kitchen is an online platform designed to help dog owners plan nutritious meals for their furry companions. The site offers a collection of healthy, homemade dog food recipes along with a meal planning tool to ensure a balanced diet tailored to your dog's needs. Targetting dog owners who want to move beyond store-bought kibble, Kibble Kitchen is perfect for those seeking to provide wholesome, natural meals for their pets while managing meal prep and tracking dietary preferences. Users can create, manage, and share their own recipes while building custom meal plans.
-Kibble Kitchen goes beyond just offering recipes; it empowers dog owners to take control of their pet's nutrition with easy-to-follow meal plans, detailed ingredient lists, and portion guides based on breed, size, and dietary requirements. Users can save favourite recipes, create custom meal plans and even track their dog's nutritional intake over time. With a focus on natural, balanced meals, Kibble Kitchen is the go-to resource for pet parents dedicated to giving their dogs the best possible care through thoughtfull, personalised feeding.
+
+Kibble Kitchen goes beyond just offering recipes; it empowers dog owners to take control of their pet's nutrition with easy-to-follow meal plans, and detailed ingredient lists. Users can share recipes, create custom meal plans and even track their dog's nutritional intake over time. With a focus on natural, balanced meals, Kibble Kitchen is the go-to resource for pet parents dedicated to giving their dogs the best possible care through thoughtfull, personalised feeding.
+
+<br>
 
 ![image](https://github.com/user-attachments/assets/21129ac5-2dd3-44c1-a752-d84ff63543ae)
 
+<br>
 
-## Table of Contents ##
+## Table of Contents
 
-- Features
-  
-- Wireframes
-
-- User Stories
-
-- Design
-  
-- UX/UI - List of features
-
-- Agile methodology
-
-- Testing and Responsiveness
-
-- Deployment
-
-- Technologies Used
-
-- Credits
-
-- Known Bugs
-
-- Future features
+* [Features](#features)  
+* [Wireframes](#wireframes)
+* [ERD](#erd)
+* [User stories (UX)](#user-stories-ux)
+* [Design](#design)  
+* [Agile methodology](#agile-methodology)
+* [Testing](#testing)
+* [Deployment](#deployment)
+* [Technologies Used](#technologies-used)
+* [Credits](#credits)
+* [Known Bugs](#known-bugs)
+* [Future features](#future-features)
 
   <br>
 
-## Features ##
+## Features
 
-  This web application will let users create, read, update and delete (CRUD) recipes, meal plans, and ingrdients. The admin user will have the ability to manage users, recipes, and other data.
+  This web application will let users create, read, update and delete (CRUD) recipes, share recipe, create meal plan, and comment on recipe. The admin user will have the ability to manage users, recipes, meal plan and comment.
 
-  <span id="features">1.</span> Recipe CRUD Functionality:
-    - Users can create, view, update and delete their recipes, complete with ingredients and cooking instructions.
-    - Users can provide feedback on recipes.
+    <span id="features">1.</span> Navigation Bar:
+   
+    - The navigation bar is positioned at the top of every page, ensuring easy access to key features like home, browse recipes, add recipes, create meal plan and my meal plan. Depending on the user’s login status, the navbar will adapt to show links for login/signup and my meal plan.
 
-    
+<br>
+
+### Navigation bar for all users:
+
+![image](https://github.com/user-attachments/assets/3f0f2ff3-5728-48f5-8cfb-c3df9ecfe1a8)
+
+<br> 
+
+### Navigation bar for authenticated users:
+
+![image](https://github.com/user-attachments/assets/66872442-f198-4986-8392-adf9ef572b8e)
+
+<br> 
  
   <span id="features">2.</span> User Authentication:
-    - Users can register, log in, and log out. Password management features such as reset and change are also available.
+  
+    - Users can register, log in, and log out. Password management features such as reset and change are also available. Users can create account and log in to access additional features, such as my meal plans.
 
-  <span id="features">3.</span> Recipe Management(CRUD Functionality):
-    - Authenticated users can create, read, update, delete recipes. Authenticated users can create recipes by submitting a form with ingredients and instructions.  
+<br> 
+
+### Dropdown signup navigation:
+
+![image](https://github.com/user-attachments/assets/8a7f7bf1-c616-4b3c-bba4-cd0fcd46c66b)
+
+
+
+![image](https://github.com/user-attachments/assets/3ba65f16-756f-496d-aad9-9cbead10345e)
+
+![image](https://github.com/user-attachments/assets/acfe5e51-ec47-4aaa-aa8d-7c2e5cf427db)
+
+  
+
+
+![image](https://github.com/user-attachments/assets/3f00dc68-74c5-4a80-800c-e653d75f9ae3)
+
+<br> 
+    
+  <span id="features">3.</span> Home Page:
+  
+    - The home page offers an inviting interface for users to explore. It display hero image and highlights key features about us, making it easy for users to navigate. The page is designed with a user-friendly layout that integrates a consistent color scheme.
+    
+
+
+  <span id="features">4.</span> Recipe Management:
+  
+    - Add Recipes: Users can create new dog food recipes, specifying details like recipe title, description, prep time, cook time, difficulty, and status. The form allows users to dynamically add ingredients if they don't already exist in the database, ensuring flexibility.
+    
+    - Browse Recipes: The recipe browsing page lists all available recipes. Users can view recipes image, title, cook time, created date and a button to view recipe detail. 
+    
+    - Recipe Detail View: Each recipe has a detailed view that displays all recipe-related information, including the list of ingredients, quantities, preparation instructions and nutritional information. Users can leave comments and feedback on recipes. On recipe detail page authenticated user will have option to add recipe to meal plan, edit recipe and delete recipe.
+
+
+  <span id="features">5.</span> Ingredient Management:
+  
+    - Ingredient Form: Ingredients in the recipe are linked through a Many-to-Many relationship via the RecipeIngredient model. This relationship allows users to specify ingredient quantities and units in each recipe. If a required ingredient isn't listed, users can add new ingredients dynamically without leaving the form.
+
+    - Dynamic Formset for Ingredients: Users can add and remove ingredient fields dynamically while creating a recipe. This makes the recipe creation process seamless and user-friendly.
+  
  
-  <span id="features">4.</span> Meal Plan management:
-    - Authenticated users can create and view Meal Plans. Users can create meal plans by selecting recipes and setting a name, title, and dates for the meal.
+  <span id="features">6.</span> Meal Plan management:
+  
+    - Create Meal Plans: Authenticated users can plan meals for their dogs by selecting from existing recipes. The meal planner feature helps users schedule meals based on their dog's dietary needs.
+    
+    - Browse Meal Plans: Users can view a list of all their previously created meal plans. Each meal plan displays mealplan title, recipe count, meal plan length, dates and a button to view meal plan detail.
+
+    - Meal Plan Detail View: Each meal plan contains a detailed view where users can see which recipes are included, along with the recipe details and the meal plan title.
  
-  <span id="features">5.</span> User feedback(Comment on Recipes):
-    - Authenticated users can comment on individual recipes. This allows for interaction between users and provides feedback on recipes.
+  <span id="features">7.</span> User feedback(Comment on Recipes):
+  
+    - At the bottom of each recipe detail page, authenticated users can leave comments about the recipe. This feature promotes community interaction by allowing users to share their thoughts and feedback.
  
-  <span id="features">6.</span> Responsive UI and Enhanced User Experience:
+  <span id="features">8.</span> Responsive UI and Enhanced User Experience:
+  
     - Crispy Forms: All forms are styled using Bootstrap with Crispy Forms to ensure a clean, responsive design.
-    - Navigation Bar: The Top navigation bar includes login/logout links and allow easy access to all sections of the website.
+    
+    - Mobile & Tablet Friendly: The entire project is designed to be responsive across all screen sizes. Whether on a desktop, tablet, or mobile device, the layout adjusts accordingly. Forms, recipe details, meal plans, and navigation elements are all optimised for smaller screens, ensuring a smooth user experience.
+    
+  <span id="features">9.</span> Admin Dashboard:
+  
+    - Admin users have full control over the site content. The Django admin panel allows managing users, recipes, meal plans, and more. Admins can easily add, delete, or update any information stored in the database.
  
-  <span id="features">8.</span> Admin Dashboard:
-    - Admin Control: Admin users can access the default Django admin panel to manage users, recipes, meal plans, comments and they can approve or reject recipes, comments, meal plans and users.
- 
-  <span id="features">9.</span> Data Validation & Error Handling:
+  <span id="features">10.</span> Data Validation & Error Handling:
+  
     - All forms (recipe creation, meal plans and comments) are validated to ensure valid data input from users.
  
-  <span id="features">10.</span> API Handling:
-    - Integration with external recipe APIs to provide nutritional value of recipes.
+  <span id="features">11.</span> API Handling:
+  
+    - Integration with external recipe APIs to provide nutritional information of recipes.
 
    <br>
    
-## Wireframes ##
+## Wireframes
 To follow best practice, wireframes were developed for mobile, tablet, and desktop sizes.
 I've used Balsamiq to design my site wireframes
 
@@ -198,7 +256,7 @@ Meal Plan Detail
 
  <br>
  
-## ERD ##
+## ERD
 
 
 <details>
@@ -213,7 +271,7 @@ Click here to see the ERD
 
  <br>
  
-## UX - User stories for iteration 1 ##
+## User stories UX
 
 <details>
 
@@ -331,70 +389,65 @@ This is at the end of iteration 1:
 
  <br>
 
- ##  Design ##
+ ##  Design
 
 
   <br>
 
- ### Colour Scheme ###
+ ### Colour Scheme
 
   <br>
 
- ### Typography ###
+ ### Typography
 
 
  <br>
 
- ### Imagery ###
-
-
- <br>
-
-## UX/UI - Features ##
+ ### Imagery
 
  <br>
-
-## Agile Methodology ##
+ 
+## Agile Methodology
 
 https://github.com/users/shivani-CI/projects/9
 
  <br>
 
-## Testing and Responsiveness ##
+## Testing
 
 
 
  <br>
 
-## Manual testing ##
+ ### Manual testing
 
 
 
  <br>
 
-## Deployment ##
+## Deployment
 
 
 
  <br>
 
-## Technologies Used ##
-
- <br>
- 
-### Front-End Technologies ###
+## Technologies Used
 
  <br>
  
-### Back-End Technologies ###
+### Front-End Technologies
+
+ <br>
+ 
+### Back-End Technologies
 
  <br>
 
-## Credits ##
+## Credits
 
  <br>
 
-## Known bugs ##
+## Known bugs
 
  <br>
 
