@@ -47,7 +47,7 @@ Kibble Kitchen goes beyond just offering recipes; it empowers dog owners to take
 
 <br> 
 
-  ### Navigation bar for authenticated users:
+  ### Navigation bar for authenticated user:
 
 ![image](https://github.com/user-attachments/assets/66872442-f198-4986-8392-adf9ef572b8e)
 
@@ -63,15 +63,25 @@ Kibble Kitchen goes beyond just offering recipes; it empowers dog owners to take
 
 ![image](https://github.com/user-attachments/assets/8a7f7bf1-c616-4b3c-bba4-cd0fcd46c66b)
 
-  ### Signup screen for user to complete:
+<br> 
+
+  ### Signup form for user to complete:
 
 ![image](https://github.com/user-attachments/assets/3ba65f16-756f-496d-aad9-9cbead10345e)
 
-  ### Message confirming user signed up:
+<br> 
+
+  ### Message confirming user signed in:
 
 ![image](https://github.com/user-attachments/assets/acfe5e51-ec47-4aaa-aa8d-7c2e5cf427db)
 
-  
+<br> 
+
+  ### Login form for returning user to complete:
+
+![image](https://github.com/user-attachments/assets/2bc96a1a-a0b8-4e37-9e8f-cb0af47abdd3)
+
+<br> 
 
   ### Message confirming user signed out:
 
@@ -83,57 +93,150 @@ Kibble Kitchen goes beyond just offering recipes; it empowers dog owners to take
   
     - The home page offers an inviting interface for users to explore. It display hero image and highlights key features about us, making it easy for users to navigate. The page is designed with a user-friendly layout that integrates a consistent color scheme.
     
+<br> 
 
+  ### Home Page:
+  
+![image](https://github.com/user-attachments/assets/2e44b40d-7a94-4048-9f17-73427ac46898)
+![image](https://github.com/user-attachments/assets/ae6b851e-06fb-4e4a-83aa-5cda786b4266)
+
+<br> 
 
   <span id="features">4.</span> Recipe Management:
-  
-    - Add Recipes: Users can create new dog food recipes, specifying details like recipe title, description, prep time, cook time, difficulty, and status. The form allows users to dynamically add ingredients if they don't already exist in the database, ensuring flexibility.
-    
-    - Browse Recipes: The recipe browsing page lists all available recipes. Users can view recipes image, title, cook time, created date and a button to view recipe detail. 
-    
-    - Recipe Detail View: Each recipe has a detailed view that displays all recipe-related information, including the list of ingredients, quantities, preparation instructions and nutritional information. Users can leave comments and feedback on recipes. On recipe detail page authenticated user will have option to add recipe to meal plan, edit recipe and delete recipe.
 
+    - Add Recipes: Users can create new dog food recipes, specifying details like recipe title, description, prep time, cook time, difficulty, and status. The form allows users to dynamically add ingredients if they don't already exist in the database, ensuring flexibility.
+
+    - Browse Recipes: The recipe browsing page lists all available recipes. Users can view recipes image, title, cook time, created date and a button to view recipe detail. 
+
+    - Recipe Detail View: Each recipe has a detailed view that displays all recipe-related information, including the list of ingredients, quantities, preparation instructions and nutritional information. Users can leave comments and feedback on recipes. On recipe detail page authenticated user will have option to add recipe to meal plan, edit recipe and delete recipe.
+     
+<br> 
+
+   ### Add Recipe Page:
+ 
+![image](https://github.com/user-attachments/assets/26204993-98f7-461e-a6d5-9cf50bc9d42f)
+![image](https://github.com/user-attachments/assets/4d217a4d-1990-4553-8696-91388139acfd)
+![image](https://github.com/user-attachments/assets/778fd200-65a9-4190-aa54-c3609b5f816e)
+
+<br> 
+
+  ### Browse Recipe Page:
+
+![image](https://github.com/user-attachments/assets/313b1d86-6ecb-41ca-94d3-6b08b6b94aad)
+![image](https://github.com/user-attachments/assets/9c9dd030-2c3f-4a0d-8998-c7c96e762b48)
+
+<br> 
+
+  ### Recipe Detail Page:
+![image](https://github.com/user-attachments/assets/e44f9aa2-2e7a-4fe3-bdbb-b605a6df72e5)
+![image](https://github.com/user-attachments/assets/22dca8a0-0a26-4f27-a4e0-07f8633ed446)
+
+<br>
+
+   ### Add Recipe Page/ Form: 
+ 
+![image](https://github.com/user-attachments/assets/26204993-98f7-461e-a6d5-9cf50bc9d42f)
+![image](https://github.com/user-attachments/assets/4d217a4d-1990-4553-8696-91388139acfd)
+![image](https://github.com/user-attachments/assets/778fd200-65a9-4190-aa54-c3609b5f816e)
+
+<br> 
 
   <span id="features">5.</span> Ingredient Management:
   
     - Ingredient Form: Ingredients in the recipe are linked through a Many-to-Many relationship via the RecipeIngredient model. This relationship allows users to specify ingredient quantities and units in each recipe. If a required ingredient isn't listed, users can add new ingredients dynamically without leaving the form.
-
+    
     - Dynamic Formset for Ingredients: Users can add and remove ingredient fields dynamically while creating a recipe. This makes the recipe creation process seamless and user-friendly.
+    
+    - Create Meal Plans: Authenticated users can plan meals for their dogs by selecting from existing recipes. The meal planner feature helps users schedule meals based on their dog's dietary needs.
+
+<br> 
+
+  ### Add Recipe Page - Ingredient Input Section:
   
- 
+![image](https://github.com/user-attachments/assets/f696b715-cc2c-44ef-abb1-c90175517911)
+
+<br> 
+
   <span id="features">6.</span> Meal Plan management:
   
-    - Create Meal Plans: Authenticated users can plan meals for their dogs by selecting from existing recipes. The meal planner feature helps users schedule meals based on their dog's dietary needs.
-    
-    - Browse Meal Plans: Users can view a list of all their previously created meal plans. Each meal plan displays mealplan title, recipe count, meal plan length, dates and a button to view meal plan detail.
+   - Browse Meal Plans: Users can view a list of all their previously created meal plans. Each meal plan displays mealplan title, recipe count, meal plan length, dates and a button to view meal plan detail.
 
-    - Meal Plan Detail View: Each meal plan contains a detailed view where users can see which recipes are included, along with the recipe details and the meal plan title.
+   - Meal Plan Detail View: Each meal plan contains a detailed view where users can see which recipes are included, along with the recipe details and the meal plan title.
+
+<br> 
+
+   ### Create Meal Plan Page:
+   
+![image](https://github.com/user-attachments/assets/9697e573-bc45-4fda-93c3-e985d553b099)
+
+<br> 
+    
+   ### Browse Meal Plan Page:
+
+![image](https://github.com/user-attachments/assets/f13a140d-3eb1-4f00-a959-0becb9bf975a)
+![image](https://github.com/user-attachments/assets/f1444b37-cac7-482c-afdc-6663188613fd)
+
+<br> 
+  
+  ### Meal Plan Recipes Page:
+
+![image](https://github.com/user-attachments/assets/c92f99bf-b748-40b4-bfac-a292b66b9e74)
+
+ <br> 
  
   <span id="features">7.</span> User feedback(Comment on Recipes):
-  
+
     - At the bottom of each recipe detail page, authenticated users can leave comments about the recipe. This feature promotes community interaction by allowing users to share their thoughts and feedback.
+
+<br> 
+
+  ### Recipe Detail Page - Comment Section:
+
+![image](https://github.com/user-attachments/assets/41d12cdb-e884-4b4c-93cf-e7ee2c312ecb)
+
+<br> 
  
   <span id="features">8.</span> Responsive UI and Enhanced User Experience:
   
     - Crispy Forms: All forms are styled using Bootstrap with Crispy Forms to ensure a clean, responsive design.
     
     - Mobile & Tablet Friendly: The entire project is designed to be responsive across all screen sizes. Whether on a desktop, tablet, or mobile device, the layout adjusts accordingly. Forms, recipe details, meal plans, and navigation elements are all optimised for smaller screens, ensuring a smooth user experience.
-    
+
+<br>
+
   <span id="features">9.</span> Admin Dashboard:
   
     - Admin users have full control over the site content. The Django admin panel allows managing users, recipes, meal plans, and more. Admins can easily add, delete, or update any information stored in the database.
+
+<br>
+
+  ### Admin Dashboard:
+
+![image](https://github.com/user-attachments/assets/f2252346-1161-4229-b4e1-7687ef580834)
+
+<br>
  
   <span id="features">10.</span> Data Validation & Error Handling:
   
     - All forms (recipe creation, meal plans and comments) are validated to ensure valid data input from users.
+
+ <br>
  
   <span id="features">11.</span> API Handling:
   
     - Integration with external recipe APIs to provide nutritional information of recipes.
 
+  <br>
+
+   ### Recipe Detail Page - Nutritional Information Section:
+
+![image](https://github.com/user-attachments/assets/cce94e7a-3dc4-467b-a1c8-7edb8bd78923)
+![image](https://github.com/user-attachments/assets/d4371c1f-e0cd-49a3-af4d-bb6a59ed5939)
+
    <br>
    
 ## Wireframes
+
 To follow best practice, wireframes were developed for mobile, tablet, and desktop sizes.
 I've used Balsamiq to design my site wireframes
 
@@ -388,7 +491,7 @@ This is at the end of iteration 1:
 
         AC1 Integrate third-party API to fetch nutritional information for all the ingredients in a recipe.
 
-- Please note that due to time constraint user story 9 and 10 are moved to iteration 2
+ ### Please note that due to time constraint user story 9 and 10 are moved to iteration 2
 
  <br>
 
