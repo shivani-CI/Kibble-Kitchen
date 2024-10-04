@@ -14,6 +14,12 @@ Kibble Kitchen goes beyond just offering recipes; it empowers dog owners to take
 
 <br>
 
+## Important Notice - Nutritional Information
+
+In this project I have used an API to retrieve nuturtional information for recipes. Currently the API is not being used due to free tier rate limits (400 per month) and how I have implement it (API is called each time the get recipe detail page is refreshed). Usuage above this limit could result in charges or an retrival error. It has been tested and it is working as expected.
+
+In the next iteration of Kibble Kitchen this can be improved to store the nuturtional information in the database when a recipe is created or edited.
+
 ## Table of Contents
 
 * [Features](#features)  
@@ -521,12 +527,101 @@ https://github.com/users/shivani-CI/projects/9
 
 ## Testing
 
+Home page
+
+![image](https://github.com/user-attachments/assets/f690761d-f1ef-4efc-bbdc-1c637392f853)
+
+Browse recipes
+
+![image](https://github.com/user-attachments/assets/24d5ca9c-6eaa-4933-855c-5de13258849e)
+
+Recipe detail
+
+![image](https://github.com/user-attachments/assets/3eacfa73-3914-41b2-a4b4-3ded35f4d580)
+
+Add recipe
+
+![image](https://github.com/user-attachments/assets/34dd21f2-fcb1-4eca-89da-4719a55b5996)
+
+There are errors on this page due to SummerNote. There is also a bug being caused by the recipe ingredient formset.
+
+Create Meal Plan
+
+![image](https://github.com/user-attachments/assets/7225dd83-f54d-4242-bea0-8848db914419)
+
+My Meal Plans
+
+![image](https://github.com/user-attachments/assets/cf63b8e5-6e1f-44d1-b5a3-02d95db585e4)
+
+Meal Plan detail
+
+![image](https://github.com/user-attachments/assets/d65f5eed-0a24-4454-b7c5-1eb0a8904633)
+
+CSS Validation results
+
+![image](https://github.com/user-attachments/assets/7550643d-f133-4fa1-9c4a-1538cd949c0f)
+
+comments.js
+
+![image](https://github.com/user-attachments/assets/286344a3-3911-4715-963b-aa1a6abfa4e9)
+
+recipe.js
+
+![image](https://github.com/user-attachments/assets/95372341-18a4-4ff8-8d13-8f1ad2d4676a)
+
+ingredient.js
+
+![image](https://github.com/user-attachments/assets/8bdd57f5-efd2-4c16-a47e-dba1b14c61bb)
+
+Python validation results (using pylint python package)
+-- I install pylint-django plugin however it was not loading properly so there are some extra errors in the below validations.
+
+admin.py
+
+![image](https://github.com/user-attachments/assets/51249a64-e110-4456-9c4f-37c587c1feb4)
+
+apps.py
+
+![image](https://github.com/user-attachments/assets/22bdac18-fa95-41c1-a827-20aaa8dd756a)
+
+forms.py
+
+![image](https://github.com/user-attachments/assets/24137cef-1629-4a2a-b0e7-45409685df13)
+
+models.py
+
+![image](https://github.com/user-attachments/assets/77c0c146-2a84-4f9b-aedc-c961aa551979)
+
+tests.py (empty file)
+
+![image](https://github.com/user-attachments/assets/be9a8e36-e36d-481d-b1a0-0e6e651b1130)
+
+application urls.py
+
+![image](https://github.com/user-attachments/assets/27c96e57-f43e-4302-a2cc-8ff4a47d2e77)
+
+project urls.py
+
+![image](https://github.com/user-attachments/assets/2b3eb349-7dd4-4406-abe2-4c37340fc4b7)
+
+utils.py
+
+![image](https://github.com/user-attachments/assets/ad8f060f-d1b6-4e21-a664-dad9a0bc9974)
+
+views.py
+
+![image](https://github.com/user-attachments/assets/9f86e2cf-ec23-42bc-a4f6-a2e2d264840e)
+
+project settings.py
+
+![image](https://github.com/user-attachments/assets/58d3c370-f2fc-4114-b45e-392e116bd606)
 
 
  <br>
 
  ### Manual testing
-
+ 
+[View manual testing information here](https://docs.google.com/spreadsheets/d/17eki5aLwpNXDlhZGnxaR6NBz9wlyCZT5G-DFvnarZbk/edit?usp=sharing)
 
 
  <br>
@@ -541,19 +636,35 @@ https://github.com/users/shivani-CI/projects/9
 
  <br>
  
-### Front-End Technologies
-
+-   [HTML5](https://en.wikipedia.org/wiki/HTML5)
+-   [CSS3](https://en.wikipedia.org/wiki/Cascading_Style_Sheets)
+-   [Jquery](https://jquery.com/)
+-   [Python](https://www.python.org/)
+-   [Google Fonts:](https://fonts.google.com/) used for the Lato font
+-   [Font Awesome:](https://fontawesome.com/) was used to add icons for aesthetic and UX purposes.
+-   [Git:](https://git-scm.com/) was used for version control by utilising the Gitpod terminal to commit to Git and Push to GitHub.
+-   [GitHub:](https://github.com/) is used as the respository for the project code after being pushed from Git. In addition, for this project GitHub was used for the agile development aspect through the use of User Stories (GitHub Issues) and tracking them on a Kanban board.
+-   [Lucid app](https://lucid.app) was used to create the Entity Relationship Diagrams for the application data model
+-   [Balsamiq:](https://balsamiq.com/) was used to create the wireframes during the design process.
+-   [Django](https://www.djangoproject.com/) was used as the framework to support rapid and secure development of the application
+-   [Bootstrap](https://getbootstrap.com/) was used to build responsive web pages
+-   [Gunicorn](https://gunicorn.org/) was used as the Web Server to run Django on Heroku
+-   [Postgres database] Postgres database used for storing data
+-   [psycopg2](https://pypi.org/project/psycopg2/) database adapter used to support the connection to the postgres db
+-   [Cloudinary](https://cloudinary.com/) used to store the images used by the application
+-   [Summernote](https://pypi.org/project/django-summernote/) used to provide WYSIWYG editing on the Hike editing screen
+-   [Django allauth](https://django-allauth.readthedocs.io/en/latest/index.html) used for account registration and authentication
+-   [Django crispy forms](https://django-crispy-forms.readthedocs.io/en/latest/) used to simplify form rendering
+-   [jquery library](https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js) used to fade out alert messages
+  
  <br>
  
-### Back-End Technologies
-
- <br>
-
 ## Credits
 
  <br>
 
 ## Known bugs
+
 
  <br>
 
