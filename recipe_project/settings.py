@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 from pathlib import Path
 import os
-import sys
 from django.contrib.messages import constants as messages
 import dj_database_url
 

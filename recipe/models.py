@@ -1,3 +1,4 @@
+""" Module for django data models """
 from cloudinary.models import CloudinaryField
 from django.contrib.auth.models import User
 from django.db import models
@@ -40,9 +41,12 @@ class Recipe(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
+        """ Meta class for recipe model """
+        # pylint: disable=too-few-public-methods
         ordering = ['-created_at']
 
     def total_time(self):
+        """ Calculate total time to cook """
         return self.prep_time + self.cook_time
 
     def __str__(self):
@@ -78,19 +82,23 @@ class RecipeIngredient(models.Model):
         ('PIECE', 'Piece'),
         ('BUNCH', 'Bunch')
     )
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='ingredients_in_recipe')
-    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, related_name='used_in_recipes')
+    recipe = models.ForeignKey(Recipe,
+                               on_delete=models.CASCADE,
+                               related_name='ingredients_in_recipe')
+    ingredient = models.ForeignKey(Ingredient,
+                                   on_delete=models.CASCADE,
+                                   related_name='used_in_recipes')
     quantity = models.PositiveIntegerField(default=0)
     unit = models.CharField(max_length=200, choices=UNIT_CHOICES)
 
     def __str__(self):
-        return f'{self.quantity} {self.get_unit_display()} of {self.ingredient.name} in {self.recipe.title}'
+        return f"""{self.quantity} {self.get_unit_display()} of
+        {self.ingredient.name} in {self.recipe.title}"""
 
 
 class MealPlan(models.Model):
     """
     Stores a single recipe for a particular meal plan (a collection of recipes)
-    #TODO - Could extend the recipes to be for a particular date
     """
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='meal_plans')
     title = models.CharField(max_length=200)
@@ -102,6 +110,7 @@ class MealPlan(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def meal_plan_length(self):
+        """ Calculate length of meal plan in days """
         if self.end_date and self.start_date:
             return (self.end_date - self.start_date).days
         return 0
@@ -110,8 +119,9 @@ class MealPlan(models.Model):
         return f'{self.title} - ({self.start_date} - {self.end_date})'
 
     def clean(self):
+        """ Overwrite base cleaning for model """
         if self.end_date and self.start_date > self.end_date:
-            raise ValidationError('End date cannot be before start date.')
+            raise ValueError('End date cannot be before start date.')
 
 
 class Comment(models.Model):
@@ -127,6 +137,8 @@ class Comment(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
+        """ Meta class for comment model """
+        # pylint: disable=too-few-public-methods
         ordering = ['-approved', '-created_at']
 
     def __str__(self):

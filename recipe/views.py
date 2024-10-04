@@ -1,6 +1,5 @@
-from recipe.forms import RecipeForm, RecipeIngredientForm, MealPlanForm, CommentForm
-from recipe.models import Recipe, Ingredient, RecipeIngredient, MealPlan, Comment
-from recipe.utils import get_nutrition_info
+""" Module for all django views """
+import json
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -10,14 +9,18 @@ from django.http import JsonResponse
 from django.contrib import messages
 from django.db import transaction
 from django.views import generic
-import json
+from .forms import RecipeForm, RecipeIngredientForm, MealPlanForm, CommentForm
+from .models import Recipe, Ingredient, RecipeIngredient, MealPlan, Comment
+from .utils import get_nutrition_info
 
 
 def home_view(request):
+    """ Return the home page view """
     return render(request, 'recipe/index.html')
 
 
 class RecipeList(generic.ListView):
+    """ Return the browse recipe view"""
     model = Recipe
     queryset = Recipe.objects.filter(status=1)
     template_name = "recipe/browse_recipes.html"
@@ -45,6 +48,7 @@ def get_recipe_nutrition_info(recipe):
 
 @require_POST
 def post_recipe_comment(request, recipe_instance):
+    """ Send a post request for a new comment """
     comment_form = CommentForm(data=request.POST)
     if comment_form.is_valid():
         comment = comment_form.save(commit=False)
@@ -80,7 +84,8 @@ def handle_recipe_comment_context(recipe_instance):
 
 def get_recipe_detail(request, recipe_pk):
     """
-    Display details of a recipe, including comments and aggregated nutritional information for the entire recipe
+    Display details of a recipe, including comments and
+    aggregated nutritional information for the entire recipe
     """
     recipe = get_object_or_404(Recipe, pk=recipe_pk)
     if request.POST:
@@ -89,7 +94,7 @@ def get_recipe_detail(request, recipe_pk):
     if request.user.is_authenticated:
         all_meal_plans = MealPlan.objects.filter(user=request.user)
     else:
-        all_meal_plans = list()
+        all_meal_plans = []
     total_nutrition = get_recipe_nutrition_info(recipe)
     comment_context = handle_recipe_comment_context(recipe)
     context = {
@@ -103,6 +108,7 @@ def get_recipe_detail(request, recipe_pk):
 
 @require_POST
 def add_recipe_to_meal_plan(request):
+    """ Add a recipe to a meal plan """
     data = json.loads(request.body)
     meal_plan_id = data['meal_plan_id']
     recipe_id = data['recipe_id']
@@ -127,8 +133,6 @@ def create_or_update_recipe(request, recipe_pk=None):
     Take the user inputted recipe and save it to the database
     """
     recipe_ingredient_form_set = formset_factory(RecipeIngredientForm, extra=3)
-
-    print('You have triggered an edit')
 
     # If there is a recipe_pk then update or else create a new recipe
     if recipe_pk:
@@ -166,7 +170,6 @@ def create_or_update_recipe(request, recipe_pk=None):
                 )
                 return redirect('get_recipe_detail', recipe_pk=recipe.pk)
         else:
-            # TODO - these errors are not informative
             if not recipe_form.is_valid():
                 form_error = str(recipe_form.errors)
             else:
@@ -242,6 +245,9 @@ def create_meal_plan(request):
 
 
 class MealPlanList(LoginRequiredMixin, generic.ListView):
+    """
+    Return the browse meal plan view
+    """
     template_name = "recipe/browse_meal_plan.html"
     paginate_by = 8
 

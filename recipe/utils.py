@@ -1,7 +1,8 @@
-import requests
+""" Module for utility functions (get nutritional information) """
 import logging
 import sys
 import os
+import requests
 
 try:
     sys.path.append(os.path.abspath('/workspace/Kibble-Kitchen'))
@@ -21,6 +22,7 @@ LABEL_RENAME_DICT = {
 
 
 def extract_nutrition_data(nutrition_info, nutrition_type):
+    """ Extract nutritional information from json response """
     try:
         edamam_label = LABEL_RENAME_DICT[nutrition_type]
         nutrition_amount = nutrition_info[edamam_label]['quantity']
@@ -31,7 +33,8 @@ def extract_nutrition_data(nutrition_info, nutrition_type):
 
 def get_nutrition_info(recipe_title, recipe_ingredients):
     """
-    Fetch nutrition information for a given ingredient with quantity/unit using Edamam's Nutrition API.
+    Fetch nutrition information for a given ingredient
+    with quantity/unit using Edamam's Nutrition API.
     recipe_ingredients should be a list of ingredients with quantity and unit
     """
     app_id = os.getenv("EDAMAM_APP_ID")
@@ -43,7 +46,7 @@ def get_nutrition_info(recipe_title, recipe_ingredients):
     }
 
     try:
-        response = requests.post(url, json=recipe_data)
+        response = requests.post(url, json=recipe_data, timeout=60)
         response.raise_for_status()
 
         nutrition_info = response.json().get('totalNutrients', {})
@@ -57,4 +60,3 @@ def get_nutrition_info(recipe_title, recipe_ingredients):
         empty_dict = {
             nutrition_type: 0 for nutrition_type in NUTRIENTS_OF_INTEREST}
         return empty_dict
-
