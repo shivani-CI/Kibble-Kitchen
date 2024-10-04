@@ -521,7 +521,7 @@ This is at the end of iteration 1:
  
 ## Agile Methodology
 
-https://github.com/users/shivani-CI/projects/9
+I used GitHub projects to manage my project. Before starting the project I created several user stories showing how users will interact with the web app. I then assigned them to different catorgies (MOSCOW) so I could prioritise them making sure all the stories I was working on could be completed with the project timeline. This is the link to my project Kanban board: https://github.com/users/shivani-CI/projects/9.
 
  <br>
 
@@ -628,7 +628,48 @@ project settings.py
 
 ## Deployment
 
+To deploy this page to Heroku from its GitHub repository, the following steps were taken:
 
+### Create the Heroku App:
+- Log in to [Heroku](https://dashboard.heroku.com/apps) or create an account.
+- On the main page click the button labelled New in the top right corner and from the drop-down menu select "Create New App".
+- Enter a unique and meaningful app name.
+- Next select your region.
+- Click on the Create App button.
+
+### Attach the Postgres database:
+- In the Resources tab, under add-ons, type in Postgres and select the Heroku Postgres option.
+- Copy the DATABASE_URL located in Config Vars in the Settings Tab.
+
+### Prepare the environment and settings.py file:
+- In your GitPod workspace, create an env.py file in the main directory.
+- Add the DATABASE_URL value and your chosen SECRET_KEY value to the env.py file. 
+- Update the settings.py file to import the env.py file and add the SECRETKEY and DATABASE_URL file paths.
+- Comment out the default database configuration.
+- Save files and make migrations.
+- Add Cloudinary URL to env.py
+- Add Edamam ID and Key Id to env.py
+- Add the cloudinary libraries to the list of installed apps.
+- Add the STATIC filepath
+- Link the file to the templates directory in Heroku.
+- Change the templates directory to TEMPLATES_DIR
+- Add Heroku to the ALLOWED_HOSTS list the format ['app_name.heroku.com', 'localhost'] (or if using gitpod change localhost to gitpod host)
+
+### Create files / directories
+- Create requirements.txt file
+- Create two directories in the main directory; static, and templates.
+- Create a file named "Procfile" in the main directory and add the following: web: gunicorn project-name.wsgi
+
+### Update Heroku Config Vars
+- Add all your environment variables from your env.py file as Heroku config vars
+
+### Deploy
+- NB: Ensure in Django settings, DEBUG is False
+- Go to the deploy tab on Heroku and connect to GitHub, then to the required repository. 
+- Scroll to the bottom of the deploy page and click Deploy Branch to deploy manually. Manually deployed branches will need re-deploying each time the repo is updated.
+- Click Open App at top of page to view the deployed site. (You can also access this link directly from GitHub.)
+
+The site is now live and operational.
 
  <br>
 
@@ -661,10 +702,18 @@ project settings.py
  
 ## Credits
 
+- Massive thanks to Elaine Roche at the Code Institute
+- I followed the 'I Think Therefore I Blog' walkthrough from Code Institute
+- Thanks to my son Prabhat for his help with python
+- To a prior Code Institute student AliOKeeffe for inspiration
+-  ChatGPT for helping to understand code
+-  DeepAi for generating images
+
  <br>
 
 ## Known bugs
-
+- Recipe description is not being cleaned at the moment prior to saving. I have assumed the recipe description will be safe when I present it but I should explictly cleaning it to prevent HTML injection into my app.
+- Ingredient formset in add recipe page does not appear correctly when adding new ingredients (more than the 3 box's available). Further investigation is required to figure out what is causing this.
 
  <br>
 
@@ -675,5 +724,10 @@ project settings.py
  <br>
  
 ## Future features ##
- 
+ - Clean recipe description prior to saving in the database.
+ - Save nutritional information in the database when recipe is created or edited rather than when the page is refreshed to save on external API calls.
+ - Search functionality could be added, allowing users to find recipes based on specific ingredients or recipe names.
+ - Give users the option to save recipes to their favourities for quicker access in the future.
+ - Implement an auto-complete feature for ingredients within the recipe form. Also enforce better uniqueness of ingredients to prevent mis-spelt ingredients being saved.
+ - Change the recipe field in the create meal plan form to a dropdown menu with checkboxes.
   
