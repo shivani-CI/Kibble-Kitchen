@@ -16,7 +16,7 @@ Kibble Kitchen goes beyond just offering recipes; it empowers dog owners to take
 
 ## Important Notice - Nutritional Information
 
-In this project I have used an API to retrieve nuturtional information for recipes. Currently the API is not being used due to free tier rate limits (400 per month) and how I have implement it (API is called each time the get recipe detail page is refreshed). Usuage above this limit could result in charges or an retrival error. It has been tested and it is working as expected.
+In this project I have used an API to retrieve nuturtional information for recipes. Currently the API is not being used due to free tier rate limits (400 per month) and how I have implement it (API is called each time the get recipe detail page is refreshed). Usuage above this limit could result in charges or an retrieval error. It has been tested and it is working as expected.
 
 In the next iteration of Kibble Kitchen this can be improved to store the nuturtional information in the database when a recipe is created or edited.
 
@@ -41,29 +41,35 @@ In the next iteration of Kibble Kitchen this can be improved to store the nuturt
 
   This web application will let users create, read, update and delete (CRUD) recipes, share recipe, create meal plan, and comment on recipe. The admin user will have the ability to manage users, recipes, meal plan and comment.
 
+<details>
+
+<summary>
   <span id="features">1.</span> Navigation Bar:
-   
+  
     - The navigation bar is positioned at the top of every page, ensuring easy access to key features like home, browse recipes, add recipes, create meal plan and my meal plan. Depending on the user’s login status, the navbar will adapt to show links for login/signup and my meal plan.
-
-<br>
-
+</summary>
+  
   ### Navigation bar for all users:
 
 ![image](https://github.com/user-attachments/assets/3f0f2ff3-5728-48f5-8cfb-c3df9ecfe1a8)
 
-<br> 
+<br>
 
   ### Navigation bar for authenticated user:
 
 ![image](https://github.com/user-attachments/assets/66872442-f198-4986-8392-adf9ef572b8e)
 
-<br> 
- 
+
+</details>
+
+<details>
+
+<summary>
   <span id="features">2.</span> User Authentication:
   
     - Users can register, log in, and log out. Password management features such as reset and change are also available. Users can create account and log in to access additional features, such as my meal plans.
+</summary>
 
-<br> 
 
   ### Dropdown signup navigation for user:
 
@@ -93,11 +99,17 @@ In the next iteration of Kibble Kitchen this can be improved to store the nuturt
 
 ![image](https://github.com/user-attachments/assets/3f00dc68-74c5-4a80-800c-e653d75f9ae3)
 
-<br> 
-    
+<br>
+
+</details>
+
+<details>
+
+<summary>
   <span id="features">3.</span> Home Page:
   
     - The home page offers an inviting interface for users to explore. It display hero image and highlights key features about us, making it easy for users to navigate. The page is designed with a user-friendly layout that integrates a consistent color scheme.
+</summary>
     
 <br> 
 
@@ -108,6 +120,11 @@ In the next iteration of Kibble Kitchen this can be improved to store the nuturt
 
 <br> 
 
+</details>
+
+<details>
+
+<summary>
   <span id="features">4.</span> Recipe Management:
 
     - Add Recipes: Users can create new dog food recipes, specifying details like recipe title, description, prep time, cook time, difficulty, and status. The form allows users to dynamically add ingredients if they don't already exist in the database, ensuring flexibility.
@@ -115,6 +132,7 @@ In the next iteration of Kibble Kitchen this can be improved to store the nuturt
     - Browse Recipes: The recipe browsing page lists all available recipes. Users can view recipes image, title, cook time, created date and a button to view recipe detail. 
 
     - Recipe Detail View: Each recipe has a detailed view that displays all recipe-related information, including the list of ingredients, quantities, preparation instructions and nutritional information. Users can leave comments and feedback on recipes. On recipe detail page authenticated user will have option to add recipe to meal plan, edit recipe and delete recipe.
+</summary>
      
 <br> 
 
@@ -145,8 +163,13 @@ In the next iteration of Kibble Kitchen this can be improved to store the nuturt
 ![image](https://github.com/user-attachments/assets/4d217a4d-1990-4553-8696-91388139acfd)
 ![image](https://github.com/user-attachments/assets/778fd200-65a9-4190-aa54-c3609b5f816e)
 
-<br> 
+<br>
 
+</details>
+
+<details>
+
+<summary>
   <span id="features">5.</span> Ingredient Management:
   
     - Ingredient Form: Ingredients in the recipe are linked through a Many-to-Many relationship via the RecipeIngredient model. This relationship allows users to specify ingredient quantities and units in each recipe. If a required ingredient isn't listed, users can add new ingredients dynamically without leaving the form.
@@ -154,6 +177,7 @@ In the next iteration of Kibble Kitchen this can be improved to store the nuturt
     - Dynamic Formset for Ingredients: Users can add and remove ingredient fields dynamically while creating a recipe. This makes the recipe creation process seamless and user-friendly.
     
     - Create Meal Plans: Authenticated users can plan meals for their dogs by selecting from existing recipes. The meal planner feature helps users schedule meals based on their dog's dietary needs.
+</summary>
 
 <br> 
 
@@ -161,13 +185,18 @@ In the next iteration of Kibble Kitchen this can be improved to store the nuturt
   
 ![image](https://github.com/user-attachments/assets/f696b715-cc2c-44ef-abb1-c90175517911)
 
-<br> 
+<br>
+</details>
 
+<details>
+
+<summary>
   <span id="features">6.</span> Meal Plan management:
   
-   - Browse Meal Plans: Users can view a list of all their previously created meal plans. Each meal plan displays mealplan title, recipe count, meal plan length, dates and a button to view meal plan detail.
+    - Browse Meal Plans: Users can view a list of all their previously created meal plans. Each meal plan displays mealplan title, recipe count, meal plan length, dates and a button to view meal plan detail.
 
-   - Meal Plan Detail View: Each meal plan contains a detailed view where users can see which recipes are included, along with the recipe details and the meal plan title.
+    - Meal Plan Detail View: Each meal plan contains a detailed view where users can see which recipes are included, along with the recipe details and the meal plan title.
+</summary>
 
 <br> 
 
@@ -188,11 +217,17 @@ In the next iteration of Kibble Kitchen this can be improved to store the nuturt
 
 ![image](https://github.com/user-attachments/assets/c92f99bf-b748-40b4-bfac-a292b66b9e74)
 
- <br> 
- 
+ <br>
+
+</details>
+
+<details>
+
+<summary>
   <span id="features">7.</span> User feedback(Comment on Recipes):
 
     - At the bottom of each recipe detail page, authenticated users can leave comments about the recipe. This feature promotes community interaction by allowing users to share their thoughts and feedback.
+</summary>
 
 <br> 
 
@@ -200,39 +235,84 @@ In the next iteration of Kibble Kitchen this can be improved to store the nuturt
 
 ![image](https://github.com/user-attachments/assets/41d12cdb-e884-4b4c-93cf-e7ee2c312ecb)
 
-<br> 
- 
+<br>
+
+</details>
+
+<details>
+
+<summary>
   <span id="features">8.</span> Responsive UI and Enhanced User Experience:
   
     - Crispy Forms: All forms are styled using Bootstrap with Crispy Forms to ensure a clean, responsive design.
     
     - Mobile & Tablet Friendly: The entire project is designed to be responsive across all screen sizes. Whether on a desktop, tablet, or mobile device, the layout adjusts accordingly. Forms, recipe details, meal plans, and navigation elements are all optimised for smaller screens, ensuring a smooth user experience.
+</summary>
 
 <br>
 
+![image](https://github.com/user-attachments/assets/caa2a4e2-6a8c-4789-a8dd-afc0102855ab)
+
+![image](https://github.com/user-attachments/assets/56e26612-d664-4658-9563-ed49a6a99679)
+
+![image](https://github.com/user-attachments/assets/3bfc36db-7b10-4833-8d08-daa2b5fc71c6)
+
+![image](https://github.com/user-attachments/assets/c580d1b1-0b11-4570-a672-f136cc487cb0)
+
+![image](https://github.com/user-attachments/assets/22d98b1f-d5f2-40c4-a800-c24a040ebf57)
+
+![image](https://github.com/user-attachments/assets/76e1c9ac-b27e-4845-887c-09c04fd7f8f7)
+
+![image](https://github.com/user-attachments/assets/aa829b00-99e6-4af0-8a47-f5065c1083fd)
+
+![image](https://github.com/user-attachments/assets/3dc947eb-02c2-4bbe-8592-04b28d4eb917)
+
+![image](https://github.com/user-attachments/assets/1a69d3ec-74f1-4a64-bdaf-0565836e7be9)
+
+![image](https://github.com/user-attachments/assets/4e3c255c-1598-4b5c-a609-16dd1f9dd9ca)
+
+![image](https://github.com/user-attachments/assets/43fc543b-c810-4cc5-a2bc-b758f53fa60f)
+
+![image](https://github.com/user-attachments/assets/9b7c53a3-7141-4341-afca-cddd91a772d6)
+
+![image](https://github.com/user-attachments/assets/b86e98dc-9bf6-4a97-bac2-d01d96c2d5d7)
+
+![image](https://github.com/user-attachments/assets/ec249258-ff06-4c5b-97da-67d69bfc1ecb)
+
+</details>
+
+<details>
+
+<summary>
   <span id="features">9.</span> Admin Dashboard:
   
     - Admin users have full control over the site content. The Django admin panel allows managing users, recipes, meal plans, and more. Admins can easily add, delete, or update any information stored in the database.
-
 <br>
+
+</summary>
 
   ### Admin Dashboard:
 
 ![image](https://github.com/user-attachments/assets/f2252346-1161-4229-b4e1-7687ef580834)
 
 <br>
- 
+
+</details>
+
   <span id="features">10.</span> Data Validation & Error Handling:
   
     - All forms (recipe creation, meal plans and comments) are validated to ensure valid data input from users.
 
  <br>
- 
+
+ <details>
+
+ <summary>
   <span id="features">11.</span> API Handling:
   
     - Integration with external recipe APIs to provide nutritional information of recipes.
-
   <br>
+  </summary>
 
    ### Recipe Detail Page - Nutritional Information Section:
 
@@ -240,6 +320,8 @@ In the next iteration of Kibble Kitchen this can be improved to store the nuturt
 ![image](https://github.com/user-attachments/assets/d4371c1f-e0cd-49a3-af4d-bb6a59ed5939)
 
    <br>
+
+</details>
    
 ## Wireframes
 
@@ -409,6 +491,12 @@ This is at the end of iteration 1:
 
 </details>
 
+<details>
+
+<summary>
+  User stories worked on  
+</summary>
+  
 1. As a site user I can sign up for an account so that I can create, save, and manage my own recipes and meal plans.
 
         AC1 A sign-up form with fields for email, username and password.
@@ -496,6 +584,7 @@ This is at the end of iteration 1:
 16. As a site user I can see nutritional information for recipe so that I can control my dogs diet.
 
         AC1 Integrate third-party API to fetch nutritional information for all the ingredients in a recipe.
+</details>
 
  ### Please note that due to time constraint user story 9 and 10 are moved to iteration 2
 
@@ -503,19 +592,27 @@ This is at the end of iteration 1:
 
  ##  Design
 
-
   <br>
 
  ### Colour Scheme
 
-  <br>
+The color scheme for Kibble Kitchen incorporates red, gold, white, and black, creating a vibrant and energetic aesthetic that aligns with the playful yet practical nature of the app. Red symbolises passion and love, representing the care that pet owners put into creating healthy meals for their dogs. Gold adds a touch of warmth and quality, reflecting the premium experience and the idea of providing the best nutrition. White brings a clean and simple look, emphasising the app's user-friendliness and focus on health. Black offers balance and sophistication, grounding the design and ensuring readability, especially in the navigation and content areas. Together, these colors make Kibble Kitchen a fun and inviting platform for sharing dog food recipes and planning balanced meals.
+
+<br>
+
+  ![image](https://github.com/user-attachments/assets/1efe4cd0-09e0-4226-82d2-e3ac74b74fad)
+
+<br>
 
  ### Typography
 
+Google Fonts is used to import the chosen fonts for use in the site. I have chosen to use Georgia and serif fonts.
 
  <br>
 
  ### Imagery
+
+The imagery on Kibble Kitchen is generated using DeepAI to create visually appealing hero images and recipe visuals, adding a dynamic and modern touch to the app. These custom-generated images enhance the user experience by showcasing the delicious and healthy dog food recipes in an eye-catching way. The consistent use of red and gold throughout all pages reinforces the brand identity, creating a cohesive look and feel. This color palette, along with the dynamic imagery, ensures that users enjoy a visually engaging and seamless experience across the entire app.
 
  <br>
  
@@ -526,6 +623,11 @@ I used GitHub projects to manage my project. Before starting the project I creat
  <br>
 
 ## Testing
+<details>
+
+<summary>
+  HTML Validation results
+</summary>
 
 Home page
 
@@ -557,9 +659,23 @@ Meal Plan detail
 
 ![image](https://github.com/user-attachments/assets/d65f5eed-0a24-4454-b7c5-1eb0a8904633)
 
-CSS Validation results
+</details>
+
+<details>
+
+<summary>
+  CSS Validation results
+</summary>
 
 ![image](https://github.com/user-attachments/assets/7550643d-f133-4fa1-9c4a-1538cd949c0f)
+
+</details>
+
+<details>
+
+<summary>
+  Javascript Validation results
+</summary>
 
 comments.js
 
@@ -573,8 +689,14 @@ ingredient.js
 
 ![image](https://github.com/user-attachments/assets/8bdd57f5-efd2-4c16-a47e-dba1b14c61bb)
 
-Python validation results (using pylint python package)
--- I install pylint-django plugin however it was not loading properly so there are some extra errors in the below validations.
+</details>
+
+<details>
+
+<summary>
+  Python validation results (using pylint python package)
+  - I installed pylint-django plugin however it was not loading properly so there are some extra errors in the below validations.
+</summary>
 
 admin.py
 
@@ -616,6 +738,7 @@ project settings.py
 
 ![image](https://github.com/user-attachments/assets/58d3c370-f2fc-4114-b45e-392e116bd606)
 
+</details>
 
  <br>
 
@@ -706,14 +829,15 @@ The site is now live and operational.
 - I followed the 'I Think Therefore I Blog' walkthrough from Code Institute
 - Thanks to my son Prabhat for his help with python
 - To a prior Code Institute student AliOKeeffe for inspiration
--  ChatGPT for helping to understand code
--  DeepAi for generating images
+- Stack Overflow for helping with code errors and solutions
+- ChatGPT for helping to understand code
+- DeepAi for generating images
 
  <br>
 
 ## Known bugs
 - Recipe description is not being cleaned at the moment prior to saving. I have assumed the recipe description will be safe when I present it but I should explictly cleaning it to prevent HTML injection into my app.
-- Ingredient formset in add recipe page does not appear correctly when adding new ingredients (more than the 3 box's available). Further investigation is required to figure out what is causing this.
+- Ingredient formset in add recipe page does not appear correctly when adding new ingredients (more than 3 box's available). Further investigation is required to figure out what is causing this.
 
  <br>
 
