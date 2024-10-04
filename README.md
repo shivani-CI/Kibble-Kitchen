@@ -35,19 +35,19 @@ Kibble Kitchen goes beyond just offering recipes; it empowers dog owners to take
 
   This web application will let users create, read, update and delete (CRUD) recipes, share recipe, create meal plan, and comment on recipe. The admin user will have the ability to manage users, recipes, meal plan and comment.
 
-    <span id="features">1.</span> Navigation Bar:
+  <span id="features">1.</span> Navigation Bar:
    
     - The navigation bar is positioned at the top of every page, ensuring easy access to key features like home, browse recipes, add recipes, create meal plan and my meal plan. Depending on the user’s login status, the navbar will adapt to show links for login/signup and my meal plan.
 
 <br>
 
-### Navigation bar for all users:
+  ### Navigation bar for all users:
 
 ![image](https://github.com/user-attachments/assets/3f0f2ff3-5728-48f5-8cfb-c3df9ecfe1a8)
 
 <br> 
 
-### Navigation bar for authenticated users:
+  ### Navigation bar for authenticated users:
 
 ![image](https://github.com/user-attachments/assets/66872442-f198-4986-8392-adf9ef572b8e)
 
@@ -59,18 +59,21 @@ Kibble Kitchen goes beyond just offering recipes; it empowers dog owners to take
 
 <br> 
 
-### Dropdown signup navigation:
+  ### Dropdown signup navigation for user:
 
 ![image](https://github.com/user-attachments/assets/8a7f7bf1-c616-4b3c-bba4-cd0fcd46c66b)
 
-
+  ### Signup screen for user to complete:
 
 ![image](https://github.com/user-attachments/assets/3ba65f16-756f-496d-aad9-9cbead10345e)
+
+  ### Message confirming user signed up:
 
 ![image](https://github.com/user-attachments/assets/acfe5e51-ec47-4aaa-aa8d-7c2e5cf427db)
 
   
 
+  ### Message confirming user signed out:
 
 ![image](https://github.com/user-attachments/assets/3f00dc68-74c5-4a80-800c-e653d75f9ae3)
 
