@@ -1,4 +1,4 @@
-from recipe.models import Recipe, Ingredient, RecipeIngredient, MealPlan, Comment 
+from recipe.models import Recipe, Ingredient, RecipeIngredient, MealPlan, Comment
 from django_summernote.admin import SummernoteModelAdmin
 from django.contrib import admin
 
@@ -35,4 +35,5 @@ class CommentAdmin(SummernoteModelAdmin):
     search_fields = ['recipe', 'user']
     list_filter = ['approved', 'created_at']
     summernote_fields = ['body']
+
     

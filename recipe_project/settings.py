@@ -14,6 +14,7 @@ import os
 import sys
 from django.contrib.messages import constants as messages
 import dj_database_url
+
 if os.path.isfile('env.py'):
     import env
 
@@ -45,7 +46,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'django_summernote',
     'cloudinary',
-    'recipe',    
+    'recipe'
 ]
 
 SITE_ID = 1
@@ -86,17 +87,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'recipe_project.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 DATABASES = {
     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
@@ -139,7 +129,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 MESSAGE_TAGS = {
     messages.SUCCESS: 'alert-success',

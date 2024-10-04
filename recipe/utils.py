@@ -2,6 +2,7 @@ import requests
 import logging
 import sys
 import os
+
 try:
     sys.path.append(os.path.abspath('/workspace/Kibble-Kitchen'))
     import env
@@ -18,6 +19,7 @@ LABEL_RENAME_DICT = {
     'fiber': 'FIBER'
 }
 
+
 def extract_nutrition_data(nutrition_info, nutrition_type):
     try:
         edamam_label = LABEL_RENAME_DICT[nutrition_type]
@@ -25,6 +27,7 @@ def extract_nutrition_data(nutrition_info, nutrition_type):
     except KeyError:
         nutrition_amount = 0
     return nutrition_amount
+
 
 def get_nutrition_info(recipe_title, recipe_ingredients):
     """
@@ -38,20 +41,20 @@ def get_nutrition_info(recipe_title, recipe_ingredients):
         'title': recipe_title,
         'ingr': recipe_ingredients
     }
-    
-    try:   
+
+    try:
         response = requests.post(url, json=recipe_data)
         response.raise_for_status()
-        
+
         nutrition_info = response.json().get('totalNutrients', {})
         nutrition_output = {
             nutrition_type: extract_nutrition_data(nutrition_info, nutrition_type)
             for nutrition_type in NUTRIENTS_OF_INTEREST}
         return nutrition_output
-    
+
     except requests.exceptions.RequestException as exc:
         logging.error(f'Error getting nutrition info from edamam api: {exc}')
         empty_dict = {
             nutrition_type: 0 for nutrition_type in NUTRIENTS_OF_INTEREST}
         return empty_dict
-        
+

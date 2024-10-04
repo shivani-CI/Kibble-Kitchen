@@ -8,7 +8,7 @@ class Ingredient(models.Model):
     Stores a single ingredient
     """
     name = models.CharField(max_length=200)
-        
+
     def __str__(self):
         return self.name
 
@@ -28,7 +28,7 @@ class Recipe(models.Model):
     )
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recipes_created')
     ingredients = models.ManyToManyField(Ingredient, through='RecipeIngredient')
-    title = models.CharField(max_length=200, unique=True)    
+    title = models.CharField(max_length=200, unique=True)
     description = models.TextField()
     prep_time = models.PositiveIntegerField(default=0)
     cook_time = models.PositiveIntegerField(default=0)
@@ -38,7 +38,7 @@ class Recipe(models.Model):
     status = models.IntegerField(choices=STATUS, default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
+
     class Meta:
         ordering = ['-created_at']
 
@@ -54,29 +54,29 @@ class RecipeIngredient(models.Model):
     Stores a single ingredient for a particular recipe
     """
     UNIT_CHOICES = (
-    # Weight
-    ('MG', 'Milligram'),
-    ('GRAM', 'Gram'),
-    ('KG', 'Kilogram'),
-    ('OUNCE', 'Ounce'),
-    ('LB', 'Pound'),
+        # Weight
+        ('MG', 'Milligram'),
+        ('GRAM', 'Gram'),
+        ('KG', 'Kilogram'),
+        ('OUNCE', 'Ounce'),
+        ('LB', 'Pound'),
 
-    # Volume
-    ('ML', 'Milliliter'),
-    ('LITRE', 'Litre'),
-    ('TSP', 'Teaspoon'),
-    ('TBSP', 'Tablespoon'),
-    ('CUP', 'Cup'),
-    ('PINT', 'Pint'),
-    ('QUART', 'Quart'),
-    ('GALLON', 'Gallon'),
+        # Volume
+        ('ML', 'Milliliter'),
+        ('LITRE', 'Litre'),
+        ('TSP', 'Teaspoon'),
+        ('TBSP', 'Tablespoon'),
+        ('CUP', 'Cup'),
+        ('PINT', 'Pint'),
+        ('QUART', 'Quart'),
+        ('GALLON', 'Gallon'),
 
-    # Quantity / Size
-    ('SMALL', 'Small'),
-    ('MEDIUM', 'Medium'),
-    ('LARGE', 'Large'),
-    ('PIECE', 'Piece'),
-    ('BUNCH', 'Bunch')
+        # Quantity / Size
+        ('SMALL', 'Small'),
+        ('MEDIUM', 'Medium'),
+        ('LARGE', 'Large'),
+        ('PIECE', 'Piece'),
+        ('BUNCH', 'Bunch')
     )
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='ingredients_in_recipe')
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, related_name='used_in_recipes')
@@ -105,7 +105,7 @@ class MealPlan(models.Model):
         if self.end_date and self.start_date:
             return (self.end_date - self.start_date).days
         return 0
-   
+
     def __str__(self):
         return f'{self.title} - ({self.start_date} - {self.end_date})'
 

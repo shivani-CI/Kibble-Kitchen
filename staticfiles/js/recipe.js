@@ -22,9 +22,11 @@ if (deleteRecipeButton) {
     });
 };
 
-addToMealPlanButton.addEventListener("click", function() {
-    mealPlanModal.show();
-});
+if (addToMealPlanButton) {
+    addToMealPlanButton.addEventListener("click", function() {
+        mealPlanModal.show();
+    });
+};
 
 confirmAddToMealPlanButton.addEventListener("click", function() {
     const mealPlanId = mealPlanDropdown.value;

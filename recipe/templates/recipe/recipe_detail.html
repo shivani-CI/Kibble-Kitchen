@@ -53,7 +53,7 @@
             <p class="card-text">{{ recipe.description | safe }}</p>
         </div>        
         
-        <div class="nutrition-info">
+        <div class="mt-5 nutrition-info">
             <h4>Nutrition Information</h4>
             <ul class="recipe-detail-list">
                 <li>Calories: {{ calories| floatformat:2 }} kcal</li>
@@ -183,4 +183,6 @@
 <script> const recipeId = "{{recipe.id}}"; </script>
 <script src="{% static 'js/comments.js' %}"></script>
 <script src="{% static 'js/recipe.js' %}"></script>
+<!-- Attribution for nutrition api-->
+<script src="https://developer.edamam.com/attribution/badge.js"></script>
 {% endblock %}

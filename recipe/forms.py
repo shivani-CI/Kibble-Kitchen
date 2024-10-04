@@ -9,6 +9,7 @@ class RecipeForm(forms.ModelForm):
     """
     Create a new recipe
     """
+
     def __init__(self, *args, **kwargs):
         super(RecipeForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -83,6 +84,7 @@ class CommentForm(forms.ModelForm):
     """
     Create a comment on a recipe
     """
+    
     class Meta:
         model = Comment
         fields = ['body']

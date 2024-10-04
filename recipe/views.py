@@ -39,7 +39,7 @@ def get_recipe_nutrition_info(recipe):
         'fat': 14,
         'carbs': 18,
         'fiber': 7.9
-        }
+    }
     return total_nutrition
 
 
@@ -163,7 +163,7 @@ def create_or_update_recipe(request, recipe_pk=None):
                 messages.add_message(
                     request, messages.SUCCESS,
                     'Your recipe has been saved!'
-                )               
+                )
                 return redirect('get_recipe_detail', recipe_pk=recipe.pk)
         else:
             # TODO - these errors are not informative
@@ -172,17 +172,17 @@ def create_or_update_recipe(request, recipe_pk=None):
             else:
                 form_error = str(recipe_ing_form_set.errors)
             messages.add_message(
-                    request, messages.ERROR,
-                    f'Your recipe is not saved! - {form_error}'
-                )
+                request, messages.ERROR,
+                f'Your recipe is not saved! - {form_error}'
+            )
 
     recipe_form = RecipeForm(instance=recipe)
     if is_update:
         initial_ingredients = [
-                {'ingredient': recipe.ingredient,
-                 'quantity': recipe.quantity,
-                 'unit': recipe.unit}
-                for recipe in recipe.ingredients_in_recipe.all()
+            {'ingredient': recipe.ingredient,
+             'quantity': recipe.quantity,
+             'unit': recipe.unit}
+            for recipe in recipe.ingredients_in_recipe.all()
         ]
         recipe_ing_form_set = recipe_ingredient_form_set(initial=initial_ingredients)
     else:
@@ -217,14 +217,14 @@ def delete_recipe(request, recipe_pk):
     return redirect('browse_recipes')
 
 
-@login_required   
+@login_required
 def create_meal_plan(request):
     """
     Create a meal plan for a user (a meal plan is a collection of recipes)
     """
     if request.method == 'POST':
         meal_plan_form = MealPlanForm(request.POST)
-        
+
         if meal_plan_form.is_valid():
             with transaction.atomic():
                 meal_plan = meal_plan_form.save(commit=False)
@@ -233,7 +233,7 @@ def create_meal_plan(request):
                 meal_plan_form.save_m2m()
 
             return redirect('get_meal_plan', meal_plan_pk=meal_plan.pk)
-    
+
     meal_plan_form = MealPlanForm()
     context = {
         'meal_plan_form': meal_plan_form
@@ -255,7 +255,7 @@ def get_meal_plan(request, meal_plan_pk):
     Get the meal plan details for a particular meal plan
     """
     meal_plan = get_object_or_404(MealPlan, pk=meal_plan_pk, user=request.user)
-    
+
     context = {
         'meal_plan': meal_plan}
     return render(request, 'recipe/meal_plan_detail.html', context)
